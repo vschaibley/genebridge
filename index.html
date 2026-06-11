@@ -3,19 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-	body {
-		background-color: white; /* Ensure the iframe has a white background */
-	}
-
-</style>
-</head>
-	<body>
-		<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gene Bridge - Family Cancer History Assessment</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -38,6 +25,7 @@
   .navbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 12px 24px;
     border-bottom: 1px solid #e5e7eb;
     background: white;
@@ -52,13 +40,45 @@
     width: auto;
   }
 
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  .lang-btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: Inter, Arial, sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: #64748B;
+  }
+
+  .lang-btn.active {
+    background: #0A2E73;
+    color: white;
+    box-shadow: 0 1px 3px rgba(10, 46, 115, 0.3);
+  }
+
+  .lang-btn:hover:not(.active) {
+    background: #e2e8f0;
+    color: #0A2E73;
+  }
+
   .main-container {
     max-width: 740px;
     margin: 0 auto;
     padding: 24px 16px 80px;
   }
 
-  /* Progress Bar */
   .progress-container {
     margin-bottom: 32px;
   }
@@ -126,7 +146,6 @@
     transition: width 0.5s ease;
   }
 
-  /* Cards */
   .card {
     background: white;
     border-radius: 16px;
@@ -137,14 +156,8 @@
   }
 
   @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .card-title {
@@ -161,7 +174,6 @@
     line-height: 1.5;
   }
 
-  /* Form Elements */
   .form-group {
     margin-bottom: 20px;
   }
@@ -205,7 +217,6 @@
     color: #94a3b8;
   }
 
-  /* Radio & Checkbox Groups */
   .option-group {
     display: flex;
     flex-direction: column;
@@ -269,37 +280,6 @@
     background: white;
   }
 
-  .option-check {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    border: 2px solid #d1d5db;
-    margin-right: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-
-  .option-item.selected .option-check {
-    border-color: #1EC6B3;
-    background: #1EC6B3;
-  }
-
-  .option-item.selected .option-check::after {
-    content: '✓';
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .option-label {
-    font-size: 15px;
-    color: #374151;
-  }
-
-  /* Buttons */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -350,16 +330,6 @@
     transform: translateY(-1px);
   }
 
-  .btn-danger {
-    background: #fee2e2;
-    color: #dc2626;
-    border: none;
-  }
-
-  .btn-danger:hover {
-    background: #fecaca;
-  }
-
   .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -376,7 +346,6 @@
     flex: 1;
   }
 
-  /* Family Members List */
   .member-list {
     display: flex;
     flex-direction: column;
@@ -450,7 +419,6 @@
     color: #dc2626;
   }
 
-  /* Result Section */
   .result-banner {
     padding: 24px;
     border-radius: 12px;
@@ -545,7 +513,6 @@
     color: #475569;
   }
 
-  /* Welcome Section */
   .welcome-hero {
     text-align: center;
     padding: 20px 0;
@@ -590,12 +557,11 @@
     flex-shrink: 0;
   }
 
-  .feature-item span {
+  .feature-item span:last-child {
     font-size: 14px;
     color: #475569;
   }
 
-  /* Add Member Form */
   .add-member-form {
     background: #f8fafc;
     border: 2px dashed #e2e8f0;
@@ -614,7 +580,6 @@
     gap: 8px;
   }
 
-  /* Empty State */
   .empty-state {
     text-align: center;
     padding: 40px 20px;
@@ -632,7 +597,6 @@
     line-height: 1.5;
   }
 
-  /* Info Tooltip */
   .info-tip {
     display: flex;
     align-items: flex-start;
@@ -657,7 +621,6 @@
     line-height: 1.5;
   }
 
-  /* Step visibility */
   .step-section {
     display: none;
   }
@@ -666,7 +629,6 @@
     display: block;
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
     .navbar {
       padding: 10px 16px;
@@ -704,9 +666,18 @@
     .member-card {
       padding: 12px;
     }
+
+    .lang-switcher {
+      gap: 2px;
+      padding: 3px;
+    }
+
+    .lang-btn {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
   }
 
-  /* Accessibility */
   .sr-only {
     position: absolute;
     width: 1px;
@@ -723,9 +694,8 @@
     outline-offset: 2px;
   }
 
-  /* Print styles */
   @media print {
-    .navbar, .progress-container, .btn-group {
+    .navbar, .progress-container, .btn-group, .lang-switcher {
       display: none;
     }
     .card {
@@ -739,35 +709,38 @@
 
 <header class="navbar" role="banner">
   <img
-    src="genebridge/gene-bridge-logo-header.png"
+    src="gene-bridge-logo-header.png"
     alt="Gene Bridge - Connecting Family History to Better Care"
     class="logo"
   >
+  <div class="lang-switcher" role="group" aria-label="Language selection">
+    <button class="lang-btn active" id="langEN" onclick="switchLanguage('en')" aria-pressed="true">English</button>
+    <button class="lang-btn" id="langES" onclick="switchLanguage('es')" aria-pressed="false">Español</button>
+  </div>
 </header>
 
 <main class="main-container" role="main" aria-label="Family cancer history questionnaire">
-  <!-- Progress -->
   <div class="progress-container" id="progressContainer">
     <div class="progress-steps" aria-hidden="true">
       <div class="progress-step active" id="progStep1">
         <span class="step-dot">1</span>
-        <span class="step-label">Welcome</span>
+        <span class="step-label" data-i18n="step_welcome">Welcome</span>
       </div>
       <div class="progress-step" id="progStep2">
         <span class="step-dot">2</span>
-        <span class="step-label">About You</span>
+        <span class="step-label" data-i18n="step_about">About You</span>
       </div>
       <div class="progress-step" id="progStep3">
         <span class="step-dot">3</span>
-        <span class="step-label">Personal</span>
+        <span class="step-label" data-i18n="step_personal">Personal</span>
       </div>
       <div class="progress-step" id="progStep4">
         <span class="step-dot">4</span>
-        <span class="step-label">Family</span>
+        <span class="step-label" data-i18n="step_family">Family</span>
       </div>
       <div class="progress-step" id="progStep5">
         <span class="step-dot">5</span>
-        <span class="step-label">Results</span>
+        <span class="step-label" data-i18n="step_results">Results</span>
       </div>
     </div>
     <div class="progress-bar">
@@ -782,37 +755,37 @@
         <div class="hero-icon">
           <span class="material-icons">family_restroom</span>
         </div>
-        <h1 class="card-title" id="step1-title">Welcome to Gene Bridge</h1>
-        <p class="card-subtitle">This tool helps you understand whether you would benefit from visiting a cancer genetic counselor based on your personal and family history of cancer.</p>
+        <h1 class="card-title" id="step1-title" data-i18n="welcome_title">Welcome to Gene Bridge</h1>
+        <p class="card-subtitle" data-i18n="welcome_subtitle">This tool helps you understand whether your family cancer history suggests you may benefit from a referral to a cancer genetic counselor.</p>
       </div>
 
       <div class="feature-list">
         <div class="feature-item">
           <span class="material-icons">assignment</span>
-          <span>Answer simple questions about your family's cancer history</span>
+          <span data-i18n="feature_1">Answer simple questions about your family's cancer history</span>
         </div>
         <div class="feature-item">
           <span class="material-icons">psychology</span>
-          <span>Get a personalized assessment based on NCCN guidelines</span>
+          <span data-i18n="feature_2">Get a personalized assessment based on NCCN guidelines</span>
         </div>
         <div class="feature-item">
           <span class="material-icons">medical_services</span>
-          <span>Share results with your healthcare provider</span>
+          <span data-i18n="feature_3">Share results with your healthcare provider</span>
         </div>
         <div class="feature-item">
           <span class="material-icons">schedule</span>
-          <span>Takes approximately 5-10 minutes to complete</span>
+          <span data-i18n="feature_4">Takes approximately 5-10 minutes to complete</span>
         </div>
       </div>
 
       <div class="info-tip">
         <span class="material-icons">info</span>
-        <p>Your information is processed entirely in your browser and is not stored or sent to any server. This tool does not replace professional medical advice.</p>
+        <p data-i18n="privacy_note">Your information is processed entirely in your browser and is not stored or sent to any server. This tool does not replace professional medical advice.</p>
       </div>
 
       <div class="btn-group">
-        <button class="btn btn-primary" onclick="goToStep(2)" aria-label="Begin questionnaire">
-          Get Started
+        <button class="btn btn-primary" onclick="goToStep(2)">
+          <span data-i18n="btn_get_started">Get Started</span>
           <span class="material-icons">arrow_forward</span>
         </button>
       </div>
@@ -822,47 +795,47 @@
   <!-- Step 2: About You -->
   <section class="step-section" id="step2" aria-labelledby="step2-title">
     <div class="card">
-      <h2 class="card-title" id="step2-title">About You</h2>
-      <p class="card-subtitle">Please provide some basic information about yourself.</p>
+      <h2 class="card-title" id="step2-title" data-i18n="about_title">About You</h2>
+      <p class="card-subtitle" data-i18n="about_subtitle">Please provide some basic information about yourself.</p>
 
       <div class="form-group">
-        <label class="form-label">What is your biological sex at birth?</label>
+        <label class="form-label" data-i18n="label_sex">What is your biological sex at birth?</label>
         <div class="option-group horizontal" role="radiogroup" aria-label="Biological sex">
           <div class="option-item" onclick="selectOption(this, 'sex', 'female')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'sex', 'female')">
             <input type="radio" name="sex" value="female">
             <span class="option-dot"></span>
-            <span class="option-label">Female</span>
+            <span class="option-label" data-i18n="option_female">Female</span>
           </div>
           <div class="option-item" onclick="selectOption(this, 'sex', 'male')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'sex', 'male')">
             <input type="radio" name="sex" value="male">
             <span class="option-dot"></span>
-            <span class="option-label">Male</span>
+            <span class="option-label" data-i18n="option_male">Male</span>
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="ageInput">What is your current age?</label>
-        <input type="number" id="ageInput" class="form-input" placeholder="Enter your age" min="0" max="120" aria-required="true">
+        <label class="form-label" for="ageInput" data-i18n="label_age">What is your current age?</label>
+        <input type="number" id="ageInput" class="form-input" data-i18n-placeholder="placeholder_age" placeholder="Enter your age" min="0" max="120" aria-required="true">
       </div>
 
       <div class="form-group">
-        <label class="form-label">Are you of Ashkenazi Jewish (Eastern European Jewish) descent?</label>
+        <label class="form-label" data-i18n="label_ashkenazi">Are you of Ashkenazi Jewish (Eastern European Jewish) descent?</label>
         <div class="option-group horizontal" role="radiogroup" aria-label="Ashkenazi Jewish descent">
           <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'yes')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'yes')">
             <input type="radio" name="ashkenazi" value="yes">
             <span class="option-dot"></span>
-            <span class="option-label">Yes</span>
+            <span class="option-label" data-i18n="option_yes">Yes</span>
           </div>
           <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'no')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'no')">
             <input type="radio" name="ashkenazi" value="no">
             <span class="option-dot"></span>
-            <span class="option-label">No</span>
+            <span class="option-label" data-i18n="option_no">No</span>
           </div>
           <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'unsure')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'unsure')">
             <input type="radio" name="ashkenazi" value="unsure">
             <span class="option-dot"></span>
-            <span class="option-label">Unsure</span>
+            <span class="option-label" data-i18n="option_unsure">Unsure</span>
           </div>
         </div>
       </div>
@@ -870,10 +843,10 @@
       <div class="btn-group">
         <button class="btn btn-secondary" onclick="goToStep(1)">
           <span class="material-icons">arrow_back</span>
-          Back
+          <span data-i18n="btn_back">Back</span>
         </button>
         <button class="btn btn-primary" onclick="validateStep2()">
-          Continue
+          <span data-i18n="btn_continue">Continue</span>
           <span class="material-icons">arrow_forward</span>
         </button>
       </div>
@@ -883,71 +856,71 @@
   <!-- Step 3: Personal Cancer History -->
   <section class="step-section" id="step3" aria-labelledby="step3-title">
     <div class="card">
-      <h2 class="card-title" id="step3-title">Your Personal Cancer History</h2>
-      <p class="card-subtitle">Have you personally ever been diagnosed with cancer?</p>
+      <h2 class="card-title" id="step3-title" data-i18n="personal_title">Your Personal Cancer History</h2>
+      <p class="card-subtitle" data-i18n="personal_subtitle">Have you personally ever been diagnosed with cancer?</p>
 
       <div class="form-group">
         <div class="option-group horizontal" role="radiogroup" aria-label="Personal cancer history">
           <div class="option-item" onclick="selectOption(this, 'personalCancer', 'yes'); showPersonalDetails(true)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'personalCancer', 'yes'); showPersonalDetails(true)">
             <input type="radio" name="personalCancer" value="yes">
             <span class="option-dot"></span>
-            <span class="option-label">Yes</span>
+            <span class="option-label" data-i18n="option_yes">Yes</span>
           </div>
           <div class="option-item" onclick="selectOption(this, 'personalCancer', 'no'); showPersonalDetails(false)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'personalCancer', 'no'); showPersonalDetails(false)">
             <input type="radio" name="personalCancer" value="no">
             <span class="option-dot"></span>
-            <span class="option-label">No</span>
+            <span class="option-label" data-i18n="option_no">No</span>
           </div>
         </div>
       </div>
 
       <div id="personalCancerDetails" style="display: none;">
         <div class="form-group">
-          <label class="form-label" for="personalCancerType">What type of cancer were you diagnosed with?</label>
+          <label class="form-label" for="personalCancerType" data-i18n="label_cancer_type">What type of cancer were you diagnosed with?</label>
           <select id="personalCancerType" class="form-select" aria-label="Cancer type">
-            <option value="">Select cancer type...</option>
-            <option value="breast">Breast cancer</option>
-            <option value="ovarian">Ovarian cancer</option>
-            <option value="colorectal">Colorectal cancer</option>
-            <option value="endometrial">Endometrial (uterine) cancer</option>
-            <option value="pancreatic">Pancreatic cancer</option>
-            <option value="prostate">Prostate cancer</option>
-            <option value="melanoma">Melanoma</option>
-            <option value="kidney">Kidney cancer</option>
-            <option value="thyroid">Thyroid cancer</option>
-            <option value="stomach">Stomach (gastric) cancer</option>
-            <option value="brain">Brain cancer</option>
-            <option value="sarcoma">Sarcoma</option>
-            <option value="leukemia">Leukemia/Lymphoma</option>
-            <option value="lung">Lung cancer</option>
-            <option value="bladder">Bladder cancer</option>
-            <option value="liver">Liver cancer</option>
-            <option value="other">Other</option>
+            <option value="" data-i18n="select_cancer_type">Select cancer type...</option>
+            <option value="breast" data-i18n="cancer_breast">Breast cancer</option>
+            <option value="ovarian" data-i18n="cancer_ovarian">Ovarian cancer</option>
+            <option value="colorectal" data-i18n="cancer_colorectal">Colorectal cancer</option>
+            <option value="endometrial" data-i18n="cancer_endometrial">Endometrial (uterine) cancer</option>
+            <option value="pancreatic" data-i18n="cancer_pancreatic">Pancreatic cancer</option>
+            <option value="prostate" data-i18n="cancer_prostate">Prostate cancer</option>
+            <option value="melanoma" data-i18n="cancer_melanoma">Melanoma</option>
+            <option value="kidney" data-i18n="cancer_kidney">Kidney cancer</option>
+            <option value="thyroid" data-i18n="cancer_thyroid">Thyroid cancer</option>
+            <option value="stomach" data-i18n="cancer_stomach">Stomach (gastric) cancer</option>
+            <option value="brain" data-i18n="cancer_brain">Brain cancer</option>
+            <option value="sarcoma" data-i18n="cancer_sarcoma">Sarcoma</option>
+            <option value="leukemia" data-i18n="cancer_leukemia">Leukemia/Lymphoma</option>
+            <option value="lung" data-i18n="cancer_lung">Lung cancer</option>
+            <option value="bladder" data-i18n="cancer_bladder">Bladder cancer</option>
+            <option value="liver" data-i18n="cancer_liver">Liver cancer</option>
+            <option value="other" data-i18n="cancer_other">Other</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="personalCancerAge">At what age were you diagnosed?</label>
-          <input type="number" id="personalCancerAge" class="form-input" placeholder="Age at diagnosis" min="0" max="120">
+          <label class="form-label" for="personalCancerAge" data-i18n="label_age_diagnosis">At what age were you diagnosed?</label>
+          <input type="number" id="personalCancerAge" class="form-input" data-i18n-placeholder="placeholder_age_diagnosis" placeholder="Age at diagnosis" min="0" max="120">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Was your breast cancer triple-negative? (if applicable)</label>
+          <label class="form-label" data-i18n="label_triple_neg">Was your breast cancer triple-negative? (if applicable)</label>
           <div class="option-group horizontal" role="radiogroup" aria-label="Triple negative status">
             <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'yes')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'yes')">
               <input type="radio" name="tripleNeg" value="yes">
               <span class="option-dot"></span>
-              <span class="option-label">Yes</span>
+              <span class="option-label" data-i18n="option_yes">Yes</span>
             </div>
             <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'no')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'no')">
               <input type="radio" name="tripleNeg" value="no">
               <span class="option-dot"></span>
-              <span class="option-label">No</span>
+              <span class="option-label" data-i18n="option_no">No</span>
             </div>
             <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'na')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'na')">
               <input type="radio" name="tripleNeg" value="na">
               <span class="option-dot"></span>
-              <span class="option-label">N/A</span>
+              <span class="option-label" data-i18n="option_na">N/A</span>
             </div>
           </div>
         </div>
@@ -956,10 +929,10 @@
       <div class="btn-group">
         <button class="btn btn-secondary" onclick="goToStep(2)">
           <span class="material-icons">arrow_back</span>
-          Back
+          <span data-i18n="btn_back">Back</span>
         </button>
         <button class="btn btn-primary" onclick="validateStep3()">
-          Continue
+          <span data-i18n="btn_continue">Continue</span>
           <span class="material-icons">arrow_forward</span>
         </button>
       </div>
@@ -969,99 +942,100 @@
   <!-- Step 4: Family History -->
   <section class="step-section" id="step4" aria-labelledby="step4-title">
     <div class="card">
-      <h2 class="card-title" id="step4-title">Family Cancer History</h2>
-      <p class="card-subtitle">Add family members who have been diagnosed with cancer. Include both sides of your family (mother's and father's sides).</p>
+      <h2 class="card-title" id="step4-title" data-i18n="family_title">Family Cancer History</h2>
+      <p class="card-subtitle" data-i18n="family_subtitle">Add family members who have been diagnosed with cancer. Include both sides of your family (mother's and father's sides).</p>
 
       <div class="info-tip">
         <span class="material-icons">info</span>
-        <p>Include parents, siblings, children, grandparents, aunts, uncles, and first cousins. The more complete your family history, the more accurate the assessment.</p>
+        <p data-i18n="family_tip">Include parents, siblings, children, grandparents, aunts, uncles, and first cousins. The more complete your family history, the more accurate the assessment.</p>
       </div>
 
       <div class="member-list" id="memberList">
         <div class="empty-state" id="emptyState">
           <span class="material-icons">group_add</span>
-          <p>No family members added yet.<br>Click the button below to add a family member with cancer.</p>
+          <p data-i18n="empty_members">No family members added yet. Click the button below to add a family member with cancer.</p>
         </div>
       </div>
 
-      <!-- Add Member Form -->
       <div id="addMemberSection" style="display: none;">
         <div class="add-member-form">
           <div class="form-title">
             <span class="material-icons">person_add</span>
-            Add Family Member
+            <span data-i18n="add_member_title">Add Family Member</span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="memberRelationship">Relationship to you</label>
+            <label class="form-label" for="memberRelationship" data-i18n="label_relationship">Relationship to you</label>
             <select id="memberRelationship" class="form-select">
-              <option value="">Select relationship...</option>
-              <optgroup label="First Degree (Parents, Siblings, Children)">
-                <option value="mother">Mother</option>
-                <option value="father">Father</option>
-                <option value="sister">Sister</option>
-                <option value="brother">Brother</option>
-                <option value="daughter">Daughter</option>
-                <option value="son">Son</option>
+              <option value="" data-i18n="select_relationship">Select relationship...</option>
+              <optgroup data-i18n-label="group_first_degree" label="First Degree (Parents, Siblings, Children)">
+                <option value="mother" data-i18n="rel_mother">Mother</option>
+                <option value="father" data-i18n="rel_father">Father</option>
+                <option value="sister" data-i18n="rel_sister">Sister</option>
+                <option value="brother" data-i18n="rel_brother">Brother</option>
+                <option value="daughter" data-i18n="rel_daughter">Daughter</option>
+                <option value="son" data-i18n="rel_son">Son</option>
               </optgroup>
-              <optgroup label="Second Degree (Grandparents, Aunts/Uncles, Half-siblings)">
-                <option value="maternal_grandmother">Maternal Grandmother</option>
-                <option value="maternal_grandfather">Maternal Grandfather</option>
-                <option value="paternal_grandmother">Paternal Grandmother</option>
-                <option value="paternal_grandfather">Paternal Grandfather</option>
-                <option value="maternal_aunt">Maternal Aunt</option>
-                <option value="maternal_uncle">Maternal Uncle</option>
-                <option value="paternal_aunt">Paternal Aunt</option>
-                <option value="paternal_uncle">Paternal Uncle</option>
-                <option value="half_sister">Half-Sister</option>
-                <option value="half_brother">Half-Brother</option>
+              <optgroup data-i18n-label="group_second_degree" label="Second Degree (Grandparents, Aunts/Uncles, Half-siblings)">
+                <option value="maternal_grandmother" data-i18n="rel_maternal_grandmother">Maternal Grandmother</option>
+                <option value="maternal_grandfather" data-i18n="rel_maternal_grandfather">Maternal Grandfather</option>
+                <option value="paternal_grandmother" data-i18n="rel_paternal_grandmother">Paternal Grandmother</option>
+                <option value="paternal_grandfather" data-i18n="rel_paternal_grandfather">Paternal Grandfather</option>
+                <option value="maternal_aunt" data-i18n="rel_maternal_aunt">Maternal Aunt</option>
+                <option value="maternal_uncle" data-i18n="rel_maternal_uncle">Maternal Uncle</option>
+                <option value="paternal_aunt" data-i18n="rel_paternal_aunt">Paternal Aunt</option>
+                <option value="paternal_uncle" data-i18n="rel_paternal_uncle">Paternal Uncle</option>
+                <option value="half_sister" data-i18n="rel_half_sister">Half-Sister</option>
+                <option value="half_brother" data-i18n="rel_half_brother">Half-Brother</option>
               </optgroup>
-              <optgroup label="Third Degree (Cousins, Great-grandparents)">
-                <option value="maternal_cousin">Maternal First Cousin</option>
-                <option value="paternal_cousin">Paternal First Cousin</option>
-                <option value="maternal_great_grandmother">Maternal Great-Grandmother</option>
-                <option value="maternal_great_grandfather">Maternal Great-Grandfather</option>
-                <option value="paternal_great_grandmother">Paternal Great-Grandmother</option>
-                <option value="paternal_great_grandfather">Paternal Great-Grandfather</option>
+              <optgroup data-i18n-label="group_third_degree" label="Third Degree (Cousins, Great-grandparents)">
+                <option value="maternal_cousin" data-i18n="rel_maternal_cousin">Maternal First Cousin</option>
+                <option value="paternal_cousin" data-i18n="rel_paternal_cousin">Paternal First Cousin</option>
+                <option value="maternal_great_grandmother" data-i18n="rel_maternal_great_grandmother">Maternal Great-Grandmother</option>
+                <option value="maternal_great_grandfather" data-i18n="rel_maternal_great_grandfather">Maternal Great-Grandfather</option>
+                <option value="paternal_great_grandmother" data-i18n="rel_paternal_great_grandmother">Paternal Great-Grandmother</option>
+                <option value="paternal_great_grandfather" data-i18n="rel_paternal_great_grandfather">Paternal Great-Grandfather</option>
               </optgroup>
             </select>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="memberCancerType">Type of cancer</label>
+            <label class="form-label" for="memberCancerType" data-i18n="label_member_cancer">Type of cancer</label>
             <select id="memberCancerType" class="form-select">
-              <option value="">Select cancer type...</option>
-              <option value="breast">Breast cancer</option>
-              <option value="ovarian">Ovarian/Fallopian tube/Primary peritoneal cancer</option>
-              <option value="colorectal">Colorectal cancer</option>
-              <option value="endometrial">Endometrial (uterine) cancer</option>
-              <option value="pancreatic">Pancreatic cancer</option>
-              <option value="prostate">Prostate cancer (aggressive/metastatic)</option>
-              <option value="melanoma">Melanoma</option>
-              <option value="kidney">Kidney cancer</option>
-              <option value="thyroid">Thyroid cancer</option>
-              <option value="stomach">Stomach (gastric) cancer</option>
-              <option value="brain">Brain cancer</option>
-              <option value="sarcoma">Sarcoma</option>
-              <option value="leukemia">Leukemia/Lymphoma</option>
-              <option value="lung">Lung cancer</option>
-              <option value="bladder">Bladder cancer</option>
-              <option value="liver">Liver cancer</option>
-              <option value="malebreast">Male breast cancer</option>
-              <option value="other">Other</option>
+              <option value="" data-i18n="select_cancer_type">Select cancer type...</option>
+              <option value="breast" data-i18n="cancer_breast">Breast cancer</option>
+              <option value="ovarian" data-i18n="cancer_ovarian_full">Ovarian/Fallopian tube/Primary peritoneal cancer</option>
+              <option value="colorectal" data-i18n="cancer_colorectal">Colorectal cancer</option>
+              <option value="endometrial" data-i18n="cancer_endometrial">Endometrial (uterine) cancer</option>
+              <option value="pancreatic" data-i18n="cancer_pancreatic">Pancreatic cancer</option>
+              <option value="prostate" data-i18n="cancer_prostate_agg">Prostate cancer (aggressive/metastatic)</option>
+              <option value="melanoma" data-i18n="cancer_melanoma">Melanoma</option>
+              <option value="kidney" data-i18n="cancer_kidney">Kidney cancer</option>
+              <option value="thyroid" data-i18n="cancer_thyroid">Thyroid cancer</option>
+              <option value="stomach" data-i18n="cancer_stomach">Stomach (gastric) cancer</option>
+              <option value="brain" data-i18n="cancer_brain">Brain cancer</option>
+              <option value="sarcoma" data-i18n="cancer_sarcoma">Sarcoma</option>
+              <option value="leukemia" data-i18n="cancer_leukemia">Leukemia/Lymphoma</option>
+              <option value="lung" data-i18n="cancer_lung">Lung cancer</option>
+              <option value="bladder" data-i18n="cancer_bladder">Bladder cancer</option>
+              <option value="liver" data-i18n="cancer_liver">Liver cancer</option>
+              <option value="malebreast" data-i18n="cancer_male_breast">Male breast cancer</option>
+              <option value="other" data-i18n="cancer_other">Other</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="memberAge">Age at diagnosis</label>
-            <input type="number" id="memberAge" class="form-input" placeholder="Age when diagnosed" min="0" max="120">
+            <label class="form-label" for="memberAge" data-i18n="label_member_age">Age at diagnosis</label>
+            <input type="number" id="memberAge" class="form-input" data-i18n-placeholder="placeholder_member_age" placeholder="Age when diagnosed" min="0" max="120">
           </div>
 
           <div class="btn-group">
-            <button class="btn btn-secondary" onclick="cancelAddMember()">Cancel</button>
+            <button class="btn btn-secondary" onclick="cancelAddMember()">
+              <span data-i18n="btn_cancel">Cancel</span>
+            </button>
             <button class="btn btn-accent" onclick="saveMember()">
               <span class="material-icons">add</span>
-              Add Member
+              <span data-i18n="btn_add_member">Add Member</span>
             </button>
           </div>
         </div>
@@ -1069,16 +1043,16 @@
 
       <button class="btn btn-accent" id="addMemberBtn" onclick="showAddMember()" style="margin-top: 12px; width: 100%;">
         <span class="material-icons">person_add</span>
-        Add Family Member with Cancer
+        <span data-i18n="btn_add_family_member">Add Family Member with Cancer</span>
       </button>
 
       <div class="btn-group" style="margin-top: 32px;">
         <button class="btn btn-secondary" onclick="goToStep(3)">
           <span class="material-icons">arrow_back</span>
-          Back
+          <span data-i18n="btn_back">Back</span>
         </button>
         <button class="btn btn-primary" onclick="goToStep(5)">
-          View Results
+          <span data-i18n="btn_view_results">View Results</span>
           <span class="material-icons">assessment</span>
         </button>
       </div>
@@ -1088,31 +1062,30 @@
   <!-- Step 5: Results -->
   <section class="step-section" id="step5" aria-labelledby="step5-title">
     <div class="card">
-      <h2 class="card-title" id="step5-title">Your Assessment Results</h2>
-      <p class="card-subtitle">Based on National Comprehensive Cancer Network (NCCN) guidelines</p>
+      <h2 class="card-title" id="step5-title" data-i18n="results_title">Your Assessment Results</h2>
+      <p class="card-subtitle" data-i18n="results_subtitle">Based on National Comprehensive Cancer Network (NCCN) guidelines</p>
 
-      <div id="resultsContent">
-        <!-- Filled by JavaScript -->
-      </div>
+      <div id="resultsContent"></div>
 
       <div class="disclaimer">
-        <strong>Important Disclaimer:</strong> This tool provides a screening assessment based on NCCN guidelines for genetic/familial high-risk assessment. It is not a diagnosis. Please share these results with your primary care provider for further evaluation. Only a qualified healthcare professional can make referral decisions.
+        <strong data-i18n="disclaimer_title">Important Disclaimer:</strong>
+        <span data-i18n="disclaimer_text"> This tool provides a screening assessment based on NCCN guidelines for genetic/familial high-risk assessment. It is not a diagnosis. Please share these results with your primary care provider for further evaluation. Only a qualified healthcare professional can make referral decisions.</span>
       </div>
 
       <div class="btn-group" style="margin-top: 24px;">
         <button class="btn btn-secondary" onclick="goToStep(4)">
           <span class="material-icons">arrow_back</span>
-          Edit Answers
+          <span data-i18n="btn_edit">Edit Answers</span>
         </button>
         <button class="btn btn-primary" onclick="printResults()">
           <span class="material-icons">print</span>
-          Print Results
+          <span data-i18n="btn_print">Print Results</span>
         </button>
       </div>
       <div class="btn-group">
         <button class="btn btn-secondary" onclick="startOver()" style="width: 100%;">
           <span class="material-icons">refresh</span>
-          Start Over
+          <span data-i18n="btn_start_over">Start Over</span>
         </button>
       </div>
     </div>
@@ -1120,7 +1093,360 @@
 </main>
 
 <script>
-// Application State
+// ===== TRANSLATIONS =====
+const translations = {
+  en: {
+    // Progress steps
+    step_welcome: "Welcome",
+    step_about: "About You",
+    step_personal: "Personal",
+    step_family: "Family",
+    step_results: "Results",
+
+    // Welcome
+    welcome_title: "Welcome to Gene Bridge",
+    welcome_subtitle: "This tool helps you understand whether your family cancer history suggests you may benefit from a referral to a cancer genetic counselor.",
+    feature_1: "Answer simple questions about your family's cancer history",
+    feature_2: "Get a personalized assessment based on NCCN guidelines",
+    feature_3: "Share results with your healthcare provider",
+    feature_4: "Takes approximately 5-10 minutes to complete",
+    privacy_note: "Your information is processed entirely in your browser and is not stored or sent to any server. This tool does not replace professional medical advice.",
+    btn_get_started: "Get Started",
+
+    // About You
+    about_title: "About You",
+    about_subtitle: "Please provide some basic information about yourself.",
+    label_sex: "What is your biological sex at birth?",
+    option_female: "Female",
+    option_male: "Male",
+    label_age: "What is your current age?",
+    placeholder_age: "Enter your age",
+    label_ashkenazi: "Are you of Ashkenazi Jewish (Eastern European Jewish) descent?",
+    option_yes: "Yes",
+    option_no: "No",
+    option_unsure: "Unsure",
+
+    // Personal History
+    personal_title: "Your Personal Cancer History",
+    personal_subtitle: "Have you personally ever been diagnosed with cancer?",
+    label_cancer_type: "What type of cancer were you diagnosed with?",
+    select_cancer_type: "Select cancer type...",
+    label_age_diagnosis: "At what age were you diagnosed?",
+    placeholder_age_diagnosis: "Age at diagnosis",
+    label_triple_neg: "Was your breast cancer triple-negative? (if applicable)",
+    option_na: "N/A",
+
+    // Cancer types
+    cancer_breast: "Breast cancer",
+    cancer_ovarian: "Ovarian cancer",
+    cancer_ovarian_full: "Ovarian/Fallopian tube/Primary peritoneal cancer",
+    cancer_colorectal: "Colorectal cancer",
+    cancer_endometrial: "Endometrial (uterine) cancer",
+    cancer_pancreatic: "Pancreatic cancer",
+    cancer_prostate: "Prostate cancer",
+    cancer_prostate_agg: "Prostate cancer (aggressive/metastatic)",
+    cancer_melanoma: "Melanoma",
+    cancer_kidney: "Kidney cancer",
+    cancer_thyroid: "Thyroid cancer",
+    cancer_stomach: "Stomach (gastric) cancer",
+    cancer_brain: "Brain cancer",
+    cancer_sarcoma: "Sarcoma",
+    cancer_leukemia: "Leukemia/Lymphoma",
+    cancer_lung: "Lung cancer",
+    cancer_bladder: "Bladder cancer",
+    cancer_liver: "Liver cancer",
+    cancer_male_breast: "Male breast cancer",
+    cancer_other: "Other",
+
+    // Family History
+    family_title: "Family Cancer History",
+    family_subtitle: "Add family members who have been diagnosed with cancer. Include both sides of your family (mother's and father's sides).",
+    family_tip: "Include parents, siblings, children, grandparents, aunts, uncles, and first cousins. The more complete your family history, the more accurate the assessment.",
+    empty_members: "No family members added yet. Click the button below to add a family member with cancer.",
+    add_member_title: "Add Family Member",
+    label_relationship: "Relationship to you",
+    select_relationship: "Select relationship...",
+    label_member_cancer: "Type of cancer",
+    label_member_age: "Age at diagnosis",
+    placeholder_member_age: "Age when diagnosed",
+    btn_add_member: "Add Member",
+    btn_add_family_member: "Add Family Member with Cancer",
+    btn_cancel: "Cancel",
+
+    // Relationship groups
+    group_first_degree: "First Degree (Parents, Siblings, Children)",
+    group_second_degree: "Second Degree (Grandparents, Aunts/Uncles, Half-siblings)",
+    group_third_degree: "Third Degree (Cousins, Great-grandparents)",
+
+    // Relationships
+    rel_mother: "Mother",
+    rel_father: "Father",
+    rel_sister: "Sister",
+    rel_brother: "Brother",
+    rel_daughter: "Daughter",
+    rel_son: "Son",
+    rel_maternal_grandmother: "Maternal Grandmother",
+    rel_maternal_grandfather: "Maternal Grandfather",
+    rel_paternal_grandmother: "Paternal Grandmother",
+    rel_paternal_grandfather: "Paternal Grandfather",
+    rel_maternal_aunt: "Maternal Aunt",
+    rel_maternal_uncle: "Maternal Uncle",
+    rel_paternal_aunt: "Paternal Aunt",
+    rel_paternal_uncle: "Paternal Uncle",
+    rel_half_sister: "Half-Sister",
+    rel_half_brother: "Half-Brother",
+    rel_maternal_cousin: "Maternal First Cousin",
+    rel_paternal_cousin: "Paternal First Cousin",
+    rel_maternal_great_grandmother: "Maternal Great-Grandmother",
+    rel_maternal_great_grandfather: "Maternal Great-Grandfather",
+    rel_paternal_great_grandmother: "Paternal Great-Grandmother",
+    rel_paternal_great_grandfather: "Paternal Great-Grandfather",
+
+    // Results
+    results_title: "Your Assessment Results",
+    results_subtitle: "Based on National Comprehensive Cancer Network (NCCN) guidelines",
+    result_refer_title: "Referral to Genetic Counselor Recommended",
+    result_refer_text: "Based on your personal and family cancer history, you meet one or more criteria from the National Comprehensive Cancer Network (NCCN) guidelines that suggest you may benefit from a referral to a cancer genetic counselor for further risk assessment and possible genetic testing.",
+    result_no_refer_title: "No Referral Indicated at This Time",
+    result_no_refer_text: "Based on the information you provided, your personal and family cancer history does not currently meet NCCN criteria for referral to a cancer genetic counselor. However, this assessment is based solely on the information entered and may not capture all relevant factors.",
+    criteria_met: "Criteria Met:",
+    next_step: "Next Step:",
+    next_step_text: "Share these results with your primary care provider. They can arrange a referral to a cancer genetic counselor who can provide a comprehensive risk assessment and discuss whether genetic testing is appropriate for you.",
+    important_note: "Important:",
+    important_note_text: "Family history can change over time. If new cancer diagnoses occur in your family, please retake this assessment or discuss with your healthcare provider. Also, if you have concerns not captured here, talk to your doctor.",
+    disclaimer_title: "Important Disclaimer:",
+    disclaimer_text: " This tool provides a screening assessment based on NCCN guidelines for genetic/familial high-risk assessment. It is not a diagnosis. Please share these results with your primary care provider for further evaluation. Only a qualified healthcare professional can make referral decisions.",
+
+    // Buttons
+    btn_back: "Back",
+    btn_continue: "Continue",
+    btn_view_results: "View Results",
+    btn_edit: "Edit Answers",
+    btn_print: "Print Results",
+    btn_start_over: "Start Over",
+
+    // Validation messages
+    alert_select_sex: "Please select your biological sex.",
+    alert_valid_age: "Please enter a valid age.",
+    alert_ashkenazi: "Please indicate your Ashkenazi Jewish ancestry status.",
+    alert_cancer_diagnosis: "Please indicate whether you have been diagnosed with cancer.",
+    alert_cancer_type: "Please select your cancer type.",
+    alert_diagnosis_age: "Please enter your age at diagnosis.",
+    alert_relationship: "Please select the relationship.",
+    alert_member_cancer: "Please select the cancer type.",
+    alert_member_age: "Please enter a valid age at diagnosis.",
+    alert_start_over: "Are you sure you want to start over? All entered information will be cleared.",
+
+    // Member card
+    diagnosed_at: "Diagnosed at age",
+
+    // Criteria reasons
+    reason_breast_50: "Personal history of breast cancer diagnosed at age ≤ 50",
+    reason_tnbc_60: "Personal history of triple-negative breast cancer diagnosed at age ≤ 60",
+    reason_ovarian: "Personal history of ovarian/fallopian tube/primary peritoneal cancer",
+    reason_male_breast: "Personal history of male breast cancer",
+    reason_pancreatic: "Personal history of pancreatic cancer",
+    reason_prostate: "Personal history of aggressive/metastatic prostate cancer",
+    reason_crc_50: "Personal history of colorectal cancer diagnosed at age ≤ 50",
+    reason_endometrial_50: "Personal history of endometrial cancer diagnosed at age ≤ 50",
+    reason_young_45: "Personal history of cancer diagnosed at age ≤ 45",
+    reason_ashkenazi: "Ashkenazi Jewish ancestry (elevated BRCA1/2 mutation risk)",
+    reason_family_breast_50: "Close relative(s) with breast cancer diagnosed at age ≤ 50",
+    reason_family_ovarian: "Family member(s) with ovarian cancer",
+    reason_family_male_breast: "Family member(s) with male breast cancer",
+    reason_family_pancreatic: "Family member(s) with pancreatic cancer",
+    reason_family_prostate_55: "Family member(s) with prostate cancer diagnosed at age ≤ 55",
+    reason_maternal_breast_2: "Two or more maternal relatives with breast cancer",
+    reason_paternal_breast_2: "Two or more paternal relatives with breast cancer",
+    reason_maternal_3: "Three or more maternal relatives with breast and/or ovarian cancer",
+    reason_paternal_3: "Three or more paternal relatives with breast and/or ovarian cancer",
+    reason_family_crc_50: "Family member(s) with colorectal cancer diagnosed at age ≤ 50",
+    reason_family_endometrial_50: "Family member(s) with endometrial cancer diagnosed at age ≤ 50",
+    reason_lynch_3: "Three or more relatives with Lynch syndrome-associated cancers (colorectal, endometrial, ovarian, stomach, pancreatic, kidney, brain, or bladder)",
+    reason_maternal_young_2: "Two or more maternal relatives with cancer diagnosed at age ≤ 50",
+    reason_paternal_young_2: "Two or more paternal relatives with cancer diagnosed at age ≤ 50",
+    reason_first_deg_45: "First-degree relative(s) with cancer diagnosed at age ≤ 45",
+    reason_breast_ovarian_family: "Family history includes both breast cancer and ovarian cancer"
+  },
+
+  es: {
+    // Progress steps
+    step_welcome: "Inicio",
+    step_about: "Sobre Usted",
+    step_personal: "Personal",
+    step_family: "Familia",
+    step_results: "Resultados",
+
+    // Welcome
+    welcome_title: "Bienvenido a Gene Bridge",
+    welcome_subtitle: "Esta herramienta le ayuda a comprender si su historial familiar de cáncer sugiere que podría beneficiarse de una referencia a un consejero genético de cáncer.",
+    feature_1: "Responda preguntas sencillas sobre el historial de cáncer de su familia",
+    feature_2: "Obtenga una evaluación personalizada basada en las guías del NCCN",
+    feature_3: "Comparta los resultados con su proveedor de atención médica",
+    feature_4: "Toma aproximadamente 5-10 minutos en completarse",
+    privacy_note: "Su información se procesa completamente en su navegador y no se almacena ni se envía a ningún servidor. Esta herramienta no reemplaza el consejo médico profesional.",
+    btn_get_started: "Comenzar",
+
+    // About You
+    about_title: "Sobre Usted",
+    about_subtitle: "Por favor proporcione información básica sobre usted.",
+    label_sex: "¿Cuál es su sexo biológico al nacer?",
+    option_female: "Femenino",
+    option_male: "Masculino",
+    label_age: "¿Cuál es su edad actual?",
+    placeholder_age: "Ingrese su edad",
+    label_ashkenazi: "¿Es usted de ascendencia judía Ashkenazi (judía de Europa del Este)?",
+    option_yes: "Sí",
+    option_no: "No",
+    option_unsure: "No estoy seguro/a",
+
+    // Personal History
+    personal_title: "Su Historial Personal de Cáncer",
+    personal_subtitle: "¿Alguna vez le han diagnosticado cáncer personalmente?",
+    label_cancer_type: "¿Qué tipo de cáncer le diagnosticaron?",
+    select_cancer_type: "Seleccione tipo de cáncer...",
+    label_age_diagnosis: "¿A qué edad le diagnosticaron?",
+    placeholder_age_diagnosis: "Edad al diagnóstico",
+    label_triple_neg: "¿Su cáncer de mama fue triple negativo? (si aplica)",
+    option_na: "No aplica",
+
+    // Cancer types
+    cancer_breast: "Cáncer de mama",
+    cancer_ovarian: "Cáncer de ovario",
+    cancer_ovarian_full: "Cáncer de ovario/trompa de Falopio/peritoneal primario",
+    cancer_colorectal: "Cáncer colorrectal",
+    cancer_endometrial: "Cáncer de endometrio (uterino)",
+    cancer_pancreatic: "Cáncer de páncreas",
+    cancer_prostate: "Cáncer de próstata",
+    cancer_prostate_agg: "Cáncer de próstata (agresivo/metastásico)",
+    cancer_melanoma: "Melanoma",
+    cancer_kidney: "Cáncer de riñón",
+    cancer_thyroid: "Cáncer de tiroides",
+    cancer_stomach: "Cáncer de estómago (gástrico)",
+    cancer_brain: "Cáncer de cerebro",
+    cancer_sarcoma: "Sarcoma",
+    cancer_leukemia: "Leucemia/Linfoma",
+    cancer_lung: "Cáncer de pulmón",
+    cancer_bladder: "Cáncer de vejiga",
+    cancer_liver: "Cáncer de hígado",
+    cancer_male_breast: "Cáncer de mama masculino",
+    cancer_other: "Otro",
+
+    // Family History
+    family_title: "Historial Familiar de Cáncer",
+    family_subtitle: "Agregue familiares que hayan sido diagnosticados con cáncer. Incluya ambos lados de su familia (lado materno y paterno).",
+    family_tip: "Incluya padres, hermanos, hijos, abuelos, tíos y primos hermanos. Cuanto más completo sea su historial familiar, más precisa será la evaluación.",
+    empty_members: "No se han agregado familiares aún. Haga clic en el botón de abajo para agregar un familiar con cáncer.",
+    add_member_title: "Agregar Familiar",
+    label_relationship: "Parentesco con usted",
+    select_relationship: "Seleccione parentesco...",
+    label_member_cancer: "Tipo de cáncer",
+    label_member_age: "Edad al diagnóstico",
+    placeholder_member_age: "Edad cuando fue diagnosticado",
+    btn_add_member: "Agregar Familiar",
+    btn_add_family_member: "Agregar Familiar con Cáncer",
+    btn_cancel: "Cancelar",
+
+    // Relationship groups
+    group_first_degree: "Primer Grado (Padres, Hermanos, Hijos)",
+    group_second_degree: "Segundo Grado (Abuelos, Tíos, Medio-hermanos)",
+    group_third_degree: "Tercer Grado (Primos, Bisabuelos)",
+
+    // Relationships
+    rel_mother: "Madre",
+    rel_father: "Padre",
+    rel_sister: "Hermana",
+    rel_brother: "Hermano",
+    rel_daughter: "Hija",
+    rel_son: "Hijo",
+    rel_maternal_grandmother: "Abuela Materna",
+    rel_maternal_grandfather: "Abuelo Materno",
+    rel_paternal_grandmother: "Abuela Paterna",
+    rel_paternal_grandfather: "Abuelo Paterno",
+    rel_maternal_aunt: "Tía Materna",
+    rel_maternal_uncle: "Tío Materno",
+    rel_paternal_aunt: "Tía Paterna",
+    rel_paternal_uncle: "Tío Paterno",
+    rel_half_sister: "Media Hermana",
+    rel_half_brother: "Medio Hermano",
+    rel_maternal_cousin: "Primo/a Materno/a",
+    rel_paternal_cousin: "Primo/a Paterno/a",
+    rel_maternal_great_grandmother: "Bisabuela Materna",
+    rel_maternal_great_grandfather: "Bisabuelo Materno",
+    rel_paternal_great_grandmother: "Bisabuela Paterna",
+    rel_paternal_great_grandfather: "Bisabuelo Paterno",
+
+    // Results
+    results_title: "Sus Resultados de Evaluación",
+    results_subtitle: "Basado en las guías de la Red Nacional Integral del Cáncer (NCCN)",
+    result_refer_title: "Se Recomienda Referencia a Consejero Genético",
+    result_refer_text: "Según su historial personal y familiar de cáncer, usted cumple con uno o más criterios de las guías de la Red Nacional Integral del Cáncer (NCCN) que sugieren que podría beneficiarse de una referencia a un consejero genético de cáncer para una evaluación de riesgo adicional y posibles pruebas genéticas.",
+    result_no_refer_title: "No Se Indica Referencia en Este Momento",
+    result_no_refer_text: "Según la información que proporcionó, su historial personal y familiar de cáncer no cumple actualmente con los criterios del NCCN para referencia a un consejero genético de cáncer. Sin embargo, esta evaluación se basa únicamente en la información ingresada y puede no capturar todos los factores relevantes.",
+    criteria_met: "Criterios Cumplidos:",
+    next_step: "Siguiente Paso:",
+    next_step_text: "Comparta estos resultados con su proveedor de atención primaria. Ellos pueden organizar una referencia a un consejero genético de cáncer que puede proporcionar una evaluación de riesgo integral y discutir si las pruebas genéticas son apropiadas para usted.",
+    important_note: "Importante:",
+    important_note_text: "El historial familiar puede cambiar con el tiempo. Si ocurren nuevos diagnósticos de cáncer en su familia, por favor repita esta evaluación o discuta con su proveedor de atención médica. Además, si tiene preocupaciones no capturadas aquí, hable con su médico.",
+    disclaimer_title: "Aviso Legal Importante:",
+    disclaimer_text: " Esta herramienta proporciona una evaluación de detección basada en las guías del NCCN para la evaluación genética/familiar de alto riesgo. No es un diagnóstico. Por favor comparta estos resultados con su proveedor de atención primaria para una evaluación adicional. Solo un profesional de la salud calificado puede tomar decisiones de referencia.",
+
+    // Buttons
+    btn_back: "Atrás",
+    btn_continue: "Continuar",
+    btn_view_results: "Ver Resultados",
+    btn_edit: "Editar Respuestas",
+    btn_print: "Imprimir Resultados",
+    btn_start_over: "Comenzar de Nuevo",
+
+    // Validation messages
+    alert_select_sex: "Por favor seleccione su sexo biológico.",
+    alert_valid_age: "Por favor ingrese una edad válida.",
+    alert_ashkenazi: "Por favor indique su estado de ascendencia judía Ashkenazi.",
+    alert_cancer_diagnosis: "Por favor indique si le han diagnosticado cáncer.",
+    alert_cancer_type: "Por favor seleccione su tipo de cáncer.",
+    alert_diagnosis_age: "Por favor ingrese su edad al diagnóstico.",
+    alert_relationship: "Por favor seleccione el parentesco.",
+    alert_member_cancer: "Por favor seleccione el tipo de cáncer.",
+    alert_member_age: "Por favor ingrese una edad válida al diagnóstico.",
+    alert_start_over: "¿Está seguro/a de que desea comenzar de nuevo? Toda la información ingresada se borrará.",
+
+    // Member card
+    diagnosed_at: "Diagnosticado a los",
+
+    // Criteria reasons
+    reason_breast_50: "Historial personal de cáncer de mama diagnosticado a edad ≤ 50",
+    reason_tnbc_60: "Historial personal de cáncer de mama triple negativo diagnosticado a edad ≤ 60",
+    reason_ovarian: "Historial personal de cáncer de ovario/trompa de Falopio/peritoneal primario",
+    reason_male_breast: "Historial personal de cáncer de mama masculino",
+    reason_pancreatic: "Historial personal de cáncer de páncreas",
+    reason_prostate: "Historial personal de cáncer de próstata agresivo/metastásico",
+    reason_crc_50: "Historial personal de cáncer colorrectal diagnosticado a edad ≤ 50",
+    reason_endometrial_50: "Historial personal de cáncer de endometrio diagnosticado a edad ≤ 50",
+    reason_young_45: "Historial personal de cáncer diagnosticado a edad ≤ 45",
+    reason_ashkenazi: "Ascendencia judía Ashkenazi (riesgo elevado de mutaciones BRCA1/2)",
+    reason_family_breast_50: "Familiar(es) cercano(s) con cáncer de mama diagnosticado a edad ≤ 50",
+    reason_family_ovarian: "Familiar(es) con cáncer de ovario",
+    reason_family_male_breast: "Familiar(es) con cáncer de mama masculino",
+    reason_family_pancreatic: "Familiar(es) con cáncer de páncreas",
+    reason_family_prostate_55: "Familiar(es) con cáncer de próstata diagnosticado a edad ≤ 55",
+    reason_maternal_breast_2: "Dos o más familiares maternos con cáncer de mama",
+    reason_paternal_breast_2: "Dos o más familiares paternos con cáncer de mama",
+    reason_maternal_3: "Tres o más familiares maternos con cáncer de mama y/o ovario",
+    reason_paternal_3: "Tres o más familiares paternos con cáncer de mama y/o ovario",
+    reason_family_crc_50: "Familiar(es) con cáncer colorrectal diagnosticado a edad ≤ 50",
+    reason_family_endometrial_50: "Familiar(es) con cáncer de endometrio diagnosticado a edad ≤ 50",
+    reason_lynch_3: "Tres o más familiares con cánceres asociados al síndrome de Lynch (colorrectal, endometrial, ovario, estómago, páncreas, riñón, cerebro o vejiga)",
+    reason_maternal_young_2: "Dos o más familiares maternos con cáncer diagnosticado a edad ≤ 50",
+    reason_paternal_young_2: "Dos o más familiares paternos con cáncer diagnosticado a edad ≤ 50",
+    reason_first_deg_45: "Familiar(es) de primer grado con cáncer diagnosticado a edad ≤ 45",
+    reason_breast_ovarian_family: "Historial familiar incluye tanto cáncer de mama como cáncer de ovario"
+  }
+};
+
+// ===== APPLICATION STATE =====
+let currentLang = 'en';
+
 const state = {
   currentStep: 1,
   sex: '',
@@ -1131,32 +1457,6 @@ const state = {
   personalCancerAge: null,
   tripleNeg: '',
   familyMembers: []
-};
-
-// Relationships display names
-const relationshipNames = {
-  mother: 'Mother', father: 'Father', sister: 'Sister', brother: 'Brother',
-  daughter: 'Daughter', son: 'Son',
-  maternal_grandmother: 'Maternal Grandmother', maternal_grandfather: 'Maternal Grandfather',
-  paternal_grandmother: 'Paternal Grandmother', paternal_grandfather: 'Paternal Grandfather',
-  maternal_aunt: 'Maternal Aunt', maternal_uncle: 'Maternal Uncle',
-  paternal_aunt: 'Paternal Aunt', paternal_uncle: 'Paternal Uncle',
-  half_sister: 'Half-Sister', half_brother: 'Half-Brother',
-  maternal_cousin: 'Maternal Cousin', paternal_cousin: 'Paternal Cousin',
-  maternal_great_grandmother: 'Maternal Great-Grandmother',
-  maternal_great_grandfather: 'Maternal Great-Grandfather',
-  paternal_great_grandmother: 'Paternal Great-Grandmother',
-  paternal_great_grandfather: 'Paternal Great-Grandfather'
-};
-
-const cancerNames = {
-  breast: 'Breast cancer', ovarian: 'Ovarian cancer', colorectal: 'Colorectal cancer',
-  endometrial: 'Endometrial cancer', pancreatic: 'Pancreatic cancer',
-  prostate: 'Prostate cancer', melanoma: 'Melanoma', kidney: 'Kidney cancer',
-  thyroid: 'Thyroid cancer', stomach: 'Stomach cancer', brain: 'Brain cancer',
-  sarcoma: 'Sarcoma', leukemia: 'Leukemia/Lymphoma', lung: 'Lung cancer',
-  bladder: 'Bladder cancer', liver: 'Liver cancer', malebreast: 'Male breast cancer',
-  other: 'Other cancer'
 };
 
 const firstDegree = ['mother', 'father', 'sister', 'brother', 'daughter', 'son'];
@@ -1170,7 +1470,54 @@ function isPaternalSide(rel) {
   return ['father', 'paternal_grandmother', 'paternal_grandfather', 'paternal_aunt', 'paternal_uncle', 'paternal_cousin', 'paternal_great_grandmother', 'paternal_great_grandfather'].includes(rel);
 }
 
-// Navigation
+// ===== LANGUAGE SWITCHING =====
+function switchLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.setAttribute('aria-pressed', 'false');
+  });
+  document.getElementById(lang === 'en' ? 'langEN' : 'langES').classList.add('active');
+  document.getElementById(lang === 'en' ? 'langEN' : 'langES').setAttribute('aria-pressed', 'true');
+
+  applyTranslations();
+  renderMembers(); // Re-render family members with new language
+}
+
+function t(key) {
+  return translations[currentLang][key] || translations['en'][key] || key;
+}
+
+function applyTranslations() {
+  // Translate all elements with data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[currentLang][key]) {
+      el.textContent = translations[currentLang][key];
+    }
+  });
+
+  // Translate placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[currentLang][key]) {
+      el.placeholder = translations[currentLang][key];
+    }
+  });
+
+  // Translate optgroup labels
+  document.querySelectorAll('[data-i18n-label]').forEach(el => {
+    const key = el.getAttribute('data-i18n-label');
+    if (translations[currentLang][key]) {
+      el.label = translations[currentLang][key];
+    }
+  });
+}
+
+// ===== NAVIGATION =====
 function goToStep(step) {
   document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
   document.getElementById('step' + step).classList.add('active');
@@ -1196,7 +1543,7 @@ function updateProgress() {
   }
 }
 
-// Option Selection
+// ===== OPTION SELECTION =====
 function selectOption(element, field, value) {
   const group = element.parentElement;
   group.querySelectorAll('.option-item').forEach(item => {
@@ -1218,25 +1565,24 @@ function handleKeySelect(event, element, field, value) {
   }
 }
 
-// Personal Cancer Details
 function showPersonalDetails(show) {
   document.getElementById('personalCancerDetails').style.display = show ? 'block' : 'none';
 }
 
-// Validation
+// ===== VALIDATION =====
 function validateStep2() {
   if (!state.sex) {
-    alert('Please select your biological sex.');
+    alert(t('alert_select_sex'));
     return;
   }
   const age = document.getElementById('ageInput').value;
   if (!age || age < 0 || age > 120) {
-    alert('Please enter a valid age.');
+    alert(t('alert_valid_age'));
     return;
   }
   state.age = parseInt(age);
   if (!state.ashkenazi) {
-    alert('Please indicate your Ashkenazi Jewish ancestry status.');
+    alert(t('alert_ashkenazi'));
     return;
   }
   goToStep(3);
@@ -1244,18 +1590,18 @@ function validateStep2() {
 
 function validateStep3() {
   if (!state.personalCancer) {
-    alert('Please indicate whether you have been diagnosed with cancer.');
+    alert(t('alert_cancer_diagnosis'));
     return;
   }
   if (state.personalCancer === 'yes') {
     const type = document.getElementById('personalCancerType').value;
     const age = document.getElementById('personalCancerAge').value;
     if (!type) {
-      alert('Please select your cancer type.');
+      alert(t('alert_cancer_type'));
       return;
     }
     if (!age || age < 0 || age > 120) {
-      alert('Please enter your age at diagnosis.');
+      alert(t('alert_diagnosis_age'));
       return;
     }
     state.personalCancerType = type;
@@ -1264,7 +1610,7 @@ function validateStep3() {
   goToStep(4);
 }
 
-// Family Members Management
+// ===== FAMILY MEMBERS =====
 function showAddMember() {
   document.getElementById('addMemberSection').style.display = 'block';
   document.getElementById('addMemberBtn').style.display = 'none';
@@ -1288,9 +1634,9 @@ function saveMember() {
   const cancer = document.getElementById('memberCancerType').value;
   const age = document.getElementById('memberAge').value;
 
-  if (!rel) { alert('Please select the relationship.'); return; }
-  if (!cancer) { alert('Please select the cancer type.'); return; }
-  if (!age || age < 0 || age > 120) { alert('Please enter a valid age at diagnosis.'); return; }
+  if (!rel) { alert(t('alert_relationship')); return; }
+  if (!cancer) { alert(t('alert_member_cancer')); return; }
+  if (!age || age < 0 || age > 120) { alert(t('alert_member_age')); return; }
 
   state.familyMembers.push({
     relationship: rel,
@@ -1309,11 +1655,14 @@ function removeMember(index) {
 
 function renderMembers() {
   const list = document.getElementById('memberList');
-  const empty = document.getElementById('emptyState');
 
   if (state.familyMembers.length === 0) {
-    list.innerHTML = '';
-    list.appendChild(createEmptyState());
+    list.innerHTML = `
+      <div class="empty-state" id="emptyState">
+        <span class="material-icons">group_add</span>
+        <p>${t('empty_members')}</p>
+      </div>
+    `;
     return;
   }
 
@@ -1323,204 +1672,167 @@ function renderMembers() {
         <span class="material-icons">person</span>
       </div>
       <div class="member-info">
-        <div class="member-name">${relationshipNames[m.relationship] || m.relationship}</div>
-        <div class="member-details">${cancerNames[m.cancerType] || m.cancerType} • Diagnosed at age ${m.ageAtDiagnosis}</div>
+        <div class="member-name">${t('rel_' + m.relationship)}</div>
+        <div class="member-details">${t('cancer_' + m.cancerType) || t('cancer_other')} • ${t('diagnosed_at')} ${m.ageAtDiagnosis}</div>
       </div>
-      <button class="member-remove" onclick="removeMember(${i})" aria-label="Remove ${relationshipNames[m.relationship]}">
+      <button class="member-remove" onclick="removeMember(${i})" aria-label="${t('btn_cancel')}">
         <span class="material-icons">close</span>
       </button>
     </div>
   `).join('');
 }
 
-function createEmptyState() {
-  const div = document.createElement('div');
-  div.className = 'empty-state';
-  div.id = 'emptyState';
-  div.innerHTML = `
-    <span class="material-icons">group_add</span>
-    <p>No family members added yet.<br>Click the button below to add a family member with cancer.</p>
-  `;
-  return div;
-}
-
-// NCCN Criteria Evaluation
+// ===== RESULTS GENERATION =====
 function generateResults() {
   const reasons = [];
   let shouldRefer = false;
 
-  // 1. Personal history criteria
+  // Personal history criteria
   if (state.personalCancer === 'yes') {
-    // Breast cancer ≤ 50
     if (state.personalCancerType === 'breast' && state.personalCancerAge <= 50) {
-      reasons.push('Personal history of breast cancer diagnosed at age ≤ 50');
+      reasons.push(t('reason_breast_50'));
       shouldRefer = true;
     }
-    // Triple-negative breast cancer ≤ 60
     if (state.personalCancerType === 'breast' && state.tripleNeg === 'yes' && state.personalCancerAge <= 60) {
-      reasons.push('Personal history of triple-negative breast cancer diagnosed at age ≤ 60');
+      reasons.push(t('reason_tnbc_60'));
       shouldRefer = true;
     }
-    // Ovarian cancer at any age
     if (state.personalCancerType === 'ovarian') {
-      reasons.push('Personal history of ovarian/fallopian tube/primary peritoneal cancer');
+      reasons.push(t('reason_ovarian'));
       shouldRefer = true;
     }
-    // Male breast cancer
     if (state.sex === 'male' && state.personalCancerType === 'breast') {
-      reasons.push('Personal history of male breast cancer');
+      reasons.push(t('reason_male_breast'));
       shouldRefer = true;
     }
-    // Pancreatic cancer
     if (state.personalCancerType === 'pancreatic') {
-      reasons.push('Personal history of pancreatic cancer');
+      reasons.push(t('reason_pancreatic'));
       shouldRefer = true;
     }
-    // Metastatic/high-grade prostate cancer
     if (state.personalCancerType === 'prostate') {
-      reasons.push('Personal history of aggressive/metastatic prostate cancer');
+      reasons.push(t('reason_prostate'));
       shouldRefer = true;
     }
-    // Colorectal cancer ≤ 50
     if (state.personalCancerType === 'colorectal' && state.personalCancerAge <= 50) {
-      reasons.push('Personal history of colorectal cancer diagnosed at age ≤ 50');
+      reasons.push(t('reason_crc_50'));
       shouldRefer = true;
     }
-    // Endometrial cancer ≤ 50
     if (state.personalCancerType === 'endometrial' && state.personalCancerAge <= 50) {
-      reasons.push('Personal history of endometrial cancer diagnosed at age ≤ 50');
+      reasons.push(t('reason_endometrial_50'));
       shouldRefer = true;
     }
-    // Multiple primary cancers (simplified - flag if young)
     if (state.personalCancerAge <= 45) {
-      reasons.push('Personal history of cancer diagnosed at age ≤ 45');
+      reasons.push(t('reason_young_45'));
       shouldRefer = true;
     }
   }
 
-  // 2. Ashkenazi Jewish heritage
+  // Ashkenazi Jewish heritage
   if (state.ashkenazi === 'yes') {
-    reasons.push('Ashkenazi Jewish ancestry (elevated BRCA1/2 mutation risk)');
+    reasons.push(t('reason_ashkenazi'));
     shouldRefer = true;
   }
 
-  // 3. Family history criteria
+  // Family history criteria
   const fm = state.familyMembers;
 
-  // Close relative with breast cancer ≤ 50
   const closeRelBreast50 = fm.filter(m => 
     (firstDegree.includes(m.relationship) || secondDegree.includes(m.relationship)) &&
     m.cancerType === 'breast' && m.ageAtDiagnosis <= 50
   );
   if (closeRelBreast50.length > 0) {
-    reasons.push(`Close relative(s) with breast cancer diagnosed at age ≤ 50 (${closeRelBreast50.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_family_breast_50') + ` (${closeRelBreast50.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Ovarian cancer in family
   const ovarianFamily = fm.filter(m => m.cancerType === 'ovarian');
   if (ovarianFamily.length > 0) {
-    reasons.push(`Family member(s) with ovarian cancer (${ovarianFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_family_ovarian') + ` (${ovarianFamily.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Male breast cancer in family
   const maleBreastFamily = fm.filter(m => m.cancerType === 'malebreast');
   if (maleBreastFamily.length > 0) {
-    reasons.push(`Family member(s) with male breast cancer (${maleBreastFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_family_male_breast') + ` (${maleBreastFamily.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Pancreatic cancer in family
   const pancreaticFamily = fm.filter(m => m.cancerType === 'pancreatic');
   if (pancreaticFamily.length > 0) {
-    reasons.push(`Family member(s) with pancreatic cancer (${pancreaticFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_family_pancreatic') + ` (${pancreaticFamily.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Aggressive prostate cancer in family
   const prostateFamily = fm.filter(m => m.cancerType === 'prostate' && m.ageAtDiagnosis <= 55);
   if (prostateFamily.length > 0) {
-    reasons.push(`Family member(s) with prostate cancer diagnosed at age ≤ 55 (${prostateFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_family_prostate_55') + ` (${prostateFamily.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Two or more relatives with breast cancer on same side
   const maternalBreast = fm.filter(m => isMaternalSide(m.relationship) && m.cancerType === 'breast');
   const paternalBreast = fm.filter(m => isPaternalSide(m.relationship) && m.cancerType === 'breast');
   if (maternalBreast.length >= 2) {
-    reasons.push(`Two or more maternal relatives with breast cancer`);
+    reasons.push(t('reason_maternal_breast_2'));
     shouldRefer = true;
   }
   if (paternalBreast.length >= 2) {
-    reasons.push(`Two or more paternal relatives with breast cancer`);
+    reasons.push(t('reason_paternal_breast_2'));
     shouldRefer = true;
   }
 
-  // Three or more relatives with breast/ovarian cancer on same side
   const maternalBreastOvarian = fm.filter(m => isMaternalSide(m.relationship) && (m.cancerType === 'breast' || m.cancerType === 'ovarian'));
   const paternalBreastOvarian = fm.filter(m => isPaternalSide(m.relationship) && (m.cancerType === 'breast' || m.cancerType === 'ovarian'));
   if (maternalBreastOvarian.length >= 3) {
-    reasons.push('Three or more maternal relatives with breast and/or ovarian cancer');
+    reasons.push(t('reason_maternal_3'));
     shouldRefer = true;
   }
   if (paternalBreastOvarian.length >= 3) {
-    reasons.push('Three or more paternal relatives with breast and/or ovarian cancer');
+    reasons.push(t('reason_paternal_3'));
     shouldRefer = true;
   }
 
-  // Lynch Syndrome criteria - Colorectal/Endometrial
-  const colorectalFamily = fm.filter(m => m.cancerType === 'colorectal');
-  const endometrialFamily = fm.filter(m => m.cancerType === 'endometrial');
-  const lynchCancers = fm.filter(m => ['colorectal', 'endometrial', 'ovarian', 'stomach', 'pancreatic', 'kidney', 'brain', 'bladder'].includes(m.cancerType));
-
-  // Colorectal cancer ≤ 50 in family
-  const colorectal50 = colorectalFamily.filter(m => m.ageAtDiagnosis <= 50);
+  const colorectal50 = fm.filter(m => m.cancerType === 'colorectal' && m.ageAtDiagnosis <= 50);
   if (colorectal50.length > 0) {
-    reasons.push(`Family member(s) with colorectal cancer diagnosed at age ≤ 50 (${colorectal50.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_family_crc_50') + ` (${colorectal50.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Endometrial cancer ≤ 50 in family
-  const endometrial50 = endometrialFamily.filter(m => m.ageAtDiagnosis <= 50);
+  const endometrial50 = fm.filter(m => m.cancerType === 'endometrial' && m.ageAtDiagnosis <= 50);
   if (endometrial50.length > 0) {
-    reasons.push(`Family member(s) with endometrial cancer diagnosed at age ≤ 50 (${endometrial50.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_family_endometrial_50') + ` (${endometrial50.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Three or more relatives with Lynch-associated cancers
+  const lynchCancers = fm.filter(m => ['colorectal', 'endometrial', 'ovarian', 'stomach', 'pancreatic', 'kidney', 'brain', 'bladder'].includes(m.cancerType));
   if (lynchCancers.length >= 3) {
-    reasons.push('Three or more relatives with Lynch syndrome-associated cancers (colorectal, endometrial, ovarian, stomach, pancreatic, kidney, brain, or bladder)');
+    reasons.push(t('reason_lynch_3'));
     shouldRefer = true;
   }
 
-  // Multiple cancers on same side of family ≤ 50
   const maternalYoung = fm.filter(m => isMaternalSide(m.relationship) && m.ageAtDiagnosis <= 50);
   const paternalYoung = fm.filter(m => isPaternalSide(m.relationship) && m.ageAtDiagnosis <= 50);
   if (maternalYoung.length >= 2) {
-    reasons.push('Two or more maternal relatives with cancer diagnosed at age ≤ 50');
+    reasons.push(t('reason_maternal_young_2'));
     shouldRefer = true;
   }
   if (paternalYoung.length >= 2) {
-    reasons.push('Two or more paternal relatives with cancer diagnosed at age ≤ 50');
+    reasons.push(t('reason_paternal_young_2'));
     shouldRefer = true;
   }
 
-  // First-degree relative with cancer ≤ 45
   const firstDegYoung = fm.filter(m => firstDegree.includes(m.relationship) && m.ageAtDiagnosis <= 45);
   if (firstDegYoung.length > 0 && !shouldRefer) {
-    reasons.push(`First-degree relative(s) with cancer diagnosed at age ≤ 45 (${firstDegYoung.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    reasons.push(t('reason_first_deg_45') + ` (${firstDegYoung.map(m => t('rel_' + m.relationship)).join(', ')})`);
     shouldRefer = true;
   }
 
-  // Known family mutation (simplified - if relative with ovarian + breast)
   const breastAndOvarian = fm.filter(m => m.cancerType === 'breast').length > 0 && fm.filter(m => m.cancerType === 'ovarian').length > 0;
   if (breastAndOvarian && !shouldRefer) {
-    reasons.push('Family history includes both breast cancer and ovarian cancer');
+    reasons.push(t('reason_breast_ovarian_family'));
     shouldRefer = true;
   }
 
-  // Remove duplicate reasons
+  // Remove duplicates
   const uniqueReasons = [...new Set(reasons)];
 
   // Render results
@@ -1530,44 +1842,40 @@ function generateResults() {
     resultsDiv.innerHTML = `
       <div class="result-banner refer">
         <div class="result-icon material-icons">priority_high</div>
-        <div class="result-title">Referral to Genetic Counselor Recommended</div>
-        <div class="result-text">
-          Based on your personal and family cancer history, you meet one or more criteria from the National Comprehensive Cancer Network (NCCN) guidelines that suggest you may benefit from a referral to a cancer genetic counselor for further risk assessment and possible genetic testing.
-        </div>
+        <div class="result-title">${t('result_refer_title')}</div>
+        <div class="result-text">${t('result_refer_text')}</div>
       </div>
-      <h3 style="font-size: 16px; font-weight: 600; color: #0A2E73; margin: 20px 0 12px;">Criteria Met:</h3>
+      <h3 style="font-size: 16px; font-weight: 600; color: #0A2E73; margin: 20px 0 12px;">${t('criteria_met')}</h3>
       <ul class="criteria-list">
         ${uniqueReasons.map(r => `<li><span class="material-icons">flag</span>${r}</li>`).join('')}
       </ul>
       <div class="info-tip" style="margin-top: 20px;">
         <span class="material-icons">recommend</span>
-        <p><strong>Next Step:</strong> Share these results with your primary care provider. They can arrange a referral to a cancer genetic counselor who can provide a comprehensive risk assessment and discuss whether genetic testing is appropriate for you.</p>
+        <p><strong>${t('next_step')}</strong> ${t('next_step_text')}</p>
       </div>
     `;
   } else {
     resultsDiv.innerHTML = `
       <div class="result-banner no-refer">
         <div class="result-icon material-icons">check_circle</div>
-        <div class="result-title">No Referral Indicated at This Time</div>
-        <div class="result-text">
-          Based on the information you provided, your personal and family cancer history does not currently meet NCCN criteria for referral to a cancer genetic counselor. However, this assessment is based solely on the information entered and may not capture all relevant factors.
-        </div>
+        <div class="result-title">${t('result_no_refer_title')}</div>
+        <div class="result-text">${t('result_no_refer_text')}</div>
       </div>
       <div class="info-tip" style="margin-top: 20px;">
         <span class="material-icons">info</span>
-        <p><strong>Important:</strong> Family history can change over time. If new cancer diagnoses occur in your family, please retake this assessment or discuss with your healthcare provider. Also, if you have concerns not captured here, talk to your doctor.</p>
+        <p><strong>${t('important_note')}</strong> ${t('important_note_text')}</p>
       </div>
     `;
   }
 }
 
-// Utility Functions
+// ===== UTILITY =====
 function printResults() {
   window.print();
 }
 
 function startOver() {
-  if (confirm('Are you sure you want to start over? All entered information will be cleared.')) {
+  if (confirm(t('alert_start_over'))) {
     state.sex = '';
     state.age = null;
     state.ashkenazi = '';
@@ -1577,7 +1885,6 @@ function startOver() {
     state.tripleNeg = '';
     state.familyMembers = [];
 
-    // Reset form elements
     document.querySelectorAll('.option-item').forEach(item => {
       item.classList.remove('selected');
       item.setAttribute('aria-checked', 'false');
@@ -1593,18 +1900,12 @@ function startOver() {
   }
 }
 
-// Initialize
+// ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', function() {
   updateProgress();
+  applyTranslations();
 });
 </script>
 
 </body>
 </html>
-
-							<script>
-                            	
-							</script>
-                        </body>
-                        </html>
-                    
