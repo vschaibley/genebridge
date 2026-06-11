@@ -1,0 +1,1612 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gene Bridge - Family Cancer History Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Inter, Arial, sans-serif;
+    margin: 0;
+    background: #f8fafc;
+    color: #1e293b;
+    min-height: 100vh;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-bottom: 1px solid #e5e7eb;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .logo {
+    height: 70px;
+    width: auto;
+  }
+
+  .main-container {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+
+  /* Progress Bar */
+  .progress-container {
+    margin-bottom: 32px;
+  }
+
+  .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748B;
+    transition: color 0.3s;
+  }
+
+  .progress-step.active {
+    color: #0A2E73;
+  }
+
+  .progress-step.completed {
+    color: #1EC6B3;
+  }
+
+  .progress-step .step-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    background: #e2e8f0;
+    color: #64748B;
+    transition: all 0.3s;
+  }
+
+  .progress-step.active .step-dot {
+    background: #0A2E73;
+    color: white;
+  }
+
+  .progress-step.completed .step-dot {
+    background: #1EC6B3;
+    color: white;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1EC6B3, #0A2E73);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  /* Cards */
+  .card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+    padding: 32px;
+    margin-bottom: 24px;
+    animation: slideUp 0.4s ease;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0A2E73;
+    margin-bottom: 8px;
+  }
+
+  .card-subtitle {
+    font-size: 15px;
+    color: #64748B;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* Form Elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: Inter, Arial, sans-serif;
+    color: #1e293b;
+    background: white;
+    transition: all 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%2364748B'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+  }
+
+  .form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: #1EC6B3;
+    box-shadow: 0 0 0 3px rgba(30, 198, 179, 0.15);
+  }
+
+  .form-input::placeholder {
+    color: #94a3b8;
+  }
+
+  /* Radio & Checkbox Groups */
+  .option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-group.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .option-item:hover {
+    border-color: #1EC6B3;
+    background: #f0fdfa;
+  }
+
+  .option-item.selected {
+    border-color: #1EC6B3;
+    background: #f0fdfa;
+  }
+
+  .option-item input[type="radio"],
+  .option-item input[type="checkbox"] {
+    display: none;
+  }
+
+  .option-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .option-item.selected .option-dot {
+    border-color: #1EC6B3;
+    background: #1EC6B3;
+  }
+
+  .option-item.selected .option-dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .option-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid #d1d5db;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .option-item.selected .option-check {
+    border-color: #1EC6B3;
+    background: #1EC6B3;
+  }
+
+  .option-item.selected .option-check::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .option-label {
+    font-size: 15px;
+    color: #374151;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: Inter, Arial, sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: #0A2E73;
+    color: white;
+    box-shadow: 0 2px 8px rgba(10, 46, 115, 0.25);
+  }
+
+  .btn-primary:hover {
+    background: #0d3a8f;
+    box-shadow: 0 4px 12px rgba(10, 46, 115, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: white;
+    color: #0A2E73;
+    border: 2px solid #e2e8f0;
+  }
+
+  .btn-secondary:hover {
+    border-color: #0A2E73;
+    background: #f8fafc;
+  }
+
+  .btn-accent {
+    background: #1EC6B3;
+    color: white;
+    box-shadow: 0 2px 8px rgba(30, 198, 179, 0.3);
+  }
+
+  .btn-accent:hover {
+    background: #17b3a1;
+    transform: translateY(-1px);
+  }
+
+  .btn-danger {
+    background: #fee2e2;
+    color: #dc2626;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background: #fecaca;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .btn-group .btn {
+    flex: 1;
+  }
+
+  /* Family Members List */
+  .member-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .member-card {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.2s;
+  }
+
+  .member-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .member-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1EC6B3, #0A2E73);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+
+  .member-icon .material-icons {
+    color: white;
+    font-size: 20px;
+  }
+
+  .member-info {
+    flex: 1;
+  }
+
+  .member-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0A2E73;
+    margin-bottom: 2px;
+  }
+
+  .member-details {
+    font-size: 13px;
+    color: #64748B;
+  }
+
+  .member-remove {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .member-remove:hover {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
+  /* Result Section */
+  .result-banner {
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+
+  .result-banner.refer {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #f59e0b;
+  }
+
+  .result-banner.no-refer {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border: 2px solid #10b981;
+  }
+
+  .result-banner .result-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+
+  .result-banner.refer .result-icon {
+    color: #d97706;
+  }
+
+  .result-banner.no-refer .result-icon {
+    color: #059669;
+  }
+
+  .result-banner .result-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .result-banner.refer .result-title {
+    color: #92400e;
+  }
+
+  .result-banner.no-refer .result-title {
+    color: #065f46;
+  }
+
+  .result-banner .result-text {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .result-banner.refer .result-text {
+    color: #78350f;
+  }
+
+  .result-banner.no-refer .result-text {
+    color: #064e3b;
+  }
+
+  .criteria-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+
+  .criteria-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .criteria-list li .material-icons {
+    color: #f59e0b;
+    font-size: 18px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .disclaimer {
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+    color: #64748B;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+
+  .disclaimer strong {
+    color: #475569;
+  }
+
+  /* Welcome Section */
+  .welcome-hero {
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .welcome-hero .hero-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(30, 198, 179, 0.15), rgba(10, 46, 115, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .welcome-hero .hero-icon .material-icons {
+    font-size: 36px;
+    color: #0A2E73;
+  }
+
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 24px 0;
+    text-align: left;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-radius: 10px;
+  }
+
+  .feature-item .material-icons {
+    color: #1EC6B3;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .feature-item span {
+    font-size: 14px;
+    color: #475569;
+  }
+
+  /* Add Member Form */
+  .add-member-form {
+    background: #f8fafc;
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 16px;
+  }
+
+  .add-member-form .form-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0A2E73;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #94a3b8;
+  }
+
+  .empty-state .material-icons {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+
+  .empty-state p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Info Tooltip */
+  .info-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #eff6ff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 3px solid #0A2E73;
+  }
+
+  .info-tip .material-icons {
+    color: #0A2E73;
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .info-tip p {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  /* Step visibility */
+  .step-section {
+    display: none;
+  }
+
+  .step-section.active {
+    display: block;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .navbar {
+      padding: 10px 16px;
+    }
+
+    .logo {
+      height: 50px;
+    }
+
+    .main-container {
+      padding: 16px 12px 80px;
+    }
+
+    .card {
+      padding: 24px 18px;
+      border-radius: 12px;
+    }
+
+    .card-title {
+      font-size: 20px;
+    }
+
+    .btn-group {
+      flex-direction: column-reverse;
+    }
+
+    .progress-steps {
+      display: none;
+    }
+
+    .option-group.horizontal {
+      flex-direction: column;
+    }
+
+    .member-card {
+      padding: 12px;
+    }
+  }
+
+  /* Accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  *:focus-visible {
+    outline: 3px solid #1EC6B3;
+    outline-offset: 2px;
+  }
+
+  /* Print styles */
+  @media print {
+    .navbar, .progress-container, .btn-group {
+      display: none;
+    }
+    .card {
+      box-shadow: none;
+      border: 1px solid #e5e7eb;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="navbar" role="banner">
+  <img
+    src="images/gene-bridge-logo.png"
+    alt="Gene Bridge - Connecting Family History to Better Care"
+    class="logo"
+  >
+</header>
+
+<main class="main-container" role="main" aria-label="Family cancer history questionnaire">
+  <!-- Progress -->
+  <div class="progress-container" id="progressContainer">
+    <div class="progress-steps" aria-hidden="true">
+      <div class="progress-step active" id="progStep1">
+        <span class="step-dot">1</span>
+        <span class="step-label">Welcome</span>
+      </div>
+      <div class="progress-step" id="progStep2">
+        <span class="step-dot">2</span>
+        <span class="step-label">About You</span>
+      </div>
+      <div class="progress-step" id="progStep3">
+        <span class="step-dot">3</span>
+        <span class="step-label">Personal</span>
+      </div>
+      <div class="progress-step" id="progStep4">
+        <span class="step-dot">4</span>
+        <span class="step-label">Family</span>
+      </div>
+      <div class="progress-step" id="progStep5">
+        <span class="step-dot">5</span>
+        <span class="step-label">Results</span>
+      </div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Step 1: Welcome -->
+  <section class="step-section active" id="step1" aria-labelledby="step1-title">
+    <div class="card">
+      <div class="welcome-hero">
+        <div class="hero-icon">
+          <span class="material-icons">family_restroom</span>
+        </div>
+        <h1 class="card-title" id="step1-title">Welcome to Gene Bridge</h1>
+        <p class="card-subtitle">This tool helps you understand whether your family cancer history suggests you may benefit from a referral to a cancer genetic counselor.</p>
+      </div>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="material-icons">assignment</span>
+          <span>Answer simple questions about your family's cancer history</span>
+        </div>
+        <div class="feature-item">
+          <span class="material-icons">psychology</span>
+          <span>Get a personalized assessment based on NCCN guidelines</span>
+        </div>
+        <div class="feature-item">
+          <span class="material-icons">medical_services</span>
+          <span>Share results with your healthcare provider</span>
+        </div>
+        <div class="feature-item">
+          <span class="material-icons">schedule</span>
+          <span>Takes approximately 5-10 minutes to complete</span>
+        </div>
+      </div>
+
+      <div class="info-tip">
+        <span class="material-icons">info</span>
+        <p>Your information is processed entirely in your browser and is not stored or sent to any server. This tool does not replace professional medical advice.</p>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="goToStep(2)" aria-label="Begin questionnaire">
+          Get Started
+          <span class="material-icons">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2: About You -->
+  <section class="step-section" id="step2" aria-labelledby="step2-title">
+    <div class="card">
+      <h2 class="card-title" id="step2-title">About You</h2>
+      <p class="card-subtitle">Please provide some basic information about yourself.</p>
+
+      <div class="form-group">
+        <label class="form-label">What is your biological sex at birth?</label>
+        <div class="option-group horizontal" role="radiogroup" aria-label="Biological sex">
+          <div class="option-item" onclick="selectOption(this, 'sex', 'female')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'sex', 'female')">
+            <input type="radio" name="sex" value="female">
+            <span class="option-dot"></span>
+            <span class="option-label">Female</span>
+          </div>
+          <div class="option-item" onclick="selectOption(this, 'sex', 'male')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'sex', 'male')">
+            <input type="radio" name="sex" value="male">
+            <span class="option-dot"></span>
+            <span class="option-label">Male</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="ageInput">What is your current age?</label>
+        <input type="number" id="ageInput" class="form-input" placeholder="Enter your age" min="0" max="120" aria-required="true">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Are you of Ashkenazi Jewish (Eastern European Jewish) descent?</label>
+        <div class="option-group horizontal" role="radiogroup" aria-label="Ashkenazi Jewish descent">
+          <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'yes')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'yes')">
+            <input type="radio" name="ashkenazi" value="yes">
+            <span class="option-dot"></span>
+            <span class="option-label">Yes</span>
+          </div>
+          <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'no')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'no')">
+            <input type="radio" name="ashkenazi" value="no">
+            <span class="option-dot"></span>
+            <span class="option-label">No</span>
+          </div>
+          <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'unsure')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'unsure')">
+            <input type="radio" name="ashkenazi" value="unsure">
+            <span class="option-dot"></span>
+            <span class="option-label">Unsure</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="goToStep(1)">
+          <span class="material-icons">arrow_back</span>
+          Back
+        </button>
+        <button class="btn btn-primary" onclick="validateStep2()">
+          Continue
+          <span class="material-icons">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3: Personal Cancer History -->
+  <section class="step-section" id="step3" aria-labelledby="step3-title">
+    <div class="card">
+      <h2 class="card-title" id="step3-title">Your Personal Cancer History</h2>
+      <p class="card-subtitle">Have you personally ever been diagnosed with cancer?</p>
+
+      <div class="form-group">
+        <div class="option-group horizontal" role="radiogroup" aria-label="Personal cancer history">
+          <div class="option-item" onclick="selectOption(this, 'personalCancer', 'yes'); showPersonalDetails(true)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'personalCancer', 'yes'); showPersonalDetails(true)">
+            <input type="radio" name="personalCancer" value="yes">
+            <span class="option-dot"></span>
+            <span class="option-label">Yes</span>
+          </div>
+          <div class="option-item" onclick="selectOption(this, 'personalCancer', 'no'); showPersonalDetails(false)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'personalCancer', 'no'); showPersonalDetails(false)">
+            <input type="radio" name="personalCancer" value="no">
+            <span class="option-dot"></span>
+            <span class="option-label">No</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="personalCancerDetails" style="display: none;">
+        <div class="form-group">
+          <label class="form-label" for="personalCancerType">What type of cancer were you diagnosed with?</label>
+          <select id="personalCancerType" class="form-select" aria-label="Cancer type">
+            <option value="">Select cancer type...</option>
+            <option value="breast">Breast cancer</option>
+            <option value="ovarian">Ovarian cancer</option>
+            <option value="colorectal">Colorectal cancer</option>
+            <option value="endometrial">Endometrial (uterine) cancer</option>
+            <option value="pancreatic">Pancreatic cancer</option>
+            <option value="prostate">Prostate cancer</option>
+            <option value="melanoma">Melanoma</option>
+            <option value="kidney">Kidney cancer</option>
+            <option value="thyroid">Thyroid cancer</option>
+            <option value="stomach">Stomach (gastric) cancer</option>
+            <option value="brain">Brain cancer</option>
+            <option value="sarcoma">Sarcoma</option>
+            <option value="leukemia">Leukemia/Lymphoma</option>
+            <option value="lung">Lung cancer</option>
+            <option value="bladder">Bladder cancer</option>
+            <option value="liver">Liver cancer</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="personalCancerAge">At what age were you diagnosed?</label>
+          <input type="number" id="personalCancerAge" class="form-input" placeholder="Age at diagnosis" min="0" max="120">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Was your breast cancer triple-negative? (if applicable)</label>
+          <div class="option-group horizontal" role="radiogroup" aria-label="Triple negative status">
+            <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'yes')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'yes')">
+              <input type="radio" name="tripleNeg" value="yes">
+              <span class="option-dot"></span>
+              <span class="option-label">Yes</span>
+            </div>
+            <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'no')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'no')">
+              <input type="radio" name="tripleNeg" value="no">
+              <span class="option-dot"></span>
+              <span class="option-label">No</span>
+            </div>
+            <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'na')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'na')">
+              <input type="radio" name="tripleNeg" value="na">
+              <span class="option-dot"></span>
+              <span class="option-label">N/A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="goToStep(2)">
+          <span class="material-icons">arrow_back</span>
+          Back
+        </button>
+        <button class="btn btn-primary" onclick="validateStep3()">
+          Continue
+          <span class="material-icons">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 4: Family History -->
+  <section class="step-section" id="step4" aria-labelledby="step4-title">
+    <div class="card">
+      <h2 class="card-title" id="step4-title">Family Cancer History</h2>
+      <p class="card-subtitle">Add family members who have been diagnosed with cancer. Include both sides of your family (mother's and father's sides).</p>
+
+      <div class="info-tip">
+        <span class="material-icons">info</span>
+        <p>Include parents, siblings, children, grandparents, aunts, uncles, and first cousins. The more complete your family history, the more accurate the assessment.</p>
+      </div>
+
+      <div class="member-list" id="memberList">
+        <div class="empty-state" id="emptyState">
+          <span class="material-icons">group_add</span>
+          <p>No family members added yet.<br>Click the button below to add a family member with cancer.</p>
+        </div>
+      </div>
+
+      <!-- Add Member Form -->
+      <div id="addMemberSection" style="display: none;">
+        <div class="add-member-form">
+          <div class="form-title">
+            <span class="material-icons">person_add</span>
+            Add Family Member
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="memberRelationship">Relationship to you</label>
+            <select id="memberRelationship" class="form-select">
+              <option value="">Select relationship...</option>
+              <optgroup label="First Degree (Parents, Siblings, Children)">
+                <option value="mother">Mother</option>
+                <option value="father">Father</option>
+                <option value="sister">Sister</option>
+                <option value="brother">Brother</option>
+                <option value="daughter">Daughter</option>
+                <option value="son">Son</option>
+              </optgroup>
+              <optgroup label="Second Degree (Grandparents, Aunts/Uncles, Half-siblings)">
+                <option value="maternal_grandmother">Maternal Grandmother</option>
+                <option value="maternal_grandfather">Maternal Grandfather</option>
+                <option value="paternal_grandmother">Paternal Grandmother</option>
+                <option value="paternal_grandfather">Paternal Grandfather</option>
+                <option value="maternal_aunt">Maternal Aunt</option>
+                <option value="maternal_uncle">Maternal Uncle</option>
+                <option value="paternal_aunt">Paternal Aunt</option>
+                <option value="paternal_uncle">Paternal Uncle</option>
+                <option value="half_sister">Half-Sister</option>
+                <option value="half_brother">Half-Brother</option>
+              </optgroup>
+              <optgroup label="Third Degree (Cousins, Great-grandparents)">
+                <option value="maternal_cousin">Maternal First Cousin</option>
+                <option value="paternal_cousin">Paternal First Cousin</option>
+                <option value="maternal_great_grandmother">Maternal Great-Grandmother</option>
+                <option value="maternal_great_grandfather">Maternal Great-Grandfather</option>
+                <option value="paternal_great_grandmother">Paternal Great-Grandmother</option>
+                <option value="paternal_great_grandfather">Paternal Great-Grandfather</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="memberCancerType">Type of cancer</label>
+            <select id="memberCancerType" class="form-select">
+              <option value="">Select cancer type...</option>
+              <option value="breast">Breast cancer</option>
+              <option value="ovarian">Ovarian/Fallopian tube/Primary peritoneal cancer</option>
+              <option value="colorectal">Colorectal cancer</option>
+              <option value="endometrial">Endometrial (uterine) cancer</option>
+              <option value="pancreatic">Pancreatic cancer</option>
+              <option value="prostate">Prostate cancer (aggressive/metastatic)</option>
+              <option value="melanoma">Melanoma</option>
+              <option value="kidney">Kidney cancer</option>
+              <option value="thyroid">Thyroid cancer</option>
+              <option value="stomach">Stomach (gastric) cancer</option>
+              <option value="brain">Brain cancer</option>
+              <option value="sarcoma">Sarcoma</option>
+              <option value="leukemia">Leukemia/Lymphoma</option>
+              <option value="lung">Lung cancer</option>
+              <option value="bladder">Bladder cancer</option>
+              <option value="liver">Liver cancer</option>
+              <option value="malebreast">Male breast cancer</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="memberAge">Age at diagnosis</label>
+            <input type="number" id="memberAge" class="form-input" placeholder="Age when diagnosed" min="0" max="120">
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="cancelAddMember()">Cancel</button>
+            <button class="btn btn-accent" onclick="saveMember()">
+              <span class="material-icons">add</span>
+              Add Member
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-accent" id="addMemberBtn" onclick="showAddMember()" style="margin-top: 12px; width: 100%;">
+        <span class="material-icons">person_add</span>
+        Add Family Member with Cancer
+      </button>
+
+      <div class="btn-group" style="margin-top: 32px;">
+        <button class="btn btn-secondary" onclick="goToStep(3)">
+          <span class="material-icons">arrow_back</span>
+          Back
+        </button>
+        <button class="btn btn-primary" onclick="goToStep(5)">
+          View Results
+          <span class="material-icons">assessment</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 5: Results -->
+  <section class="step-section" id="step5" aria-labelledby="step5-title">
+    <div class="card">
+      <h2 class="card-title" id="step5-title">Your Assessment Results</h2>
+      <p class="card-subtitle">Based on National Comprehensive Cancer Network (NCCN) guidelines</p>
+
+      <div id="resultsContent">
+        <!-- Filled by JavaScript -->
+      </div>
+
+      <div class="disclaimer">
+        <strong>Important Disclaimer:</strong> This tool provides a screening assessment based on NCCN guidelines for genetic/familial high-risk assessment. It is not a diagnosis. Please share these results with your primary care provider for further evaluation. Only a qualified healthcare professional can make referral decisions.
+      </div>
+
+      <div class="btn-group" style="margin-top: 24px;">
+        <button class="btn btn-secondary" onclick="goToStep(4)">
+          <span class="material-icons">arrow_back</span>
+          Edit Answers
+        </button>
+        <button class="btn btn-primary" onclick="printResults()">
+          <span class="material-icons">print</span>
+          Print Results
+        </button>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="startOver()" style="width: 100%;">
+          <span class="material-icons">refresh</span>
+          Start Over
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// Application State
+const state = {
+  currentStep: 1,
+  sex: '',
+  age: null,
+  ashkenazi: '',
+  personalCancer: '',
+  personalCancerType: '',
+  personalCancerAge: null,
+  tripleNeg: '',
+  familyMembers: []
+};
+
+// Relationships display names
+const relationshipNames = {
+  mother: 'Mother', father: 'Father', sister: 'Sister', brother: 'Brother',
+  daughter: 'Daughter', son: 'Son',
+  maternal_grandmother: 'Maternal Grandmother', maternal_grandfather: 'Maternal Grandfather',
+  paternal_grandmother: 'Paternal Grandmother', paternal_grandfather: 'Paternal Grandfather',
+  maternal_aunt: 'Maternal Aunt', maternal_uncle: 'Maternal Uncle',
+  paternal_aunt: 'Paternal Aunt', paternal_uncle: 'Paternal Uncle',
+  half_sister: 'Half-Sister', half_brother: 'Half-Brother',
+  maternal_cousin: 'Maternal Cousin', paternal_cousin: 'Paternal Cousin',
+  maternal_great_grandmother: 'Maternal Great-Grandmother',
+  maternal_great_grandfather: 'Maternal Great-Grandfather',
+  paternal_great_grandmother: 'Paternal Great-Grandmother',
+  paternal_great_grandfather: 'Paternal Great-Grandfather'
+};
+
+const cancerNames = {
+  breast: 'Breast cancer', ovarian: 'Ovarian cancer', colorectal: 'Colorectal cancer',
+  endometrial: 'Endometrial cancer', pancreatic: 'Pancreatic cancer',
+  prostate: 'Prostate cancer', melanoma: 'Melanoma', kidney: 'Kidney cancer',
+  thyroid: 'Thyroid cancer', stomach: 'Stomach cancer', brain: 'Brain cancer',
+  sarcoma: 'Sarcoma', leukemia: 'Leukemia/Lymphoma', lung: 'Lung cancer',
+  bladder: 'Bladder cancer', liver: 'Liver cancer', malebreast: 'Male breast cancer',
+  other: 'Other cancer'
+};
+
+const firstDegree = ['mother', 'father', 'sister', 'brother', 'daughter', 'son'];
+const secondDegree = ['maternal_grandmother', 'maternal_grandfather', 'paternal_grandmother', 'paternal_grandfather', 'maternal_aunt', 'maternal_uncle', 'paternal_aunt', 'paternal_uncle', 'half_sister', 'half_brother'];
+
+function isMaternalSide(rel) {
+  return ['mother', 'maternal_grandmother', 'maternal_grandfather', 'maternal_aunt', 'maternal_uncle', 'maternal_cousin', 'maternal_great_grandmother', 'maternal_great_grandfather'].includes(rel);
+}
+
+function isPaternalSide(rel) {
+  return ['father', 'paternal_grandmother', 'paternal_grandfather', 'paternal_aunt', 'paternal_uncle', 'paternal_cousin', 'paternal_great_grandmother', 'paternal_great_grandfather'].includes(rel);
+}
+
+// Navigation
+function goToStep(step) {
+  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + step).classList.add('active');
+  state.currentStep = step;
+  updateProgress();
+  
+  if (step === 5) {
+    generateResults();
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const percent = ((state.currentStep - 1) / 4) * 100;
+  document.getElementById('progressFill').style.width = percent + '%';
+
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('progStep' + i);
+    el.classList.remove('active', 'completed');
+    if (i === state.currentStep) el.classList.add('active');
+    else if (i < state.currentStep) el.classList.add('completed');
+  }
+}
+
+// Option Selection
+function selectOption(element, field, value) {
+  const group = element.parentElement;
+  group.querySelectorAll('.option-item').forEach(item => {
+    item.classList.remove('selected');
+    item.setAttribute('aria-checked', 'false');
+  });
+  element.classList.add('selected');
+  element.setAttribute('aria-checked', 'true');
+  state[field] = value;
+}
+
+function handleKeySelect(event, element, field, value) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    selectOption(element, field, value);
+    if (field === 'personalCancer') {
+      showPersonalDetails(value === 'yes');
+    }
+  }
+}
+
+// Personal Cancer Details
+function showPersonalDetails(show) {
+  document.getElementById('personalCancerDetails').style.display = show ? 'block' : 'none';
+}
+
+// Validation
+function validateStep2() {
+  if (!state.sex) {
+    alert('Please select your biological sex.');
+    return;
+  }
+  const age = document.getElementById('ageInput').value;
+  if (!age || age < 0 || age > 120) {
+    alert('Please enter a valid age.');
+    return;
+  }
+  state.age = parseInt(age);
+  if (!state.ashkenazi) {
+    alert('Please indicate your Ashkenazi Jewish ancestry status.');
+    return;
+  }
+  goToStep(3);
+}
+
+function validateStep3() {
+  if (!state.personalCancer) {
+    alert('Please indicate whether you have been diagnosed with cancer.');
+    return;
+  }
+  if (state.personalCancer === 'yes') {
+    const type = document.getElementById('personalCancerType').value;
+    const age = document.getElementById('personalCancerAge').value;
+    if (!type) {
+      alert('Please select your cancer type.');
+      return;
+    }
+    if (!age || age < 0 || age > 120) {
+      alert('Please enter your age at diagnosis.');
+      return;
+    }
+    state.personalCancerType = type;
+    state.personalCancerAge = parseInt(age);
+  }
+  goToStep(4);
+}
+
+// Family Members Management
+function showAddMember() {
+  document.getElementById('addMemberSection').style.display = 'block';
+  document.getElementById('addMemberBtn').style.display = 'none';
+  document.getElementById('memberRelationship').focus();
+}
+
+function cancelAddMember() {
+  document.getElementById('addMemberSection').style.display = 'none';
+  document.getElementById('addMemberBtn').style.display = 'flex';
+  clearMemberForm();
+}
+
+function clearMemberForm() {
+  document.getElementById('memberRelationship').value = '';
+  document.getElementById('memberCancerType').value = '';
+  document.getElementById('memberAge').value = '';
+}
+
+function saveMember() {
+  const rel = document.getElementById('memberRelationship').value;
+  const cancer = document.getElementById('memberCancerType').value;
+  const age = document.getElementById('memberAge').value;
+
+  if (!rel) { alert('Please select the relationship.'); return; }
+  if (!cancer) { alert('Please select the cancer type.'); return; }
+  if (!age || age < 0 || age > 120) { alert('Please enter a valid age at diagnosis.'); return; }
+
+  state.familyMembers.push({
+    relationship: rel,
+    cancerType: cancer,
+    ageAtDiagnosis: parseInt(age)
+  });
+
+  renderMembers();
+  cancelAddMember();
+}
+
+function removeMember(index) {
+  state.familyMembers.splice(index, 1);
+  renderMembers();
+}
+
+function renderMembers() {
+  const list = document.getElementById('memberList');
+  const empty = document.getElementById('emptyState');
+
+  if (state.familyMembers.length === 0) {
+    list.innerHTML = '';
+    list.appendChild(createEmptyState());
+    return;
+  }
+
+  list.innerHTML = state.familyMembers.map((m, i) => `
+    <div class="member-card">
+      <div class="member-icon">
+        <span class="material-icons">person</span>
+      </div>
+      <div class="member-info">
+        <div class="member-name">${relationshipNames[m.relationship] || m.relationship}</div>
+        <div class="member-details">${cancerNames[m.cancerType] || m.cancerType} • Diagnosed at age ${m.ageAtDiagnosis}</div>
+      </div>
+      <button class="member-remove" onclick="removeMember(${i})" aria-label="Remove ${relationshipNames[m.relationship]}">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+  `).join('');
+}
+
+function createEmptyState() {
+  const div = document.createElement('div');
+  div.className = 'empty-state';
+  div.id = 'emptyState';
+  div.innerHTML = `
+    <span class="material-icons">group_add</span>
+    <p>No family members added yet.<br>Click the button below to add a family member with cancer.</p>
+  `;
+  return div;
+}
+
+// NCCN Criteria Evaluation
+function generateResults() {
+  const reasons = [];
+  let shouldRefer = false;
+
+  // 1. Personal history criteria
+  if (state.personalCancer === 'yes') {
+    // Breast cancer ≤ 50
+    if (state.personalCancerType === 'breast' && state.personalCancerAge <= 50) {
+      reasons.push('Personal history of breast cancer diagnosed at age ≤ 50');
+      shouldRefer = true;
+    }
+    // Triple-negative breast cancer ≤ 60
+    if (state.personalCancerType === 'breast' && state.tripleNeg === 'yes' && state.personalCancerAge <= 60) {
+      reasons.push('Personal history of triple-negative breast cancer diagnosed at age ≤ 60');
+      shouldRefer = true;
+    }
+    // Ovarian cancer at any age
+    if (state.personalCancerType === 'ovarian') {
+      reasons.push('Personal history of ovarian/fallopian tube/primary peritoneal cancer');
+      shouldRefer = true;
+    }
+    // Male breast cancer
+    if (state.sex === 'male' && state.personalCancerType === 'breast') {
+      reasons.push('Personal history of male breast cancer');
+      shouldRefer = true;
+    }
+    // Pancreatic cancer
+    if (state.personalCancerType === 'pancreatic') {
+      reasons.push('Personal history of pancreatic cancer');
+      shouldRefer = true;
+    }
+    // Metastatic/high-grade prostate cancer
+    if (state.personalCancerType === 'prostate') {
+      reasons.push('Personal history of aggressive/metastatic prostate cancer');
+      shouldRefer = true;
+    }
+    // Colorectal cancer ≤ 50
+    if (state.personalCancerType === 'colorectal' && state.personalCancerAge <= 50) {
+      reasons.push('Personal history of colorectal cancer diagnosed at age ≤ 50');
+      shouldRefer = true;
+    }
+    // Endometrial cancer ≤ 50
+    if (state.personalCancerType === 'endometrial' && state.personalCancerAge <= 50) {
+      reasons.push('Personal history of endometrial cancer diagnosed at age ≤ 50');
+      shouldRefer = true;
+    }
+    // Multiple primary cancers (simplified - flag if young)
+    if (state.personalCancerAge <= 45) {
+      reasons.push('Personal history of cancer diagnosed at age ≤ 45');
+      shouldRefer = true;
+    }
+  }
+
+  // 2. Ashkenazi Jewish heritage
+  if (state.ashkenazi === 'yes') {
+    reasons.push('Ashkenazi Jewish ancestry (elevated BRCA1/2 mutation risk)');
+    shouldRefer = true;
+  }
+
+  // 3. Family history criteria
+  const fm = state.familyMembers;
+
+  // Close relative with breast cancer ≤ 50
+  const closeRelBreast50 = fm.filter(m => 
+    (firstDegree.includes(m.relationship) || secondDegree.includes(m.relationship)) &&
+    m.cancerType === 'breast' && m.ageAtDiagnosis <= 50
+  );
+  if (closeRelBreast50.length > 0) {
+    reasons.push(`Close relative(s) with breast cancer diagnosed at age ≤ 50 (${closeRelBreast50.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Ovarian cancer in family
+  const ovarianFamily = fm.filter(m => m.cancerType === 'ovarian');
+  if (ovarianFamily.length > 0) {
+    reasons.push(`Family member(s) with ovarian cancer (${ovarianFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Male breast cancer in family
+  const maleBreastFamily = fm.filter(m => m.cancerType === 'malebreast');
+  if (maleBreastFamily.length > 0) {
+    reasons.push(`Family member(s) with male breast cancer (${maleBreastFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Pancreatic cancer in family
+  const pancreaticFamily = fm.filter(m => m.cancerType === 'pancreatic');
+  if (pancreaticFamily.length > 0) {
+    reasons.push(`Family member(s) with pancreatic cancer (${pancreaticFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Aggressive prostate cancer in family
+  const prostateFamily = fm.filter(m => m.cancerType === 'prostate' && m.ageAtDiagnosis <= 55);
+  if (prostateFamily.length > 0) {
+    reasons.push(`Family member(s) with prostate cancer diagnosed at age ≤ 55 (${prostateFamily.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Two or more relatives with breast cancer on same side
+  const maternalBreast = fm.filter(m => isMaternalSide(m.relationship) && m.cancerType === 'breast');
+  const paternalBreast = fm.filter(m => isPaternalSide(m.relationship) && m.cancerType === 'breast');
+  if (maternalBreast.length >= 2) {
+    reasons.push(`Two or more maternal relatives with breast cancer`);
+    shouldRefer = true;
+  }
+  if (paternalBreast.length >= 2) {
+    reasons.push(`Two or more paternal relatives with breast cancer`);
+    shouldRefer = true;
+  }
+
+  // Three or more relatives with breast/ovarian cancer on same side
+  const maternalBreastOvarian = fm.filter(m => isMaternalSide(m.relationship) && (m.cancerType === 'breast' || m.cancerType === 'ovarian'));
+  const paternalBreastOvarian = fm.filter(m => isPaternalSide(m.relationship) && (m.cancerType === 'breast' || m.cancerType === 'ovarian'));
+  if (maternalBreastOvarian.length >= 3) {
+    reasons.push('Three or more maternal relatives with breast and/or ovarian cancer');
+    shouldRefer = true;
+  }
+  if (paternalBreastOvarian.length >= 3) {
+    reasons.push('Three or more paternal relatives with breast and/or ovarian cancer');
+    shouldRefer = true;
+  }
+
+  // Lynch Syndrome criteria - Colorectal/Endometrial
+  const colorectalFamily = fm.filter(m => m.cancerType === 'colorectal');
+  const endometrialFamily = fm.filter(m => m.cancerType === 'endometrial');
+  const lynchCancers = fm.filter(m => ['colorectal', 'endometrial', 'ovarian', 'stomach', 'pancreatic', 'kidney', 'brain', 'bladder'].includes(m.cancerType));
+
+  // Colorectal cancer ≤ 50 in family
+  const colorectal50 = colorectalFamily.filter(m => m.ageAtDiagnosis <= 50);
+  if (colorectal50.length > 0) {
+    reasons.push(`Family member(s) with colorectal cancer diagnosed at age ≤ 50 (${colorectal50.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Endometrial cancer ≤ 50 in family
+  const endometrial50 = endometrialFamily.filter(m => m.ageAtDiagnosis <= 50);
+  if (endometrial50.length > 0) {
+    reasons.push(`Family member(s) with endometrial cancer diagnosed at age ≤ 50 (${endometrial50.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Three or more relatives with Lynch-associated cancers
+  if (lynchCancers.length >= 3) {
+    reasons.push('Three or more relatives with Lynch syndrome-associated cancers (colorectal, endometrial, ovarian, stomach, pancreatic, kidney, brain, or bladder)');
+    shouldRefer = true;
+  }
+
+  // Multiple cancers on same side of family ≤ 50
+  const maternalYoung = fm.filter(m => isMaternalSide(m.relationship) && m.ageAtDiagnosis <= 50);
+  const paternalYoung = fm.filter(m => isPaternalSide(m.relationship) && m.ageAtDiagnosis <= 50);
+  if (maternalYoung.length >= 2) {
+    reasons.push('Two or more maternal relatives with cancer diagnosed at age ≤ 50');
+    shouldRefer = true;
+  }
+  if (paternalYoung.length >= 2) {
+    reasons.push('Two or more paternal relatives with cancer diagnosed at age ≤ 50');
+    shouldRefer = true;
+  }
+
+  // First-degree relative with cancer ≤ 45
+  const firstDegYoung = fm.filter(m => firstDegree.includes(m.relationship) && m.ageAtDiagnosis <= 45);
+  if (firstDegYoung.length > 0 && !shouldRefer) {
+    reasons.push(`First-degree relative(s) with cancer diagnosed at age ≤ 45 (${firstDegYoung.map(m => relationshipNames[m.relationship]).join(', ')})`);
+    shouldRefer = true;
+  }
+
+  // Known family mutation (simplified - if relative with ovarian + breast)
+  const breastAndOvarian = fm.filter(m => m.cancerType === 'breast').length > 0 && fm.filter(m => m.cancerType === 'ovarian').length > 0;
+  if (breastAndOvarian && !shouldRefer) {
+    reasons.push('Family history includes both breast cancer and ovarian cancer');
+    shouldRefer = true;
+  }
+
+  // Remove duplicate reasons
+  const uniqueReasons = [...new Set(reasons)];
+
+  // Render results
+  const resultsDiv = document.getElementById('resultsContent');
+  
+  if (shouldRefer) {
+    resultsDiv.innerHTML = `
+      <div class="result-banner refer">
+        <div class="result-icon material-icons">priority_high</div>
+        <div class="result-title">Referral to Genetic Counselor Recommended</div>
+        <div class="result-text">
+          Based on your personal and family cancer history, you meet one or more criteria from the National Comprehensive Cancer Network (NCCN) guidelines that suggest you may benefit from a referral to a cancer genetic counselor for further risk assessment and possible genetic testing.
+        </div>
+      </div>
+      <h3 style="font-size: 16px; font-weight: 600; color: #0A2E73; margin: 20px 0 12px;">Criteria Met:</h3>
+      <ul class="criteria-list">
+        ${uniqueReasons.map(r => `<li><span class="material-icons">flag</span>${r}</li>`).join('')}
+      </ul>
+      <div class="info-tip" style="margin-top: 20px;">
+        <span class="material-icons">recommend</span>
+        <p><strong>Next Step:</strong> Share these results with your primary care provider. They can arrange a referral to a cancer genetic counselor who can provide a comprehensive risk assessment and discuss whether genetic testing is appropriate for you.</p>
+      </div>
+    `;
+  } else {
+    resultsDiv.innerHTML = `
+      <div class="result-banner no-refer">
+        <div class="result-icon material-icons">check_circle</div>
+        <div class="result-title">No Referral Indicated at This Time</div>
+        <div class="result-text">
+          Based on the information you provided, your personal and family cancer history does not currently meet NCCN criteria for referral to a cancer genetic counselor. However, this assessment is based solely on the information entered and may not capture all relevant factors.
+        </div>
+      </div>
+      <div class="info-tip" style="margin-top: 20px;">
+        <span class="material-icons">info</span>
+        <p><strong>Important:</strong> Family history can change over time. If new cancer diagnoses occur in your family, please retake this assessment or discuss with your healthcare provider. Also, if you have concerns not captured here, talk to your doctor.</p>
+      </div>
+    `;
+  }
+}
+
+// Utility Functions
+function printResults() {
+  window.print();
+}
+
+function startOver() {
+  if (confirm('Are you sure you want to start over? All entered information will be cleared.')) {
+    state.sex = '';
+    state.age = null;
+    state.ashkenazi = '';
+    state.personalCancer = '';
+    state.personalCancerType = '';
+    state.personalCancerAge = null;
+    state.tripleNeg = '';
+    state.familyMembers = [];
+
+    // Reset form elements
+    document.querySelectorAll('.option-item').forEach(item => {
+      item.classList.remove('selected');
+      item.setAttribute('aria-checked', 'false');
+    });
+    document.getElementById('ageInput').value = '';
+    document.getElementById('personalCancerType').value = '';
+    document.getElementById('personalCancerAge').value = '';
+    document.getElementById('personalCancerDetails').style.display = 'none';
+    renderMembers();
+    cancelAddMember();
+
+    goToStep(1);
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  updateProgress();
+});
+</script>
+
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
