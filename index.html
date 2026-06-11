@@ -8,2222 +8,718 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: Inter, Arial, sans-serif;
-    margin: 0;
-    background: #f8fafc;
-    color: #1e293b;
-    min-height: 100vh;
-  }
-
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 24px;
-    border-bottom: 1px solid #e5e7eb;
-    background: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-
-  .logo {
-    height: 70px;
-    width: auto;
-  }
-
-  .lang-switcher {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: #f1f5f9;
-    border-radius: 8px;
-    padding: 4px;
-  }
-
-  .lang-btn {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: Inter, Arial, sans-serif;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: transparent;
-    color: #64748B;
-  }
-
-  .lang-btn.active {
-    background: #0A2E73;
-    color: white;
-    box-shadow: 0 1px 3px rgba(10, 46, 115, 0.3);
-  }
-
-  .lang-btn:hover:not(.active) {
-    background: #e2e8f0;
-    color: #0A2E73;
-  }
-
-  .main-container {
-    max-width: 740px;
-    margin: 0 auto;
-    padding: 24px 16px 80px;
-  }
-
-  .progress-container {
-    margin-bottom: 32px;
-  }
-
-  .progress-steps {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-
-  .progress-step {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #64748B;
-    transition: color 0.3s;
-  }
-
-  .progress-step.active {
-    color: #0A2E73;
-  }
-
-  .progress-step.completed {
-    color: #1EC6B3;
-  }
-
-  .progress-step .step-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-    background: #e2e8f0;
-    color: #64748B;
-    transition: all 0.3s;
-  }
-
-  .progress-step.active .step-dot {
-    background: #0A2E73;
-    color: white;
-  }
-
-  .progress-step.completed .step-dot {
-    background: #1EC6B3;
-    color: white;
-  }
-
-  .progress-bar {
-    height: 4px;
-    background: #e2e8f0;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #1EC6B3, #0A2E73);
-    border-radius: 2px;
-    transition: width 0.5s ease;
-  }
-
-  .card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
-    padding: 32px;
-    margin-bottom: 24px;
-    animation: slideUp 0.4s ease;
-  }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .card-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #0A2E73;
-    margin-bottom: 8px;
-  }
-
-  .card-subtitle {
-    font-size: 15px;
-    color: #64748B;
-    margin-bottom: 24px;
-    line-height: 1.5;
-  }
-
-  .form-group {
-    margin-bottom: 20px;
-  }
-
-  .form-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 8px;
-  }
-
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    font-size: 15px;
-    font-family: Inter, Arial, sans-serif;
-    color: #1e293b;
-    background: white;
-    transition: all 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  .form-textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-
-  .form-select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%2364748B'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 40px;
-  }
-
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    outline: none;
-    border-color: #1EC6B3;
-    box-shadow: 0 0 0 3px rgba(30, 198, 179, 0.15);
-  }
-
-  .form-input::placeholder, .form-textarea::placeholder {
-    color: #94a3b8;
-  }
-
-  .option-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .option-group.horizontal {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .option-item {
-    display: flex;
-    align-items: center;
-    padding: 14px 18px;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    user-select: none;
-  }
-
-  .option-item:hover {
-    border-color: #1EC6B3;
-    background: #f0fdfa;
-  }
-
-  .option-item.selected {
-    border-color: #1EC6B3;
-    background: #f0fdfa;
-  }
-
-  .option-item input[type="radio"],
-  .option-item input[type="checkbox"] {
-    display: none;
-  }
-
-  .option-dot {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid #d1d5db;
-    margin-right: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-
-  .option-item.selected .option-dot {
-    border-color: #1EC6B3;
-    background: #1EC6B3;
-  }
-
-  .option-item.selected .option-dot::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 28px;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: Inter, Arial, sans-serif;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-  }
-
-  .btn-primary {
-    background: #0A2E73;
-    color: white;
-    box-shadow: 0 2px 8px rgba(10, 46, 115, 0.25);
-  }
-
-  .btn-primary:hover {
-    background: #0d3a8f;
-    box-shadow: 0 4px 12px rgba(10, 46, 115, 0.35);
-    transform: translateY(-1px);
-  }
-
-  .btn-secondary {
-    background: white;
-    color: #0A2E73;
-    border: 2px solid #e2e8f0;
-  }
-
-  .btn-secondary:hover {
-    border-color: #0A2E73;
-    background: #f8fafc;
-  }
-
-  .btn-accent {
-    background: #1EC6B3;
-    color: white;
-    box-shadow: 0 2px 8px rgba(30, 198, 179, 0.3);
-  }
-
-  .btn-accent:hover {
-    background: #17b3a1;
-    transform: translateY(-1px);
-  }
-
-  .btn-email {
-    background: linear-gradient(135deg, #0A2E73, #1a4a9e);
-    color: white;
-    box-shadow: 0 2px 8px rgba(10, 46, 115, 0.25);
-  }
-
-  .btn-email:hover {
-    box-shadow: 0 4px 12px rgba(10, 46, 115, 0.35);
-    transform: translateY(-1px);
-  }
-
-  .btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .btn-group {
-    display: flex;
-    gap: 12px;
-    margin-top: 28px;
-  }
-
-  .btn-group .btn {
-    flex: 1;
-  }
-
-  .member-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .member-card {
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    transition: all 0.2s;
-  }
-
-  .member-card:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-
-  .member-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #1EC6B3, #0A2E73);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 14px;
-    flex-shrink: 0;
-  }
-
-  .member-icon .material-icons {
-    color: white;
-    font-size: 20px;
-  }
-
-  .member-info {
-    flex: 1;
-  }
-
-  .member-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: #0A2E73;
-    margin-bottom: 2px;
-  }
-
-  .member-details {
-    font-size: 13px;
-    color: #64748B;
-  }
-
-  .member-remove {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    color: #94a3b8;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-
-  .member-remove:hover {
-    background: #fee2e2;
-    color: #dc2626;
-  }
-
-  .result-banner {
-    padding: 24px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-  }
-
-  .result-banner.refer {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border: 2px solid #f59e0b;
-  }
-
-  .result-banner.no-refer {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    border: 2px solid #10b981;
-  }
-
-  .result-banner .result-icon {
-    font-size: 48px;
-    margin-bottom: 12px;
-  }
-
-  .result-banner.refer .result-icon {
-    color: #d97706;
-  }
-
-  .result-banner.no-refer .result-icon {
-    color: #059669;
-  }
-
-  .result-banner .result-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .result-banner.refer .result-title {
-    color: #92400e;
-  }
-
-  .result-banner.no-refer .result-title {
-    color: #065f46;
-  }
-
-  .result-banner .result-text {
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  .result-banner.refer .result-text {
-    color: #78350f;
-  }
-
-  .result-banner.no-refer .result-text {
-    color: #064e3b;
-  }
-
-  .criteria-list {
-    list-style: none;
-    padding: 0;
-    margin: 16px 0;
-  }
-
-  .criteria-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f5f9;
-    font-size: 14px;
-    color: #475569;
-    line-height: 1.5;
-  }
-
-  .criteria-list li .material-icons {
-    color: #f59e0b;
-    font-size: 18px;
-    margin-top: 1px;
-    flex-shrink: 0;
-  }
-
-  .disclaimer {
-    background: #f1f5f9;
-    border-radius: 10px;
-    padding: 16px;
-    font-size: 13px;
-    color: #64748B;
-    line-height: 1.6;
-    margin-top: 20px;
-  }
-
-  .disclaimer strong {
-    color: #475569;
-  }
-
-  .welcome-hero {
-    text-align: center;
-    padding: 20px 0;
-  }
-
-  .welcome-hero .hero-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(30, 198, 179, 0.15), rgba(10, 46, 115, 0.1));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-  }
-
-  .welcome-hero .hero-icon .material-icons {
-    font-size: 36px;
-    color: #0A2E73;
-  }
-
-  .feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 24px 0;
-    text-align: left;
-  }
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    background: #f8fafc;
-    border-radius: 10px;
-  }
-
-  .feature-item .material-icons {
-    color: #1EC6B3;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  .feature-item span:last-child {
-    font-size: 14px;
-    color: #475569;
-  }
-
-  .add-member-form {
-    background: #f8fafc;
-    border: 2px dashed #e2e8f0;
-    border-radius: 12px;
-    padding: 24px;
-    margin-top: 16px;
-  }
-
-  .add-member-form .form-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #0A2E73;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: #94a3b8;
-  }
-
-  .empty-state .material-icons {
-    font-size: 48px;
-    margin-bottom: 12px;
-    opacity: 0.5;
-  }
-
-  .empty-state p {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .info-tip {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px 16px;
-    background: #eff6ff;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border-left: 3px solid #0A2E73;
-  }
-
-  .info-tip .material-icons {
-    color: #0A2E73;
-    font-size: 20px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .info-tip p {
-    font-size: 13px;
-    color: #475569;
-    line-height: 1.5;
-  }
-
-  .step-section {
-    display: none;
-  }
-
-  .step-section.active {
-    display: block;
-  }
-
-  /* Email Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    animation: fadeIn 0.2s ease;
-  }
-
-  .modal-overlay.active {
-    display: flex;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .modal {
-    background: white;
-    border-radius: 16px;
-    padding: 32px;
-    max-width: 520px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: modalSlide 0.3s ease;
-  }
-
-  @keyframes modalSlide {
-    from { opacity: 0; transform: translateY(20px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .modal-header h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #0A2E73;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .modal-close {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: none;
-    background: #f1f5f9;
-    color: #64748B;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-
-  .modal-close:hover {
-    background: #e2e8f0;
-    color: #1e293b;
-  }
-
-  .email-success {
-    display: none;
-    text-align: center;
-    padding: 24px 0;
-  }
-
-  .email-success.show {
-    display: block;
-  }
-
-  .email-success .material-icons {
-    font-size: 56px;
-    color: #1EC6B3;
-    margin-bottom: 12px;
-  }
-
-  .email-success h4 {
-    font-size: 18px;
-    color: #0A2E73;
-    margin-bottom: 8px;
-  }
-
-  .email-success p {
-    font-size: 14px;
-    color: #64748B;
-    line-height: 1.5;
-  }
-
-  .email-form-container.hidden {
-    display: none;
-  }
-
-  .email-preview {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 20px;
-    max-height: 200px;
-    overflow-y: auto;
-    font-size: 13px;
-    color: #475569;
-    line-height: 1.6;
-  }
-
-  .email-preview h4 {
-    font-size: 14px;
-    color: #0A2E73;
-    margin-bottom: 8px;
-  }
-
-  .toggle-preview {
-    font-size: 13px;
-    color: #0A2E73;
-    cursor: pointer;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 16px;
-    border: none;
-    background: none;
-    font-family: Inter, Arial, sans-serif;
-  }
-
-  .toggle-preview:hover {
-    color: #1EC6B3;
-  }
-
-  /* Share buttons section */
-  .share-section {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 24px;
-  }
-
-  .share-section h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #0A2E73;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .share-section p {
-    font-size: 13px;
-    color: #64748B;
-    margin-bottom: 16px;
-  }
-
-  .share-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .share-buttons .btn {
-    flex: 1;
-    min-width: 140px;
-  }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Inter, Arial, sans-serif; margin: 0; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+  .navbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid #e5e7eb; background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .logo { height: 70px; width: auto; }
+  .lang-switcher { display: flex; align-items: center; gap: 4px; background: #f1f5f9; border-radius: 8px; padding: 4px; }
+  .lang-btn { padding: 8px 14px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: Inter, Arial, sans-serif; cursor: pointer; transition: all 0.2s; background: transparent; color: #64748B; }
+  .lang-btn.active { background: #0A2E73; color: white; box-shadow: 0 1px 3px rgba(10,46,115,0.3); }
+  .lang-btn:hover:not(.active) { background: #e2e8f0; color: #0A2E73; }
+  .main-container { max-width: 740px; margin: 0 auto; padding: 24px 16px 80px; }
+  .progress-container { margin-bottom: 32px; }
+  .progress-steps { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .progress-step { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: #64748B; transition: color 0.3s; }
+  .progress-step.active { color: #0A2E73; }
+  .progress-step.completed { color: #1EC6B3; }
+  .progress-step .step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #e2e8f0; color: #64748B; transition: all 0.3s; }
+  .progress-step.active .step-dot { background: #0A2E73; color: white; }
+  .progress-step.completed .step-dot { background: #1EC6B3; color: white; }
+  .progress-bar { height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #1EC6B3, #0A2E73); border-radius: 2px; transition: width 0.5s ease; }
+  .card { background: white; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04); padding: 32px; margin-bottom: 24px; animation: slideUp 0.4s ease; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .card-title { font-size: 24px; font-weight: 700; color: #0A2E73; margin-bottom: 8px; }
+  .card-subtitle { font-size: 15px; color: #64748B; margin-bottom: 24px; line-height: 1.5; }
+  .form-group { margin-bottom: 20px; }
+  .form-label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px; }
+  .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; font-family: Inter, Arial, sans-serif; color: #1e293b; background: white; transition: all 0.2s; appearance: none; -webkit-appearance: none; }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%2364748B'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #1EC6B3; box-shadow: 0 0 0 3px rgba(30,198,179,0.15); }
+  .form-input::placeholder, .form-textarea::placeholder { color: #94a3b8; }
+  .option-group { display: flex; flex-direction: column; gap: 10px; }
+  .option-group.horizontal { flex-direction: row; flex-wrap: wrap; }
+  .option-item { display: flex; align-items: center; padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .option-item:hover { border-color: #1EC6B3; background: #f0fdfa; }
+  .option-item.selected { border-color: #1EC6B3; background: #f0fdfa; }
+  .option-item input[type="radio"], .option-item input[type="checkbox"] { display: none; }
+  .option-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #d1d5db; margin-right: 12px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+  .option-item.selected .option-dot { border-color: #1EC6B3; background: #1EC6B3; }
+  .option-item.selected .option-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: white; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; font-family: Inter, Arial, sans-serif; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+  .btn-primary { background: #0A2E73; color: white; box-shadow: 0 2px 8px rgba(10,46,115,0.25); }
+  .btn-primary:hover { background: #0d3a8f; box-shadow: 0 4px 12px rgba(10,46,115,0.35); transform: translateY(-1px); }
+  .btn-secondary { background: white; color: #0A2E73; border: 2px solid #e2e8f0; }
+  .btn-secondary:hover { border-color: #0A2E73; background: #f8fafc; }
+  .btn-accent { background: #1EC6B3; color: white; box-shadow: 0 2px 8px rgba(30,198,179,0.3); }
+  .btn-accent:hover { background: #17b3a1; transform: translateY(-1px); }
+  .btn-email { background: linear-gradient(135deg, #0A2E73, #1a4a9e); color: white; box-shadow: 0 2px 8px rgba(10,46,115,0.25); }
+  .btn-email:hover { box-shadow: 0 4px 12px rgba(10,46,115,0.35); transform: translateY(-1px); }
+  .btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 8px; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-group { display: flex; gap: 12px; margin-top: 28px; }
+  .btn-group .btn { flex: 1; }
+  .member-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .member-card { padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; transition: all 0.2s; }
+  .member-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .member-card-header { display: flex; align-items: center; margin-bottom: 8px; }
+  .member-icon { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #1EC6B3, #0A2E73); display: flex; align-items: center; justify-content: center; margin-right: 14px; flex-shrink: 0; }
+  .member-icon .material-icons { color: white; font-size: 20px; }
+  .member-info { flex: 1; }
+  .member-name { font-size: 15px; font-weight: 600; color: #0A2E73; margin-bottom: 2px; }
+  .member-remove { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; color: #94a3b8; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .member-remove:hover { background: #fee2e2; color: #dc2626; }
+  .cancer-diagnosis-list { margin-left: 56px; display: flex; flex-direction: column; gap: 6px; }
+  .cancer-diagnosis-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; color: #475569; flex-wrap: wrap; }
+  .cancer-diagnosis-item .material-icons { font-size: 16px; color: #1EC6B3; }
+  .cancer-diagnosis-item .remove-diagnosis { margin-left: auto; background: none; border: none; color: #94a3b8; cursor: pointer; padding: 2px; border-radius: 50%; display: flex; align-items: center; transition: all 0.2s; }
+  .cancer-diagnosis-item .remove-diagnosis:hover { color: #dc2626; background: #fef2f2; }
+  .cancer-diagnosis-item .remove-diagnosis .material-icons { font-size: 16px; color: inherit; }
+  .cancer-diagnosis-item .tnbc-badge { background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-left: 4px; }
+  .tnbc-question { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 10px 14px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; font-size: 13px; }
+  .tnbc-question label { font-weight: 500; color: #92400e; margin-right: 8px; cursor: pointer; }
+  .tnbc-question input[type="checkbox"] { accent-color: #1EC6B3; width: 16px; height: 16px; cursor: pointer; }
+  .result-banner { padding: 24px; border-radius: 12px; margin-bottom: 20px; }
+  .result-banner.refer { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px solid #f59e0b; }
+  .result-banner.no-refer { background: linear-gradient(135deg, #d1fae5, #a7f3d0); border: 2px solid #10b981; }
+  .result-banner .result-icon { font-size: 48px; margin-bottom: 12px; }
+  .result-banner.refer .result-icon { color: #d97706; }
+  .result-banner.no-refer .result-icon { color: #059669; }
+  .result-banner .result-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .result-banner.refer .result-title { color: #92400e; }
+  .result-banner.no-refer .result-title { color: #065f46; }
+  .result-banner .result-text { font-size: 15px; line-height: 1.6; }
+  .result-banner.refer .result-text { color: #78350f; }
+  .result-banner.no-refer .result-text { color: #064e3b; }
+  .criteria-list { list-style: none; padding: 0; margin: 16px 0; }
+  .criteria-list li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #475569; line-height: 1.5; }
+  .criteria-list li .material-icons { color: #f59e0b; font-size: 18px; margin-top: 1px; flex-shrink: 0; }
+  .disclaimer { background: #f1f5f9; border-radius: 10px; padding: 16px; font-size: 13px; color: #64748B; line-height: 1.6; margin-top: 20px; }
+  .disclaimer strong { color: #475569; }
+  .welcome-hero { text-align: center; padding: 20px 0; }
+  .welcome-hero .hero-icon { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(30,198,179,0.15), rgba(10,46,115,0.1)); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .welcome-hero .hero-icon .material-icons { font-size: 36px; color: #0A2E73; }
+  .feature-list { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; text-align: left; }
+  .feature-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #f8fafc; border-radius: 10px; }
+  .feature-item .material-icons { color: #1EC6B3; font-size: 22px; flex-shrink: 0; }
+  .feature-item span:last-child { font-size: 14px; color: #475569; }
+  .add-member-form { background: #f8fafc; border: 2px dashed #e2e8f0; border-radius: 12px; padding: 24px; margin-top: 16px; }
+  .add-member-form .form-title { font-size: 16px; font-weight: 600; color: #0A2E73; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .empty-state { text-align: center; padding: 40px 20px; color: #94a3b8; }
+  .empty-state .material-icons { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+  .empty-state p { font-size: 14px; line-height: 1.5; }
+  .info-tip { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; background: #eff6ff; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid #0A2E73; }
+  .info-tip .material-icons { color: #0A2E73; font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .info-tip p { font-size: 13px; color: #475569; line-height: 1.5; }
+  .step-section { display: none; }
+  .step-section.active { display: block; }
+  .pending-diagnoses { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .pending-diagnosis-chip { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #e6faf7; border: 1px solid #1EC6B3; border-radius: 8px; font-size: 13px; color: #0A2E73; flex-wrap: wrap; }
+  .pending-diagnosis-chip .material-icons { font-size: 16px; color: #1EC6B3; }
+  .pending-diagnosis-chip .remove-chip { margin-left: auto; background: none; border: none; color: #94a3b8; cursor: pointer; padding: 2px; border-radius: 50%; display: flex; align-items: center; transition: all 0.2s; }
+  .pending-diagnosis-chip .remove-chip:hover { color: #dc2626; background: #fef2f2; }
+  .pending-diagnosis-chip .remove-chip .material-icons { font-size: 16px; color: inherit; }
+  .pending-diagnosis-chip .tnbc-badge { background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .add-diagnosis-inline { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+  .add-diagnosis-inline .form-select, .add-diagnosis-inline .form-input { flex: 1; min-width: 120px; padding: 10px 12px; font-size: 13px; }
+  .add-diagnosis-inline .form-select { min-width: 180px; }
+  .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
+  .modal-overlay.active { display: flex; }
+  .modal { background: white; border-radius: 16px; padding: 32px; max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: modalSlide 0.3s ease; }
+  @keyframes modalSlide { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .modal-header h3 { font-size: 20px; font-weight: 700; color: #0A2E73; display: flex; align-items: center; gap: 10px; }
+  .modal-close { width: 36px; height: 36px; border-radius: 50%; border: none; background: #f1f5f9; color: #64748B; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .modal-close:hover { background: #e2e8f0; color: #1e293b; }
+  .email-success { display: none; text-align: center; padding: 24px 0; }
+  .email-success.show { display: block; }
+  .email-success .material-icons { font-size: 56px; color: #1EC6B3; margin-bottom: 12px; }
+  .email-success h4 { font-size: 18px; color: #0A2E73; margin-bottom: 8px; }
+  .email-success p { font-size: 14px; color: #64748B; line-height: 1.5; }
+  .email-form-container.hidden { display: none; }
+  .email-preview { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 20px; max-height: 200px; overflow-y: auto; font-size: 13px; color: #475569; line-height: 1.6; white-space: pre-wrap; }
+  .email-preview h4 { font-size: 14px; color: #0A2E73; margin-bottom: 8px; }
+  .toggle-preview { font-size: 13px; color: #0A2E73; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; border: none; background: none; font-family: Inter, Arial, sans-serif; }
+  .toggle-preview:hover { color: #1EC6B3; }
+  .share-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-top: 24px; }
+  .share-section h3 { font-size: 16px; font-weight: 600; color: #0A2E73; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .share-section p { font-size: 13px; color: #64748B; margin-bottom: 16px; }
+  .share-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+  .share-buttons .btn { flex: 1; min-width: 140px; }
   @media (max-width: 600px) {
-    .navbar {
-      padding: 10px 16px;
-    }
-
-    .logo {
-      height: 50px;
-    }
-
-    .main-container {
-      padding: 16px 12px 80px;
-    }
-
-    .card {
-      padding: 24px 18px;
-      border-radius: 12px;
-    }
-
-    .card-title {
-      font-size: 20px;
-    }
-
-    .btn-group {
-      flex-direction: column-reverse;
-    }
-
-    .progress-steps {
-      display: none;
-    }
-
-    .option-group.horizontal {
-      flex-direction: column;
-    }
-
-    .member-card {
-      padding: 12px;
-    }
-
-    .lang-switcher {
-      gap: 2px;
-      padding: 3px;
-    }
-
-    .lang-btn {
-      padding: 6px 10px;
-      font-size: 12px;
-    }
-
-    .modal {
-      padding: 24px 18px;
-      margin: 16px;
-    }
-
-    .share-buttons {
-      flex-direction: column;
-    }
-
-    .share-buttons .btn {
-      min-width: auto;
-    }
+    .navbar { padding: 10px 16px; }
+    .logo { height: 50px; }
+    .main-container { padding: 16px 12px 80px; }
+    .card { padding: 24px 18px; border-radius: 12px; }
+    .card-title { font-size: 20px; }
+    .btn-group { flex-direction: column-reverse; }
+    .progress-steps { display: none; }
+    .option-group.horizontal { flex-direction: column; }
+    .cancer-diagnosis-list { margin-left: 0; margin-top: 8px; }
+    .add-diagnosis-inline { flex-direction: column; align-items: stretch; }
+    .add-diagnosis-inline .form-select, .add-diagnosis-inline .form-input { min-width: auto; }
+    .lang-switcher { gap: 2px; padding: 3px; }
+    .lang-btn { padding: 6px 10px; font-size: 12px; }
+    .modal { padding: 24px 18px; margin: 16px; }
+    .share-buttons { flex-direction: column; }
+    .share-buttons .btn { min-width: auto; }
   }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
-
-  *:focus-visible {
-    outline: 3px solid #1EC6B3;
-    outline-offset: 2px;
-  }
-
-  @media print {
-    .navbar, .progress-container, .btn-group, .lang-switcher, .share-section {
-      display: none;
-    }
-    .card {
-      box-shadow: none;
-      border: 1px solid #e5e7eb;
-    }
-  }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+  *:focus-visible { outline: 3px solid #1EC6B3; outline-offset: 2px; }
+  @media print { .navbar, .progress-container, .btn-group, .lang-switcher, .share-section { display: none; } .card { box-shadow: none; border: 1px solid #e5e7eb; } }
 </style>
 </head>
 <body>
 
 <header class="navbar" role="banner">
-  <img
-    src="gene-bridge-logo-header.png"
-    alt="Gene Bridge - Connecting Family History to Better Care"
-    class="logo"
-  >
+  <img src="gene-bridge-logo-header.png" alt="Gene Bridge" class="logo">
   <div class="lang-switcher" role="group" aria-label="Language selection">
     <button class="lang-btn active" id="langEN" onclick="switchLanguage('en')" aria-pressed="true">English</button>
     <button class="lang-btn" id="langES" onclick="switchLanguage('es')" aria-pressed="false">Español</button>
   </div>
 </header>
 
-<main class="main-container" role="main" aria-label="Family cancer history questionnaire">
-  <div class="progress-container" id="progressContainer">
+<main class="main-container" role="main">
+  <div class="progress-container">
     <div class="progress-steps" aria-hidden="true">
-      <div class="progress-step active" id="progStep1">
-        <span class="step-dot">1</span>
-        <span class="step-label" data-i18n="step_welcome">Welcome</span>
-      </div>
-      <div class="progress-step" id="progStep2">
-        <span class="step-dot">2</span>
-        <span class="step-label" data-i18n="step_about">About You</span>
-      </div>
-      <div class="progress-step" id="progStep3">
-        <span class="step-dot">3</span>
-        <span class="step-label" data-i18n="step_personal">Personal</span>
-      </div>
-      <div class="progress-step" id="progStep4">
-        <span class="step-dot">4</span>
-        <span class="step-label" data-i18n="step_family">Family</span>
-      </div>
-      <div class="progress-step" id="progStep5">
-        <span class="step-dot">5</span>
-        <span class="step-label" data-i18n="step_results">Results</span>
-      </div>
+      <div class="progress-step active" id="progStep1"><span class="step-dot">1</span><span class="step-label" data-i18n="step_welcome">Welcome</span></div>
+      <div class="progress-step" id="progStep2"><span class="step-dot">2</span><span class="step-label" data-i18n="step_about">About You</span></div>
+      <div class="progress-step" id="progStep3"><span class="step-dot">3</span><span class="step-label" data-i18n="step_personal">Personal</span></div>
+      <div class="progress-step" id="progStep4"><span class="step-dot">4</span><span class="step-label" data-i18n="step_family">Family</span></div>
+      <div class="progress-step" id="progStep5"><span class="step-dot">5</span><span class="step-label" data-i18n="step_results">Results</span></div>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
 
-  <!-- Step 1: Welcome -->
-  <section class="step-section active" id="step1" aria-labelledby="step1-title">
+  <!-- Step 1 -->
+  <section class="step-section active" id="step1">
     <div class="card">
       <div class="welcome-hero">
-        <div class="hero-icon">
-          <span class="material-icons">family_restroom</span>
-        </div>
-        <h1 class="card-title" id="step1-title" data-i18n="welcome_title">Welcome to Gene Bridge</h1>
-        <p class="card-subtitle" data-i18n="welcome_subtitle">This tool helps you understand whether your family cancer history suggests you may benefit from a referral to a cancer genetic counselor.</p>
+        <div class="hero-icon"><span class="material-icons">family_restroom</span></div>
+        <h1 class="card-title" data-i18n="welcome_title">Welcome to Gene Bridge</h1>
+        <p class="card-subtitle" data-i18n="welcome_subtitle">This tool helps determine whether your family cancer history suggests you may benefit from a referral to a cancer genetic counselor.</p>
       </div>
-
       <div class="feature-list">
-        <div class="feature-item">
-          <span class="material-icons">assignment</span>
-          <span data-i18n="feature_1">Answer simple questions about your family's cancer history</span>
-        </div>
-        <div class="feature-item">
-          <span class="material-icons">psychology</span>
-          <span data-i18n="feature_2">Get a personalized assessment based on NCCN guidelines</span>
-        </div>
-        <div class="feature-item">
-          <span class="material-icons">medical_services</span>
-          <span data-i18n="feature_3">Share results with your healthcare provider</span>
-        </div>
-        <div class="feature-item">
-          <span class="material-icons">schedule</span>
-          <span data-i18n="feature_4">Takes approximately 5-10 minutes to complete</span>
+        <div class="feature-item"><span class="material-icons">assignment</span><span data-i18n="feature_1">Answer simple questions about your family's cancer history</span></div>
+        <div class="feature-item"><span class="material-icons">psychology</span><span data-i18n="feature_2">Get a personalized assessment based on NCCN guidelines</span></div>
+        <div class="feature-item"><span class="material-icons">medical_services</span><span data-i18n="feature_3">Share results with your healthcare provider</span></div>
+        <div class="feature-item"><span class="material-icons">schedule</span><span data-i18n="feature_4">Takes approximately 5-10 minutes</span></div>
+      </div>
+      <div class="info-tip"><span class="material-icons">info</span><p data-i18n="privacy_note">Your information is processed entirely in your browser and is never stored or sent to any server.</p></div>
+      <div class="btn-group"><button class="btn btn-primary" onclick="goToStep(2)"><span data-i18n="btn_get_started">Get Started</span><span class="material-icons">arrow_forward</span></button></div>
+    </div>
+  </section>
+
+  <!-- Step 2 -->
+  <section class="step-section" id="step2">
+    <div class="card">
+      <h2 class="card-title" data-i18n="about_title">About You</h2>
+      <p class="card-subtitle" data-i18n="about_subtitle">Please provide some basic information.</p>
+      <div class="form-group">
+        <label class="form-label" data-i18n="label_sex">Biological sex at birth</label>
+        <div class="option-group horizontal" role="radiogroup">
+          <div class="option-item" onclick="selectOption(this,'sex','female')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKey(event,this,'sex','female')"><input type="radio" name="sex" value="female"><span class="option-dot"></span><span class="option-label" data-i18n="option_female">Female</span></div>
+          <div class="option-item" onclick="selectOption(this,'sex','male')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKey(event,this,'sex','male')"><input type="radio" name="sex" value="male"><span class="option-dot"></span><span class="option-label" data-i18n="option_male">Male</span></div>
         </div>
       </div>
-
-      <div class="info-tip">
-        <span class="material-icons">info</span>
-        <p data-i18n="privacy_note">Your information is processed entirely in your browser and is not stored or sent to any server. This tool does not replace professional medical advice.</p>
+      <div class="form-group">
+        <label class="form-label" for="ageInput" data-i18n="label_age">Current age</label>
+        <input type="number" id="ageInput" class="form-input" data-i18n-placeholder="placeholder_age" placeholder="Enter your age" min="0" max="120">
       </div>
-
+      <div class="form-group">
+        <label class="form-label" data-i18n="label_ashkenazi">Ashkenazi Jewish descent?</label>
+        <div class="option-group horizontal" role="radiogroup">
+          <div class="option-item" onclick="selectOption(this,'ashkenazi','yes')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKey(event,this,'ashkenazi','yes')"><input type="radio" name="ashkenazi" value="yes"><span class="option-dot"></span><span class="option-label" data-i18n="option_yes">Yes</span></div>
+          <div class="option-item" onclick="selectOption(this,'ashkenazi','no')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKey(event,this,'ashkenazi','no')"><input type="radio" name="ashkenazi" value="no"><span class="option-dot"></span><span class="option-label" data-i18n="option_no">No</span></div>
+          <div class="option-item" onclick="selectOption(this,'ashkenazi','unsure')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKey(event,this,'ashkenazi','unsure')"><input type="radio" name="ashkenazi" value="unsure"><span class="option-dot"></span><span class="option-label" data-i18n="option_unsure">Unsure</span></div>
+        </div>
+      </div>
       <div class="btn-group">
-        <button class="btn btn-primary" onclick="goToStep(2)">
-          <span data-i18n="btn_get_started">Get Started</span>
-          <span class="material-icons">arrow_forward</span>
-        </button>
+        <button class="btn btn-secondary" onclick="goToStep(1)"><span class="material-icons">arrow_back</span><span data-i18n="btn_back">Back</span></button>
+        <button class="btn btn-primary" onclick="validateStep2()"><span data-i18n="btn_continue">Continue</span><span class="material-icons">arrow_forward</span></button>
       </div>
     </div>
   </section>
 
-  <!-- Step 2: About You -->
-  <section class="step-section" id="step2" aria-labelledby="step2-title">
+  <!-- Step 3: Personal History (Multiple Diagnoses) -->
+  <section class="step-section" id="step3">
     <div class="card">
-      <h2 class="card-title" id="step2-title" data-i18n="about_title">About You</h2>
-      <p class="card-subtitle" data-i18n="about_subtitle">Please provide some basic information about yourself.</p>
-
+      <h2 class="card-title" data-i18n="personal_title">Your Personal Cancer History</h2>
+      <p class="card-subtitle" data-i18n="personal_subtitle">Have you ever been diagnosed with cancer?</p>
       <div class="form-group">
-        <label class="form-label" data-i18n="label_sex">What is your biological sex at birth?</label>
-        <div class="option-group horizontal" role="radiogroup" aria-label="Biological sex">
-          <div class="option-item" onclick="selectOption(this, 'sex', 'female')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'sex', 'female')">
-            <input type="radio" name="sex" value="female">
-            <span class="option-dot"></span>
-            <span class="option-label" data-i18n="option_female">Female</span>
-          </div>
-          <div class="option-item" onclick="selectOption(this, 'sex', 'male')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'sex', 'male')">
-            <input type="radio" name="sex" value="male">
-            <span class="option-dot"></span>
-            <span class="option-label" data-i18n="option_male">Male</span>
-          </div>
+        <div class="option-group horizontal" role="radiogroup">
+          <div class="option-item" onclick="selectOption(this,'personalCancer','yes');showPersonalDetails(true)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKey(event,this,'personalCancer','yes');showPersonalDetails(true)"><input type="radio" name="personalCancer" value="yes"><span class="option-dot"></span><span class="option-label" data-i18n="option_yes">Yes</span></div>
+          <div class="option-item" onclick="selectOption(this,'personalCancer','no');showPersonalDetails(false)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKey(event,this,'personalCancer','no');showPersonalDetails(false)"><input type="radio" name="personalCancer" value="no"><span class="option-dot"></span><span class="option-label" data-i18n="option_no">No</span></div>
         </div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label" for="ageInput" data-i18n="label_age">What is your current age?</label>
-        <input type="number" id="ageInput" class="form-input" data-i18n-placeholder="placeholder_age" placeholder="Enter your age" min="0" max="120" aria-required="true">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" data-i18n="label_ashkenazi">Are you of Ashkenazi Jewish (Eastern European Jewish) descent?</label>
-        <div class="option-group horizontal" role="radiogroup" aria-label="Ashkenazi Jewish descent">
-          <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'yes')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'yes')">
-            <input type="radio" name="ashkenazi" value="yes">
-            <span class="option-dot"></span>
-            <span class="option-label" data-i18n="option_yes">Yes</span>
+      <div id="personalCancerDetails" style="display:none;">
+        <div class="info-tip"><span class="material-icons">info</span><p data-i18n="personal_multi_tip">If you have been diagnosed with more than one cancer, add each one separately below.</p></div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="label_personal_diagnoses">Your Cancer Diagnoses</label>
+          <div class="add-diagnosis-inline">
+            <select id="personalDiagType" class="form-select"></select>
+            <input type="number" id="personalDiagAge" class="form-input" data-i18n-placeholder="placeholder_age_diagnosis" placeholder="Age" min="0" max="120" style="max-width:100px;">
+            <button class="btn btn-accent btn-sm" onclick="addPersonalDiagnosis()"><span class="material-icons" style="font-size:16px;">add</span><span data-i18n="btn_add_diagnosis">Add</span></button>
           </div>
-          <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'no')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'no')">
-            <input type="radio" name="ashkenazi" value="no">
-            <span class="option-dot"></span>
-            <span class="option-label" data-i18n="option_no">No</span>
+          <div id="personalTnbcQuestion" style="display:none;" class="tnbc-question">
+            <input type="checkbox" id="personalTnbcCheck" onchange="togglePersonalTnbc()">
+            <label for="personalTnbcCheck" data-i18n="label_tnbc_check">This breast cancer was triple-negative</label>
           </div>
-          <div class="option-item" onclick="selectOption(this, 'ashkenazi', 'unsure')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'ashkenazi', 'unsure')">
-            <input type="radio" name="ashkenazi" value="unsure">
-            <span class="option-dot"></span>
-            <span class="option-label" data-i18n="option_unsure">Unsure</span>
-          </div>
+          <div class="pending-diagnoses" id="personalDiagnosesList"></div>
         </div>
       </div>
-
       <div class="btn-group">
-        <button class="btn btn-secondary" onclick="goToStep(1)">
-          <span class="material-icons">arrow_back</span>
-          <span data-i18n="btn_back">Back</span>
-        </button>
-        <button class="btn btn-primary" onclick="validateStep2()">
-          <span data-i18n="btn_continue">Continue</span>
-          <span class="material-icons">arrow_forward</span>
-        </button>
+        <button class="btn btn-secondary" onclick="goToStep(2)"><span class="material-icons">arrow_back</span><span data-i18n="btn_back">Back</span></button>
+        <button class="btn btn-primary" onclick="validateStep3()"><span data-i18n="btn_continue">Continue</span><span class="material-icons">arrow_forward</span></button>
       </div>
     </div>
   </section>
 
-  <!-- Step 3: Personal Cancer History -->
-  <section class="step-section" id="step3" aria-labelledby="step3-title">
+  <!-- Step 4: Family -->
+  <section class="step-section" id="step4">
     <div class="card">
-      <h2 class="card-title" id="step3-title" data-i18n="personal_title">Your Personal Cancer History</h2>
-      <p class="card-subtitle" data-i18n="personal_subtitle">Have you personally ever been diagnosed with cancer?</p>
-
-      <div class="form-group">
-        <div class="option-group horizontal" role="radiogroup" aria-label="Personal cancer history">
-          <div class="option-item" onclick="selectOption(this, 'personalCancer', 'yes'); showPersonalDetails(true)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'personalCancer', 'yes'); showPersonalDetails(true)">
-            <input type="radio" name="personalCancer" value="yes">
-            <span class="option-dot"></span>
-            <span class="option-label" data-i18n="option_yes">Yes</span>
-          </div>
-          <div class="option-item" onclick="selectOption(this, 'personalCancer', 'no'); showPersonalDetails(false)" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'personalCancer', 'no'); showPersonalDetails(false)">
-            <input type="radio" name="personalCancer" value="no">
-            <span class="option-dot"></span>
-            <span class="option-label" data-i18n="option_no">No</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="personalCancerDetails" style="display: none;">
-        <div class="form-group">
-          <label class="form-label" for="personalCancerType" data-i18n="label_cancer_type">What type of cancer were you diagnosed with?</label>
-          <select id="personalCancerType" class="form-select" aria-label="Cancer type">
-            <option value="" data-i18n="select_cancer_type">Select cancer type...</option>
-            <option value="breast" data-i18n="cancer_breast">Breast cancer</option>
-            <option value="ovarian" data-i18n="cancer_ovarian">Ovarian cancer</option>
-            <option value="colorectal" data-i18n="cancer_colorectal">Colorectal cancer</option>
-            <option value="endometrial" data-i18n="cancer_endometrial">Endometrial (uterine) cancer</option>
-            <option value="pancreatic" data-i18n="cancer_pancreatic">Pancreatic cancer</option>
-            <option value="prostate" data-i18n="cancer_prostate">Prostate cancer</option>
-            <option value="melanoma" data-i18n="cancer_melanoma">Melanoma</option>
-            <option value="kidney" data-i18n="cancer_kidney">Kidney cancer</option>
-            <option value="thyroid" data-i18n="cancer_thyroid">Thyroid cancer</option>
-            <option value="stomach" data-i18n="cancer_stomach">Stomach (gastric) cancer</option>
-            <option value="brain" data-i18n="cancer_brain">Brain cancer</option>
-            <option value="sarcoma" data-i18n="cancer_sarcoma">Sarcoma</option>
-            <option value="leukemia" data-i18n="cancer_leukemia">Leukemia/Lymphoma</option>
-            <option value="lung" data-i18n="cancer_lung">Lung cancer</option>
-            <option value="bladder" data-i18n="cancer_bladder">Bladder cancer</option>
-            <option value="liver" data-i18n="cancer_liver">Liver cancer</option>
-            <option value="other" data-i18n="cancer_other">Other</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="personalCancerAge" data-i18n="label_age_diagnosis">At what age were you diagnosed?</label>
-          <input type="number" id="personalCancerAge" class="form-input" data-i18n-placeholder="placeholder_age_diagnosis" placeholder="Age at diagnosis" min="0" max="120">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" data-i18n="label_triple_neg">Was your breast cancer triple-negative? (if applicable)</label>
-          <div class="option-group horizontal" role="radiogroup" aria-label="Triple negative status">
-            <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'yes')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'yes')">
-              <input type="radio" name="tripleNeg" value="yes">
-              <span class="option-dot"></span>
-              <span class="option-label" data-i18n="option_yes">Yes</span>
-            </div>
-            <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'no')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'no')">
-              <input type="radio" name="tripleNeg" value="no">
-              <span class="option-dot"></span>
-              <span class="option-label" data-i18n="option_no">No</span>
-            </div>
-            <div class="option-item" onclick="selectOption(this, 'tripleNeg', 'na')" role="radio" aria-checked="false" tabindex="0" onkeydown="handleKeySelect(event, this, 'tripleNeg', 'na')">
-              <input type="radio" name="tripleNeg" value="na">
-              <span class="option-dot"></span>
-              <span class="option-label" data-i18n="option_na">N/A</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="btn-group">
-        <button class="btn btn-secondary" onclick="goToStep(2)">
-          <span class="material-icons">arrow_back</span>
-          <span data-i18n="btn_back">Back</span>
-        </button>
-        <button class="btn btn-primary" onclick="validateStep3()">
-          <span data-i18n="btn_continue">Continue</span>
-          <span class="material-icons">arrow_forward</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Step 4: Family History -->
-  <section class="step-section" id="step4" aria-labelledby="step4-title">
-    <div class="card">
-      <h2 class="card-title" id="step4-title" data-i18n="family_title">Family Cancer History</h2>
-      <p class="card-subtitle" data-i18n="family_subtitle">Add family members who have been diagnosed with cancer. Include both sides of your family (mother's and father's sides).</p>
-
-      <div class="info-tip">
-        <span class="material-icons">info</span>
-        <p data-i18n="family_tip">Include parents, siblings, children, grandparents, aunts, uncles, and first cousins. The more complete your family history, the more accurate the assessment.</p>
-      </div>
-
+      <h2 class="card-title" data-i18n="family_title">Family Cancer History</h2>
+      <p class="card-subtitle" data-i18n="family_subtitle">Add family members diagnosed with cancer. Include both sides of your family.</p>
+      <div class="info-tip"><span class="material-icons">info</span><p data-i18n="family_tip">Include parents, siblings, children, grandparents, aunts, uncles, and cousins. You can add multiple diagnoses per person.</p></div>
       <div class="member-list" id="memberList">
-        <div class="empty-state" id="emptyState">
-          <span class="material-icons">group_add</span>
-          <p data-i18n="empty_members">No family members added yet. Click the button below to add a family member with cancer.</p>
-        </div>
+        <div class="empty-state"><span class="material-icons">group_add</span><p data-i18n="empty_members">No family members added yet.</p></div>
       </div>
-
-      <div id="addMemberSection" style="display: none;">
+      <div id="addMemberSection" style="display:none;">
         <div class="add-member-form">
-          <div class="form-title">
-            <span class="material-icons">person_add</span>
-            <span data-i18n="add_member_title">Add Family Member</span>
-          </div>
-
+          <div class="form-title"><span class="material-icons">person_add</span><span data-i18n="add_member_title">Add Family Member</span></div>
           <div class="form-group">
             <label class="form-label" for="memberRelationship" data-i18n="label_relationship">Relationship to you</label>
-            <select id="memberRelationship" class="form-select">
-              <option value="" data-i18n="select_relationship">Select relationship...</option>
-              <optgroup data-i18n-label="group_first_degree" label="First Degree (Parents, Siblings, Children)">
-                <option value="mother" data-i18n="rel_mother">Mother</option>
-                <option value="father" data-i18n="rel_father">Father</option>
-                <option value="sister" data-i18n="rel_sister">Sister</option>
-                <option value="brother" data-i18n="rel_brother">Brother</option>
-                <option value="daughter" data-i18n="rel_daughter">Daughter</option>
-                <option value="son" data-i18n="rel_son">Son</option>
-              </optgroup>
-              <optgroup data-i18n-label="group_second_degree" label="Second Degree (Grandparents, Aunts/Uncles, Half-siblings)">
-                <option value="maternal_grandmother" data-i18n="rel_maternal_grandmother">Maternal Grandmother</option>
-                <option value="maternal_grandfather" data-i18n="rel_maternal_grandfather">Maternal Grandfather</option>
-                <option value="paternal_grandmother" data-i18n="rel_paternal_grandmother">Paternal Grandmother</option>
-                <option value="paternal_grandfather" data-i18n="rel_paternal_grandfather">Paternal Grandfather</option>
-                <option value="maternal_aunt" data-i18n="rel_maternal_aunt">Maternal Aunt</option>
-                <option value="maternal_uncle" data-i18n="rel_maternal_uncle">Maternal Uncle</option>
-                <option value="paternal_aunt" data-i18n="rel_paternal_aunt">Paternal Aunt</option>
-                <option value="paternal_uncle" data-i18n="rel_paternal_uncle">Paternal Uncle</option>
-                <option value="half_sister" data-i18n="rel_half_sister">Half-Sister</option>
-                <option value="half_brother" data-i18n="rel_half_brother">Half-Brother</option>
-              </optgroup>
-              <optgroup data-i18n-label="group_third_degree" label="Third Degree (Cousins, Great-grandparents)">
-                <option value="maternal_cousin" data-i18n="rel_maternal_cousin">Maternal First Cousin</option>
-                <option value="paternal_cousin" data-i18n="rel_paternal_cousin">Paternal First Cousin</option>
-                <option value="maternal_great_grandmother" data-i18n="rel_maternal_great_grandmother">Maternal Great-Grandmother</option>
-                <option value="maternal_great_grandfather" data-i18n="rel_maternal_great_grandfather">Maternal Great-Grandfather</option>
-                <option value="paternal_great_grandmother" data-i18n="rel_paternal_great_grandmother">Paternal Great-Grandmother</option>
-                <option value="paternal_great_grandfather" data-i18n="rel_paternal_great_grandfather">Paternal Great-Grandfather</option>
-              </optgroup>
-            </select>
+            <select id="memberRelationship" class="form-select"></select>
           </div>
-
           <div class="form-group">
-            <label class="form-label" for="memberCancerType" data-i18n="label_member_cancer">Type of cancer</label>
-            <select id="memberCancerType" class="form-select">
-              <option value="" data-i18n="select_cancer_type">Select cancer type...</option>
-              <option value="breast" data-i18n="cancer_breast">Breast cancer</option>
-              <option value="ovarian" data-i18n="cancer_ovarian_full">Ovarian/Fallopian tube/Primary peritoneal cancer</option>
-              <option value="colorectal" data-i18n="cancer_colorectal">Colorectal cancer</option>
-              <option value="endometrial" data-i18n="cancer_endometrial">Endometrial (uterine) cancer</option>
-              <option value="pancreatic" data-i18n="cancer_pancreatic">Pancreatic cancer</option>
-              <option value="prostate" data-i18n="cancer_prostate_agg">Prostate cancer (aggressive/metastatic)</option>
-              <option value="melanoma" data-i18n="cancer_melanoma">Melanoma</option>
-              <option value="kidney" data-i18n="cancer_kidney">Kidney cancer</option>
-              <option value="thyroid" data-i18n="cancer_thyroid">Thyroid cancer</option>
-              <option value="stomach" data-i18n="cancer_stomach">Stomach (gastric) cancer</option>
-              <option value="brain" data-i18n="cancer_brain">Brain cancer</option>
-              <option value="sarcoma" data-i18n="cancer_sarcoma">Sarcoma</option>
-              <option value="leukemia" data-i18n="cancer_leukemia">Leukemia/Lymphoma</option>
-              <option value="lung" data-i18n="cancer_lung">Lung cancer</option>
-              <option value="bladder" data-i18n="cancer_bladder">Bladder cancer</option>
-              <option value="liver" data-i18n="cancer_liver">Liver cancer</option>
-              <option value="malebreast" data-i18n="cancer_male_breast">Male breast cancer</option>
-              <option value="other" data-i18n="cancer_other">Other</option>
-            </select>
+            <label class="form-label" data-i18n="label_diagnoses">Cancer Diagnoses</label>
+            <div class="add-diagnosis-inline">
+              <select id="diagCancerType" class="form-select" onchange="checkFamilyTnbc()"></select>
+              <input type="number" id="diagAge" class="form-input" data-i18n-placeholder="placeholder_member_age" placeholder="Age" min="0" max="120" style="max-width:100px;">
+              <button class="btn btn-accent btn-sm" onclick="addPendingDiagnosis()"><span class="material-icons" style="font-size:16px;">add</span><span data-i18n="btn_add_diagnosis">Add</span></button>
+            </div>
+            <div id="familyTnbcQuestion" style="display:none;" class="tnbc-question">
+              <input type="checkbox" id="familyTnbcCheck">
+              <label for="familyTnbcCheck" data-i18n="label_tnbc_check">This breast cancer was triple-negative</label>
+            </div>
+            <div class="pending-diagnoses" id="pendingDiagnoses"></div>
           </div>
-
-          <div class="form-group">
-            <label class="form-label" for="memberAge" data-i18n="label_member_age">Age at diagnosis</label>
-            <input type="number" id="memberAge" class="form-input" data-i18n-placeholder="placeholder_member_age" placeholder="Age when diagnosed" min="0" max="120">
-          </div>
-
           <div class="btn-group">
-            <button class="btn btn-secondary" onclick="cancelAddMember()">
-              <span data-i18n="btn_cancel">Cancel</span>
-            </button>
-            <button class="btn btn-accent" onclick="saveMember()">
-              <span class="material-icons">add</span>
-              <span data-i18n="btn_add_member">Add Member</span>
-            </button>
+            <button class="btn btn-secondary" onclick="cancelAddMember()"><span data-i18n="btn_cancel">Cancel</span></button>
+            <button class="btn btn-accent" onclick="saveMember()"><span class="material-icons">check</span><span data-i18n="btn_save_member">Save Member</span></button>
           </div>
         </div>
       </div>
-
-      <button class="btn btn-accent" id="addMemberBtn" onclick="showAddMember()" style="margin-top: 12px; width: 100%;">
-        <span class="material-icons">person_add</span>
-        <span data-i18n="btn_add_family_member">Add Family Member with Cancer</span>
-      </button>
-
-      <div class="btn-group" style="margin-top: 32px;">
-        <button class="btn btn-secondary" onclick="goToStep(3)">
-          <span class="material-icons">arrow_back</span>
-          <span data-i18n="btn_back">Back</span>
-        </button>
-        <button class="btn btn-primary" onclick="goToStep(5)">
-          <span data-i18n="btn_view_results">View Results</span>
-          <span class="material-icons">assessment</span>
-        </button>
+      <button class="btn btn-accent" id="addMemberBtn" onclick="showAddMember()" style="margin-top:12px;width:100%;"><span class="material-icons">person_add</span><span data-i18n="btn_add_family_member">Add Family Member with Cancer</span></button>
+      <div class="btn-group" style="margin-top:32px;">
+        <button class="btn btn-secondary" onclick="goToStep(3)"><span class="material-icons">arrow_back</span><span data-i18n="btn_back">Back</span></button>
+        <button class="btn btn-primary" onclick="goToStep(5)"><span data-i18n="btn_view_results">View Results</span><span class="material-icons">assessment</span></button>
       </div>
     </div>
   </section>
 
-  <!-- Step 5: Results -->
-  <section class="step-section" id="step5" aria-labelledby="step5-title">
+  <!-- Step 5 -->
+  <section class="step-section" id="step5">
     <div class="card">
-      <h2 class="card-title" id="step5-title" data-i18n="results_title">Your Assessment Results</h2>
-      <p class="card-subtitle" data-i18n="results_subtitle">Based on National Comprehensive Cancer Network (NCCN) guidelines</p>
-
+      <h2 class="card-title" data-i18n="results_title">Your Assessment Results</h2>
+      <p class="card-subtitle" data-i18n="results_subtitle">Based on NCCN guidelines</p>
       <div id="resultsContent"></div>
-
-      <div class="disclaimer">
-        <strong data-i18n="disclaimer_title">Important Disclaimer:</strong>
-        <span data-i18n="disclaimer_text"> This tool provides a screening assessment based on NCCN guidelines for genetic/familial high-risk assessment. It is not a diagnosis. Please share these results with your primary care provider for further evaluation. Only a qualified healthcare professional can make referral decisions.</span>
-      </div>
-
-      <!-- Share / Email Section -->
+      <div class="disclaimer"><strong data-i18n="disclaimer_title">Disclaimer:</strong><span data-i18n="disclaimer_text"> This is a screening tool, not a diagnosis. Share with your healthcare provider.</span></div>
       <div class="share-section">
-        <h3>
-          <span class="material-icons">share</span>
-          <span data-i18n="share_title">Share Results</span>
-        </h3>
-        <p data-i18n="share_description">Send your results to yourself or your healthcare provider via email.</p>
+        <h3><span class="material-icons">share</span><span data-i18n="share_title">Share Results</span></h3>
+        <p data-i18n="share_description">Email results to yourself or your clinician.</p>
         <div class="share-buttons">
-          <button class="btn btn-email" onclick="openEmailModal('patient')">
-            <span class="material-icons">person</span>
-            <span data-i18n="btn_email_myself">Email to Myself</span>
-          </button>
-          <button class="btn btn-email" onclick="openEmailModal('clinician')">
-            <span class="material-icons">local_hospital</span>
-            <span data-i18n="btn_email_clinician">Email to Clinician</span>
-          </button>
+          <button class="btn btn-email" onclick="openEmailModal('patient')"><span class="material-icons">person</span><span data-i18n="btn_email_myself">Email to Myself</span></button>
+          <button class="btn btn-email" onclick="openEmailModal('clinician')"><span class="material-icons">local_hospital</span><span data-i18n="btn_email_clinician">Email to Clinician</span></button>
         </div>
       </div>
-
-      <div class="btn-group" style="margin-top: 24px;">
-        <button class="btn btn-secondary" onclick="goToStep(4)">
-          <span class="material-icons">arrow_back</span>
-          <span data-i18n="btn_edit">Edit Answers</span>
-        </button>
-        <button class="btn btn-primary" onclick="printResults()">
-          <span class="material-icons">print</span>
-          <span data-i18n="btn_print">Print Results</span>
-        </button>
+      <div class="btn-group" style="margin-top:24px;">
+        <button class="btn btn-secondary" onclick="goToStep(4)"><span class="material-icons">arrow_back</span><span data-i18n="btn_edit">Edit Answers</span></button>
+        <button class="btn btn-primary" onclick="printResults()"><span class="material-icons">print</span><span data-i18n="btn_print">Print</span></button>
       </div>
-      <div class="btn-group">
-        <button class="btn btn-secondary" onclick="startOver()" style="width: 100%;">
-          <span class="material-icons">refresh</span>
-          <span data-i18n="btn_start_over">Start Over</span>
-        </button>
-      </div>
+      <div class="btn-group"><button class="btn btn-secondary" onclick="startOver()" style="width:100%;"><span class="material-icons">refresh</span><span data-i18n="btn_start_over">Start Over</span></button></div>
     </div>
   </section>
 </main>
 
 <!-- Email Modal -->
 <div class="modal-overlay" id="emailModal" onclick="closeModalOverlay(event)">
-  <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+  <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-header">
-      <h3 id="modalTitle">
-        <span class="material-icons">email</span>
-        <span id="modalTitleText" data-i18n="email_modal_title">Email Results</span>
-      </h3>
-      <button class="modal-close" onclick="closeEmailModal()" aria-label="Close">
-        <span class="material-icons">close</span>
-      </button>
+      <h3><span class="material-icons">email</span><span data-i18n="email_modal_title">Email Results</span></h3>
+      <button class="modal-close" onclick="closeEmailModal()"><span class="material-icons">close</span></button>
     </div>
-
     <div class="email-form-container" id="emailFormContainer">
-      <div class="form-group">
-        <label class="form-label" for="emailRecipient" data-i18n="label_email_to">Recipient Email Address</label>
-        <input type="email" id="emailRecipient" class="form-input" data-i18n-placeholder="placeholder_email" placeholder="Enter email address">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="emailRecipientName" data-i18n="label_recipient_name">Recipient Name (optional)</label>
-        <input type="text" id="emailRecipientName" class="form-input" data-i18n-placeholder="placeholder_recipient_name" placeholder="e.g., Dr. Smith">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="emailPatientName" data-i18n="label_patient_name">Patient Name</label>
-        <input type="text" id="emailPatientName" class="form-input" data-i18n-placeholder="placeholder_patient_name" placeholder="Your full name">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="emailNote" data-i18n="label_additional_note">Additional Note (optional)</label>
-        <textarea id="emailNote" class="form-textarea" data-i18n-placeholder="placeholder_note" placeholder="Add any additional context or message..."></textarea>
-      </div>
-
-      <button class="toggle-preview" onclick="toggleEmailPreview()">
-        <span class="material-icons" style="font-size: 16px;">visibility</span>
-        <span data-i18n="btn_preview">Preview Email Content</span>
-      </button>
-
-      <div class="email-preview" id="emailPreview" style="display: none;">
-        <h4 data-i18n="email_preview_title">Email Preview</h4>
-        <div id="emailPreviewContent"></div>
-      </div>
-
-      <div class="btn-group">
-        <button class="btn btn-secondary" onclick="closeEmailModal()">
-          <span data-i18n="btn_cancel">Cancel</span>
-        </button>
-        <button class="btn btn-email" onclick="sendEmail()">
-          <span class="material-icons">send</span>
-          <span data-i18n="btn_send_email">Send Email</span>
-        </button>
-      </div>
+      <div class="form-group"><label class="form-label" data-i18n="label_email_to">Recipient Email</label><input type="email" id="emailRecipient" class="form-input" data-i18n-placeholder="placeholder_email" placeholder="Email address"></div>
+      <div class="form-group"><label class="form-label" data-i18n="label_recipient_name">Recipient Name (optional)</label><input type="text" id="emailRecipientName" class="form-input" data-i18n-placeholder="placeholder_recipient_name" placeholder="e.g., Dr. Smith"></div>
+      <div class="form-group"><label class="form-label" data-i18n="label_patient_name">Patient Name</label><input type="text" id="emailPatientName" class="form-input" data-i18n-placeholder="placeholder_patient_name" placeholder="Your name"></div>
+      <div class="form-group"><label class="form-label" data-i18n="label_additional_note">Note (optional)</label><textarea id="emailNote" class="form-textarea" data-i18n-placeholder="placeholder_note" placeholder="Additional context..."></textarea></div>
+      <button class="toggle-preview" onclick="toggleEmailPreview()"><span class="material-icons" style="font-size:16px;">visibility</span><span data-i18n="btn_preview">Preview</span></button>
+      <div class="email-preview" id="emailPreview" style="display:none;"><h4 data-i18n="email_preview_title">Preview</h4><div id="emailPreviewContent"></div></div>
+      <div class="btn-group"><button class="btn btn-secondary" onclick="closeEmailModal()"><span data-i18n="btn_cancel">Cancel</span></button><button class="btn btn-email" onclick="sendEmail()"><span class="material-icons">send</span><span data-i18n="btn_send_email">Send</span></button></div>
     </div>
-
-    <div class="email-success" id="emailSuccess">
-      <span class="material-icons">check_circle</span>
-      <h4 data-i18n="email_sent_title">Email Ready!</h4>
-      <p id="emailSuccessMsg" data-i18n="email_sent_text">Your default email application will open with the results pre-filled. Please review and send.</p>
-      <div class="btn-group" style="margin-top: 20px;">
-        <button class="btn btn-primary" onclick="closeEmailModal()" style="width: 100%;">
-          <span data-i18n="btn_close">Close</span>
-        </button>
-      </div>
-    </div>
+    <div class="email-success" id="emailSuccess"><span class="material-icons">check_circle</span><h4 data-i18n="email_sent_title">Email Ready!</h4><p data-i18n="email_sent_text">Your email app will open with pre-filled results.</p><div class="btn-group" style="margin-top:20px;"><button class="btn btn-primary" onclick="closeEmailModal()" style="width:100%;"><span data-i18n="btn_close">Close</span></button></div></div>
   </div>
 </div>
 
 <script>
-// ===== TRANSLATIONS =====
 const translations = {
   en: {
-    step_welcome: "Welcome",
-    step_about: "About You",
-    step_personal: "Personal",
-    step_family: "Family",
-    step_results: "Results",
-    welcome_title: "Welcome to Gene Bridge",
-    welcome_subtitle: "This tool helps you understand whether your family cancer history suggests you may benefit from a referral to a cancer genetic counselor.",
-    feature_1: "Answer simple questions about your family's cancer history",
-    feature_2: "Get a personalized assessment based on NCCN guidelines",
-    feature_3: "Share results with your healthcare provider",
-    feature_4: "Takes approximately 5-10 minutes to complete",
-    privacy_note: "Your information is processed entirely in your browser and is not stored or sent to any server. This tool does not replace professional medical advice.",
-    btn_get_started: "Get Started",
-    about_title: "About You",
-    about_subtitle: "Please provide some basic information about yourself.",
-    label_sex: "What is your biological sex at birth?",
-    option_female: "Female",
-    option_male: "Male",
-    label_age: "What is your current age?",
-    placeholder_age: "Enter your age",
-    label_ashkenazi: "Are you of Ashkenazi Jewish (Eastern European Jewish) descent?",
-    option_yes: "Yes",
-    option_no: "No",
-    option_unsure: "Unsure",
-    personal_title: "Your Personal Cancer History",
-    personal_subtitle: "Have you personally ever been diagnosed with cancer?",
-    label_cancer_type: "What type of cancer were you diagnosed with?",
-    select_cancer_type: "Select cancer type...",
-    label_age_diagnosis: "At what age were you diagnosed?",
-    placeholder_age_diagnosis: "Age at diagnosis",
-    label_triple_neg: "Was your breast cancer triple-negative? (if applicable)",
-    option_na: "N/A",
-    cancer_breast: "Breast cancer",
-    cancer_ovarian: "Ovarian cancer",
-    cancer_ovarian_full: "Ovarian/Fallopian tube/Primary peritoneal cancer",
-    cancer_colorectal: "Colorectal cancer",
-    cancer_endometrial: "Endometrial (uterine) cancer",
-    cancer_pancreatic: "Pancreatic cancer",
-    cancer_prostate: "Prostate cancer",
-    cancer_prostate_agg: "Prostate cancer (aggressive/metastatic)",
-    cancer_melanoma: "Melanoma",
-    cancer_kidney: "Kidney cancer",
-    cancer_thyroid: "Thyroid cancer",
-    cancer_stomach: "Stomach (gastric) cancer",
-    cancer_brain: "Brain cancer",
-    cancer_sarcoma: "Sarcoma",
-    cancer_leukemia: "Leukemia/Lymphoma",
-    cancer_lung: "Lung cancer",
-    cancer_bladder: "Bladder cancer",
-    cancer_liver: "Liver cancer",
-    cancer_male_breast: "Male breast cancer",
-    cancer_other: "Other",
-    family_title: "Family Cancer History",
-    family_subtitle: "Add family members who have been diagnosed with cancer. Include both sides of your family (mother's and father's sides).",
-    family_tip: "Include parents, siblings, children, grandparents, aunts, uncles, and first cousins. The more complete your family history, the more accurate the assessment.",
-    empty_members: "No family members added yet. Click the button below to add a family member with cancer.",
-    add_member_title: "Add Family Member",
-    label_relationship: "Relationship to you",
-    select_relationship: "Select relationship...",
-    label_member_cancer: "Type of cancer",
-    label_member_age: "Age at diagnosis",
-    placeholder_member_age: "Age when diagnosed",
-    btn_add_member: "Add Member",
-    btn_add_family_member: "Add Family Member with Cancer",
-    btn_cancel: "Cancel",
-    group_first_degree: "First Degree (Parents, Siblings, Children)",
-    group_second_degree: "Second Degree (Grandparents, Aunts/Uncles, Half-siblings)",
-    group_third_degree: "Third Degree (Cousins, Great-grandparents)",
-    rel_mother: "Mother", rel_father: "Father", rel_sister: "Sister", rel_brother: "Brother",
-    rel_daughter: "Daughter", rel_son: "Son",
-    rel_maternal_grandmother: "Maternal Grandmother", rel_maternal_grandfather: "Maternal Grandfather",
-    rel_paternal_grandmother: "Paternal Grandmother", rel_paternal_grandfather: "Paternal Grandfather",
-    rel_maternal_aunt: "Maternal Aunt", rel_maternal_uncle: "Maternal Uncle",
-    rel_paternal_aunt: "Paternal Aunt", rel_paternal_uncle: "Paternal Uncle",
-    rel_half_sister: "Half-Sister", rel_half_brother: "Half-Brother",
-    rel_maternal_cousin: "Maternal First Cousin", rel_paternal_cousin: "Paternal First Cousin",
-    rel_maternal_great_grandmother: "Maternal Great-Grandmother",
-    rel_maternal_great_grandfather: "Maternal Great-Grandfather",
-    rel_paternal_great_grandmother: "Paternal Great-Grandmother",
-    rel_paternal_great_grandfather: "Paternal Great-Grandfather",
-    results_title: "Your Assessment Results",
-    results_subtitle: "Based on National Comprehensive Cancer Network (NCCN) guidelines",
-    result_refer_title: "Referral to Genetic Counselor Recommended",
-    result_refer_text: "Based on your personal and family cancer history, you meet one or more criteria from the National Comprehensive Cancer Network (NCCN) guidelines that suggest you may benefit from a referral to a cancer genetic counselor for further risk assessment and possible genetic testing.",
-    result_no_refer_title: "No Referral Indicated at This Time",
-    result_no_refer_text: "Based on the information you provided, your personal and family cancer history does not currently meet NCCN criteria for referral to a cancer genetic counselor. However, this assessment is based solely on the information entered and may not capture all relevant factors.",
-    criteria_met: "Criteria Met:",
-    next_step: "Next Step:",
-    next_step_text: "Share these results with your primary care provider. They can arrange a referral to a cancer genetic counselor who can provide a comprehensive risk assessment and discuss whether genetic testing is appropriate for you.",
-    important_note: "Important:",
-    important_note_text: "Family history can change over time. If new cancer diagnoses occur in your family, please retake this assessment or discuss with your healthcare provider.",
-    disclaimer_title: "Important Disclaimer:",
-    disclaimer_text: " This tool provides a screening assessment based on NCCN guidelines for genetic/familial high-risk assessment. It is not a diagnosis. Please share these results with your primary care provider for further evaluation. Only a qualified healthcare professional can make referral decisions.",
-    btn_back: "Back", btn_continue: "Continue", btn_view_results: "View Results",
-    btn_edit: "Edit Answers", btn_print: "Print Results", btn_start_over: "Start Over",
-    btn_close: "Close",
-    alert_select_sex: "Please select your biological sex.",
-    alert_valid_age: "Please enter a valid age.",
-    alert_ashkenazi: "Please indicate your Ashkenazi Jewish ancestry status.",
-    alert_cancer_diagnosis: "Please indicate whether you have been diagnosed with cancer.",
-    alert_cancer_type: "Please select your cancer type.",
-    alert_diagnosis_age: "Please enter your age at diagnosis.",
-    alert_relationship: "Please select the relationship.",
-    alert_member_cancer: "Please select the cancer type.",
-    alert_member_age: "Please enter a valid age at diagnosis.",
-    alert_start_over: "Are you sure you want to start over? All entered information will be cleared.",
-    diagnosed_at: "Diagnosed at age",
-    // Email
-    share_title: "Share Results",
-    share_description: "Send your results to yourself or your healthcare provider via email.",
-    btn_email_myself: "Email to Myself",
-    btn_email_clinician: "Email to Clinician",
-    email_modal_title: "Email Results",
-    label_email_to: "Recipient Email Address",
-    placeholder_email: "Enter email address",
-    label_recipient_name: "Recipient Name (optional)",
-    placeholder_recipient_name: "e.g., Dr. Smith",
-    label_patient_name: "Patient Name",
-    placeholder_patient_name: "Your full name",
-    label_additional_note: "Additional Note (optional)",
-    placeholder_note: "Add any additional context or message...",
-    btn_preview: "Preview Email Content",
-    email_preview_title: "Email Preview",
-    btn_send_email: "Send Email",
-    email_sent_title: "Email Ready!",
-    email_sent_text: "Your default email application will open with the results pre-filled. Please review and send.",
-    alert_email_required: "Please enter a valid email address.",
-    alert_name_required: "Please enter the patient name.",
-    email_subject_refer: "Gene Bridge Assessment - Genetic Counseling Referral Recommended",
-    email_subject_no_refer: "Gene Bridge Assessment - Results Summary",
-    email_greeting: "Dear",
-    email_intro_patient: "Please find below your Gene Bridge family cancer history assessment results.",
-    email_intro_clinician: "A patient has completed the Gene Bridge family cancer history assessment. Please review the results below.",
-    email_patient_info: "Patient Information",
-    email_sex: "Biological Sex",
-    email_age: "Age",
-    email_ashkenazi_label: "Ashkenazi Jewish Descent",
-    email_personal_history: "Personal Cancer History",
-    email_none: "None reported",
-    email_family_history: "Family Cancer History",
-    email_no_family: "No family members with cancer reported",
-    email_assessment: "Assessment Result",
-    email_refer_result: "REFERRAL TO GENETIC COUNSELOR RECOMMENDED",
-    email_no_refer_result: "No referral indicated at this time",
-    email_criteria: "Criteria Met",
-    email_disclaimer: "DISCLAIMER: This is a screening tool based on NCCN guidelines and does not constitute a medical diagnosis. Please consult with a qualified healthcare professional for clinical decisions.",
-    email_generated: "Generated by Gene Bridge - Family Cancer History Assessment Tool",
-    email_note_label: "Additional Note"
-  },
-
-  es: {
-    step_welcome: "Inicio",
-    step_about: "Sobre Usted",
-    step_personal: "Personal",
-    step_family: "Familia",
-    step_results: "Resultados",
-    welcome_title: "Bienvenido a Gene Bridge",
-    welcome_subtitle: "Esta herramienta le ayuda a comprender si su historial familiar de cáncer sugiere que podría beneficiarse de una referencia a un consejero genético de cáncer.",
-    feature_1: "Responda preguntas sencillas sobre el historial de cáncer de su familia",
-    feature_2: "Obtenga una evaluación personalizada basada en las guías del NCCN",
-    feature_3: "Comparta los resultados con su proveedor de atención médica",
-    feature_4: "Toma aproximadamente 5-10 minutos en completarse",
-    privacy_note: "Su información se procesa completamente en su navegador y no se almacena ni se envía a ningún servidor. Esta herramienta no reemplaza el consejo médico profesional.",
-    btn_get_started: "Comenzar",
-    about_title: "Sobre Usted",
-    about_subtitle: "Por favor proporcione información básica sobre usted.",
-    label_sex: "¿Cuál es su sexo biológico al nacer?",
-    option_female: "Femenino",
-    option_male: "Masculino",
-    label_age: "¿Cuál es su edad actual?",
-    placeholder_age: "Ingrese su edad",
-    label_ashkenazi: "¿Es usted de ascendencia judía Ashkenazi (judía de Europa del Este)?",
-    option_yes: "Sí",
-    option_no: "No",
-    option_unsure: "No estoy seguro/a",
-    personal_title: "Su Historial Personal de Cáncer",
-    personal_subtitle: "¿Alguna vez le han diagnosticado cáncer personalmente?",
-    label_cancer_type: "¿Qué tipo de cáncer le diagnosticaron?",
-    select_cancer_type: "Seleccione tipo de cáncer...",
-    label_age_diagnosis: "¿A qué edad le diagnosticaron?",
-    placeholder_age_diagnosis: "Edad al diagnóstico",
-    label_triple_neg: "¿Su cáncer de mama fue triple negativo? (si aplica)",
-    option_na: "No aplica",
-    cancer_breast: "Cáncer de mama",
-    cancer_ovarian: "Cáncer de ovario",
-    cancer_ovarian_full: "Cáncer de ovario/trompa de Falopio/peritoneal primario",
-    cancer_colorectal: "Cáncer colorrectal",
-    cancer_endometrial: "Cáncer de endometrio (uterino)",
-    cancer_pancreatic: "Cáncer de páncreas",
-    cancer_prostate: "Cáncer de próstata",
-    cancer_prostate_agg: "Cáncer de próstata (agresivo/metastásico)",
-    cancer_melanoma: "Melanoma",
-    cancer_kidney: "Cáncer de riñón",
-    cancer_thyroid: "Cáncer de tiroides",
-    cancer_stomach: "Cáncer de estómago (gástrico)",
-    cancer_brain: "Cáncer de cerebro",
-    cancer_sarcoma: "Sarcoma",
-    cancer_leukemia: "Leucemia/Linfoma",
-    cancer_lung: "Cáncer de pulmón",
-    cancer_bladder: "Cáncer de vejiga",
-    cancer_liver: "Cáncer de hígado",
-    cancer_male_breast: "Cáncer de mama masculino",
-    cancer_other: "Otro",
-    family_title: "Historial Familiar de Cáncer",
-    family_subtitle: "Agregue familiares que hayan sido diagnosticados con cáncer. Incluya ambos lados de su familia (lado materno y paterno).",
-    family_tip: "Incluya padres, hermanos, hijos, abuelos, tíos y primos hermanos. Cuanto más completo sea su historial familiar, más precisa será la evaluación.",
-    empty_members: "No se han agregado familiares aún. Haga clic en el botón de abajo para agregar un familiar con cáncer.",
-    add_member_title: "Agregar Familiar",
-    label_relationship: "Parentesco con usted",
-    select_relationship: "Seleccione parentesco...",
-    label_member_cancer: "Tipo de cáncer",
-    label_member_age: "Edad al diagnóstico",
-    placeholder_member_age: "Edad cuando fue diagnosticado",
-    btn_add_member: "Agregar Familiar",
-    btn_add_family_member: "Agregar Familiar con Cáncer",
-    btn_cancel: "Cancelar",
-    group_first_degree: "Primer Grado (Padres, Hermanos, Hijos)",
-    group_second_degree: "Segundo Grado (Abuelos, Tíos, Medio-hermanos)",
-    group_third_degree: "Tercer Grado (Primos, Bisabuelos)",
-    rel_mother: "Madre", rel_father: "Padre", rel_sister: "Hermana", rel_brother: "Hermano",
-    rel_daughter: "Hija", rel_son: "Hijo",
-    rel_maternal_grandmother: "Abuela Materna", rel_maternal_grandfather: "Abuelo Materno",
-    rel_paternal_grandmother: "Abuela Paterna", rel_paternal_grandfather: "Abuelo Paterno",
-    rel_maternal_aunt: "Tía Materna", rel_maternal_uncle: "Tío Materno",
-    rel_paternal_aunt: "Tía Paterna", rel_paternal_uncle: "Tío Paterno",
-    rel_half_sister: "Media Hermana", rel_half_brother: "Medio Hermano",
-    rel_maternal_cousin: "Primo/a Materno/a", rel_paternal_cousin: "Primo/a Paterno/a",
-    rel_maternal_great_grandmother: "Bisabuela Materna",
-    rel_maternal_great_grandfather: "Bisabuelo Materno",
-    rel_paternal_great_grandmother: "Bisabuela Paterna",
-    rel_paternal_great_grandfather: "Bisabuelo Paterno",
-    results_title: "Sus Resultados de Evaluación",
-    results_subtitle: "Basado en las guías de la Red Nacional Integral del Cáncer (NCCN)",
-    result_refer_title: "Se Recomienda Referencia a Consejero Genético",
-    result_refer_text: "Según su historial personal y familiar de cáncer, usted cumple con uno o más criterios de las guías del NCCN que sugieren que podría beneficiarse de una referencia a un consejero genético de cáncer para evaluación adicional y posibles pruebas genéticas.",
-    result_no_refer_title: "No Se Indica Referencia en Este Momento",
-    result_no_refer_text: "Según la información proporcionada, su historial no cumple actualmente con los criterios del NCCN para referencia a un consejero genético. Sin embargo, esta evaluación se basa únicamente en la información ingresada.",
-    criteria_met: "Criterios Cumplidos:",
-    next_step: "Siguiente Paso:",
-    next_step_text: "Comparta estos resultados con su proveedor de atención primaria. Ellos pueden organizar una referencia a un consejero genético de cáncer.",
-    important_note: "Importante:",
-    important_note_text: "El historial familiar puede cambiar. Si ocurren nuevos diagnósticos de cáncer en su familia, repita esta evaluación o discuta con su médico.",
-    disclaimer_title: "Aviso Legal Importante:",
-    disclaimer_text: " Esta herramienta proporciona una evaluación basada en las guías del NCCN. No es un diagnóstico. Comparta estos resultados con su proveedor de atención primaria.",
-    btn_back: "Atrás", btn_continue: "Continuar", btn_view_results: "Ver Resultados",
-    btn_edit: "Editar Respuestas", btn_print: "Imprimir Resultados", btn_start_over: "Comenzar de Nuevo",
-    btn_close: "Cerrar",
-    alert_select_sex: "Por favor seleccione su sexo biológico.",
-    alert_valid_age: "Por favor ingrese una edad válida.",
-    alert_ashkenazi: "Por favor indique su estado de ascendencia judía Ashkenazi.",
-    alert_cancer_diagnosis: "Por favor indique si le han diagnosticado cáncer.",
-    alert_cancer_type: "Por favor seleccione su tipo de cáncer.",
-    alert_diagnosis_age: "Por favor ingrese su edad al diagnóstico.",
-    alert_relationship: "Por favor seleccione el parentesco.",
-    alert_member_cancer: "Por favor seleccione el tipo de cáncer.",
-    alert_member_age: "Por favor ingrese una edad válida al diagnóstico.",
-    alert_start_over: "¿Está seguro/a de que desea comenzar de nuevo? Toda la información se borrará.",
-    diagnosed_at: "Diagnosticado a los",
-    share_title: "Compartir Resultados",
-    share_description: "Envíe sus resultados a usted mismo/a o a su proveedor de atención médica por correo electrónico.",
-    btn_email_myself: "Enviarme por Email",
-    btn_email_clinician: "Email al Médico",
-    email_modal_title: "Enviar Resultados por Email",
-    label_email_to: "Dirección de Email del Destinatario",
-    placeholder_email: "Ingrese dirección de email",
-    label_recipient_name: "Nombre del Destinatario (opcional)",
-    placeholder_recipient_name: "ej., Dr. García",
-    label_patient_name: "Nombre del Paciente",
-    placeholder_patient_name: "Su nombre completo",
-    label_additional_note: "Nota Adicional (opcional)",
-    placeholder_note: "Agregue cualquier contexto o mensaje adicional...",
-    btn_preview: "Vista Previa del Email",
-    email_preview_title: "Vista Previa del Email",
-    btn_send_email: "Enviar Email",
-    email_sent_title: "¡Email Listo!",
-    email_sent_text: "Su aplicación de correo electrónico predeterminada se abrirá con los resultados. Por favor revise y envíe.",
-    alert_email_required: "Por favor ingrese una dirección de email válida.",
-    alert_name_required: "Por favor ingrese el nombre del paciente.",
-    email_subject_refer: "Evaluación Gene Bridge - Se Recomienda Referencia a Consejero Genético",
-    email_subject_no_refer: "Evaluación Gene Bridge - Resumen de Resultados",
-    email_greeting: "Estimado/a",
-    email_intro_patient: "A continuación encontrará los resultados de su evaluación de historial familiar de cáncer de Gene Bridge.",
-    email_intro_clinician: "Un paciente ha completado la evaluación de historial familiar de cáncer de Gene Bridge. Por favor revise los resultados a continuación.",
-    email_patient_info: "Información del Paciente",
-    email_sex: "Sexo Biológico",
-    email_age: "Edad",
-    email_ashkenazi_label: "Ascendencia Judía Ashkenazi",
-    email_personal_history: "Historial Personal de Cáncer",
-    email_none: "Ninguno reportado",
-    email_family_history: "Historial Familiar de Cáncer",
-    email_no_family: "No se reportaron familiares con cáncer",
-    email_assessment: "Resultado de la Evaluación",
-    email_refer_result: "SE RECOMIENDA REFERENCIA A CONSEJERO GENÉTICO",
-    email_no_refer_result: "No se indica referencia en este momento",
-    email_criteria: "Criterios Cumplidos",
-    email_disclaimer: "AVISO: Esta es una herramienta de detección basada en las guías del NCCN y no constituye un diagnóstico médico. Consulte con un profesional de salud calificado.",
-    email_generated: "Generado por Gene Bridge - Herramienta de Evaluación de Historial Familiar de Cáncer",
-    email_note_label: "Nota Adicional"
-  }
-};
-
-// Criteria reason keys (used in evaluation)
-const reasonKeys = {
-  en: {
-    reason_breast_50: "Personal history of breast cancer diagnosed at age ≤ 50",
-    reason_tnbc_60: "Personal history of triple-negative breast cancer diagnosed at age ≤ 60",
-    reason_ovarian: "Personal history of ovarian/fallopian tube/primary peritoneal cancer",
-    reason_male_breast: "Personal history of male breast cancer",
-    reason_pancreatic: "Personal history of pancreatic cancer",
-    reason_prostate: "Personal history of aggressive/metastatic prostate cancer",
-    reason_crc_50: "Personal history of colorectal cancer diagnosed at age ≤ 50",
-    reason_endometrial_50: "Personal history of endometrial cancer diagnosed at age ≤ 50",
-    reason_young_45: "Personal history of cancer diagnosed at age ≤ 45",
-    reason_ashkenazi: "Ashkenazi Jewish ancestry (elevated BRCA1/2 mutation risk)",
-    reason_family_breast_50: "Close relative(s) with breast cancer diagnosed at age ≤ 50",
-    reason_family_ovarian: "Family member(s) with ovarian cancer",
-    reason_family_male_breast: "Family member(s) with male breast cancer",
-    reason_family_pancreatic: "Family member(s) with pancreatic cancer",
-    reason_family_prostate_55: "Family member(s) with prostate cancer diagnosed at age ≤ 55",
-    reason_maternal_breast_2: "Two or more maternal relatives with breast cancer",
-    reason_paternal_breast_2: "Two or more paternal relatives with breast cancer",
-    reason_maternal_3: "Three or more maternal relatives with breast and/or ovarian cancer",
-    reason_paternal_3: "Three or more paternal relatives with breast and/or ovarian cancer",
-    reason_family_crc_50: "Family member(s) with colorectal cancer diagnosed at age ≤ 50",
-    reason_family_endometrial_50: "Family member(s) with endometrial cancer diagnosed at age ≤ 50",
-    reason_lynch_3: "Three or more relatives with Lynch syndrome-associated cancers",
-    reason_maternal_young_2: "Two or more maternal relatives with cancer diagnosed at age ≤ 50",
-    reason_paternal_young_2: "Two or more paternal relatives with cancer diagnosed at age ≤ 50",
-    reason_first_deg_45: "First-degree relative(s) with cancer diagnosed at age ≤ 45",
-    reason_breast_ovarian_family: "Family history includes both breast cancer and ovarian cancer"
+    step_welcome:"Welcome",step_about:"About You",step_personal:"Personal",step_family:"Family",step_results:"Results",
+    welcome_title:"Welcome to Gene Bridge",welcome_subtitle:"This tool helps determine whether your family cancer history suggests you may benefit from a referral to a cancer genetic counselor.",
+    feature_1:"Answer simple questions about your family's cancer history",feature_2:"Get a personalized assessment based on NCCN guidelines",feature_3:"Share results with your healthcare provider",feature_4:"Takes approximately 5-10 minutes",
+    privacy_note:"Your information is processed entirely in your browser and is never stored or sent to any server.",
+    btn_get_started:"Get Started",about_title:"About You",about_subtitle:"Please provide some basic information.",
+    label_sex:"Biological sex at birth",option_female:"Female",option_male:"Male",label_age:"Current age",placeholder_age:"Enter your age",
+    label_ashkenazi:"Ashkenazi Jewish descent?",option_yes:"Yes",option_no:"No",option_unsure:"Unsure",
+    personal_title:"Your Personal Cancer History",personal_subtitle:"Have you ever been diagnosed with cancer?",
+    personal_multi_tip:"If you have been diagnosed with more than one cancer, add each one separately below.",
+    label_personal_diagnoses:"Your Cancer Diagnoses",label_cancer_type:"Cancer type",select_cancer_type:"Select cancer type...",
+    label_age_diagnosis:"Age at diagnosis",placeholder_age_diagnosis:"Age",
+    label_tnbc_check:"This breast cancer was triple-negative",option_na:"N/A",
+    cancer_breast:"Breast cancer",cancer_ovarian:"Ovarian cancer",cancer_ovarian_full:"Ovarian/Fallopian tube/Peritoneal",
+    cancer_colorectal:"Colorectal cancer",cancer_endometrial:"Endometrial (uterine) cancer",cancer_pancreatic:"Pancreatic cancer",
+    cancer_prostate:"Prostate cancer",cancer_prostate_agg:"Prostate cancer (aggressive)",cancer_melanoma:"Melanoma",
+    cancer_kidney:"Kidney cancer",cancer_thyroid:"Thyroid cancer",cancer_stomach:"Stomach cancer",
+    cancer_brain:"Brain cancer",cancer_sarcoma:"Sarcoma",cancer_leukemia:"Leukemia/Lymphoma",
+    cancer_lung:"Lung cancer",cancer_bladder:"Bladder cancer",cancer_liver:"Liver cancer",cancer_male_breast:"Male breast cancer",cancer_other:"Other",
+    family_title:"Family Cancer History",family_subtitle:"Add family members diagnosed with cancer. Include both sides of your family.",
+    family_tip:"Include parents, siblings, children, grandparents, aunts, uncles, and cousins. You can add multiple diagnoses per person.",
+    empty_members:"No family members added yet.",add_member_title:"Add Family Member",label_relationship:"Relationship to you",select_relationship:"Select relationship...",
+    label_diagnoses:"Cancer Diagnoses",label_member_cancer:"Type of cancer",label_member_age:"Age at diagnosis",placeholder_member_age:"Age",
+    btn_add_diagnosis:"Add",btn_add_member:"Add",btn_save_member:"Save Member",btn_add_family_member:"Add Family Member with Cancer",btn_cancel:"Cancel",
+    group_first_degree:"First Degree (Parents, Siblings, Children)",group_second_degree:"Second Degree (Grandparents, Aunts/Uncles)",group_third_degree:"Third Degree (Cousins, Great-grandparents)",
+    rel_mother:"Mother",rel_father:"Father",rel_sister:"Sister",rel_brother:"Brother",rel_daughter:"Daughter",rel_son:"Son",
+    rel_maternal_grandmother:"Maternal Grandmother",rel_maternal_grandfather:"Maternal Grandfather",rel_paternal_grandmother:"Paternal Grandmother",rel_paternal_grandfather:"Paternal Grandfather",
+    rel_maternal_aunt:"Maternal Aunt",rel_maternal_uncle:"Maternal Uncle",rel_paternal_aunt:"Paternal Aunt",rel_paternal_uncle:"Paternal Uncle",
+    rel_half_sister:"Half-Sister",rel_half_brother:"Half-Brother",rel_maternal_cousin:"Maternal Cousin",rel_paternal_cousin:"Paternal Cousin",
+    rel_maternal_great_grandmother:"Maternal Great-Grandmother",rel_maternal_great_grandfather:"Maternal Great-Grandfather",
+    rel_paternal_great_grandmother:"Paternal Great-Grandmother",rel_paternal_great_grandfather:"Paternal Great-Grandfather",
+    results_title:"Your Assessment Results",results_subtitle:"Based on NCCN guidelines",
+    result_refer_title:"Referral to Genetic Counselor Recommended",result_refer_text:"Based on your history, you meet NCCN criteria suggesting a referral to a cancer genetic counselor may be beneficial.",
+    result_no_refer_title:"No Referral Indicated at This Time",result_no_refer_text:"Your history does not currently meet NCCN referral criteria. Update if family history changes.",
+    criteria_met:"Criteria Met:",next_step:"Next Step:",next_step_text:"Share these results with your primary care provider.",
+    important_note:"Important:",important_note_text:"Update this assessment if new family cancer diagnoses occur.",
+    disclaimer_title:"Disclaimer:",disclaimer_text:" This is a screening tool, not a diagnosis. Share with your healthcare provider.",
+    btn_back:"Back",btn_continue:"Continue",btn_view_results:"View Results",btn_edit:"Edit Answers",btn_print:"Print",btn_start_over:"Start Over",btn_close:"Close",
+    alert_select_sex:"Please select your biological sex.",alert_valid_age:"Please enter a valid age.",alert_ashkenazi:"Please select ancestry status.",
+    alert_cancer_diagnosis:"Please indicate if you have been diagnosed with cancer.",alert_add_diagnosis:"Please add at least one diagnosis.",alert_diag_fields:"Please select cancer type and enter age.",
+    alert_relationship:"Please select the relationship.",alert_start_over:"Start over? All data will be cleared.",
+    diagnosed_at:"age",
+    share_title:"Share Results",share_description:"Email results to yourself or your clinician.",
+    btn_email_myself:"Email to Myself",btn_email_clinician:"Email to Clinician",email_modal_title:"Email Results",
+    label_email_to:"Recipient Email",placeholder_email:"Email address",label_recipient_name:"Recipient Name (optional)",placeholder_recipient_name:"e.g., Dr. Smith",
+    label_patient_name:"Patient Name",placeholder_patient_name:"Your name",label_additional_note:"Note (optional)",placeholder_note:"Additional context...",
+    btn_preview:"Preview",email_preview_title:"Preview",btn_send_email:"Send",
+    email_sent_title:"Email Ready!",email_sent_text:"Your email app will open with pre-filled results.",
+    alert_email_required:"Please enter a valid email.",alert_name_required:"Please enter patient name.",
+    email_subject_refer:"Gene Bridge - Genetic Counseling Referral Recommended",email_subject_no_refer:"Gene Bridge - Results Summary",
+    email_intro_patient:"Below are your Gene Bridge assessment results.",email_intro_clinician:"A patient completed a Gene Bridge assessment. Please review.",
+    email_patient_info:"Patient Information",email_sex:"Sex",email_age:"Age",email_ashkenazi_label:"Ashkenazi",
+    email_personal_history:"Personal Cancer History",email_none:"None",email_family_history:"Family Cancer History",email_no_family:"None reported",
+    email_assessment:"Assessment",email_refer_result:"REFERRAL RECOMMENDED",email_no_refer_result:"No referral indicated",
+    email_criteria:"Criteria",email_disclaimer:"DISCLAIMER: Screening tool only. Consult healthcare professional.",
+    email_generated:"Generated by Gene Bridge",email_note_label:"Note",tnbc:"Triple-Negative"
   },
   es: {
-    reason_breast_50: "Historial personal de cáncer de mama diagnosticado a edad ≤ 50",
-    reason_tnbc_60: "Historial personal de cáncer de mama triple negativo diagnosticado a edad ≤ 60",
-    reason_ovarian: "Historial personal de cáncer de ovario/trompa de Falopio/peritoneal primario",
-    reason_male_breast: "Historial personal de cáncer de mama masculino",
-    reason_pancreatic: "Historial personal de cáncer de páncreas",
-    reason_prostate: "Historial personal de cáncer de próstata agresivo/metastásico",
-    reason_crc_50: "Historial personal de cáncer colorrectal diagnosticado a edad ≤ 50",
-    reason_endometrial_50: "Historial personal de cáncer de endometrio diagnosticado a edad ≤ 50",
-    reason_young_45: "Historial personal de cáncer diagnosticado a edad ≤ 45",
-    reason_ashkenazi: "Ascendencia judía Ashkenazi (riesgo elevado de mutaciones BRCA1/2)",
-    reason_family_breast_50: "Familiar(es) cercano(s) con cáncer de mama diagnosticado a edad ≤ 50",
-    reason_family_ovarian: "Familiar(es) con cáncer de ovario",
-    reason_family_male_breast: "Familiar(es) con cáncer de mama masculino",
-    reason_family_pancreatic: "Familiar(es) con cáncer de páncreas",
-    reason_family_prostate_55: "Familiar(es) con cáncer de próstata diagnosticado a edad ≤ 55",
-    reason_maternal_breast_2: "Dos o más familiares maternos con cáncer de mama",
-    reason_paternal_breast_2: "Dos o más familiares paternos con cáncer de mama",
-    reason_maternal_3: "Tres o más familiares maternos con cáncer de mama y/o ovario",
-    reason_paternal_3: "Tres o más familiares paternos con cáncer de mama y/o ovario",
-    reason_family_crc_50: "Familiar(es) con cáncer colorrectal diagnosticado a edad ≤ 50",
-    reason_family_endometrial_50: "Familiar(es) con cáncer de endometrio diagnosticado a edad ≤ 50",
-    reason_lynch_3: "Tres o más familiares con cánceres asociados al síndrome de Lynch",
-    reason_maternal_young_2: "Dos o más familiares maternos con cáncer diagnosticado a edad ≤ 50",
-    reason_paternal_young_2: "Dos o más familiares paternos con cáncer diagnosticado a edad ≤ 50",
-    reason_first_deg_45: "Familiar(es) de primer grado con cáncer diagnosticado a edad ≤ 45",
-    reason_breast_ovarian_family: "Historial familiar incluye tanto cáncer de mama como cáncer de ovario"
+    step_welcome:"Inicio",step_about:"Sobre Usted",step_personal:"Personal",step_family:"Familia",step_results:"Resultados",
+    welcome_title:"Bienvenido a Gene Bridge",welcome_subtitle:"Evalúa si su historial familiar sugiere referencia a consejería genética.",
+    feature_1:"Responda preguntas sobre historial familiar",feature_2:"Evaluación basada en guías NCCN",feature_3:"Comparta resultados con su médico",feature_4:"Toma 5-10 minutos",
+    privacy_note:"Su información se procesa en su navegador. No se almacena.",
+    btn_get_started:"Comenzar",about_title:"Sobre Usted",about_subtitle:"Información básica.",
+    label_sex:"Sexo biológico al nacer",option_female:"Femenino",option_male:"Masculino",label_age:"Edad actual",placeholder_age:"Su edad",
+    label_ashkenazi:"¿Ascendencia judía Ashkenazi?",option_yes:"Sí",option_no:"No",option_unsure:"No sé",
+    personal_title:"Su Historial Personal",personal_subtitle:"¿Le han diagnosticado cáncer?",
+    personal_multi_tip:"Si tiene más de un diagnóstico, agregue cada uno por separado.",
+    label_personal_diagnoses:"Sus Diagnósticos de Cáncer",label_cancer_type:"Tipo",select_cancer_type:"Seleccione...",
+    label_age_diagnosis:"Edad al diagnóstico",placeholder_age_diagnosis:"Edad",
+    label_tnbc_check:"Este cáncer de mama fue triple negativo",option_na:"No aplica",
+    cancer_breast:"Cáncer de mama",cancer_ovarian:"Cáncer de ovario",cancer_ovarian_full:"Cáncer ovárico/trompa/peritoneal",
+    cancer_colorectal:"Cáncer colorrectal",cancer_endometrial:"Cáncer endometrial",cancer_pancreatic:"Cáncer de páncreas",
+    cancer_prostate:"Cáncer de próstata",cancer_prostate_agg:"Cáncer de próstata (agresivo)",cancer_melanoma:"Melanoma",
+    cancer_kidney:"Cáncer renal",cancer_thyroid:"Cáncer de tiroides",cancer_stomach:"Cáncer gástrico",
+    cancer_brain:"Cáncer cerebral",cancer_sarcoma:"Sarcoma",cancer_leukemia:"Leucemia/Linfoma",
+    cancer_lung:"Cáncer de pulmón",cancer_bladder:"Cáncer de vejiga",cancer_liver:"Cáncer hepático",cancer_male_breast:"Cáncer de mama masculino",cancer_other:"Otro",
+    family_title:"Historial Familiar",family_subtitle:"Agregue familiares con cáncer. Ambos lados.",
+    family_tip:"Padres, hermanos, hijos, abuelos, tíos, primos. Múltiples diagnósticos por persona.",
+    empty_members:"Sin familiares agregados.",add_member_title:"Agregar Familiar",label_relationship:"Parentesco",select_relationship:"Seleccione...",
+    label_diagnoses:"Diagnósticos",label_member_cancer:"Tipo",label_member_age:"Edad",placeholder_member_age:"Edad",
+    btn_add_diagnosis:"Agregar",btn_add_member:"Agregar",btn_save_member:"Guardar",btn_add_family_member:"Agregar Familiar con Cáncer",btn_cancel:"Cancelar",
+    group_first_degree:"Primer Grado",group_second_degree:"Segundo Grado",group_third_degree:"Tercer Grado",
+    rel_mother:"Madre",rel_father:"Padre",rel_sister:"Hermana",rel_brother:"Hermano",rel_daughter:"Hija",rel_son:"Hijo",
+    rel_maternal_grandmother:"Abuela Materna",rel_maternal_grandfather:"Abuelo Materno",rel_paternal_grandmother:"Abuela Paterna",rel_paternal_grandfather:"Abuelo Paterno",
+    rel_maternal_aunt:"Tía Materna",rel_maternal_uncle:"Tío Materno",rel_paternal_aunt:"Tía Paterna",rel_paternal_uncle:"Tío Paterno",
+    rel_half_sister:"Media Hermana",rel_half_brother:"Medio Hermano",rel_maternal_cousin:"Primo/a Materno/a",rel_paternal_cousin:"Primo/a Paterno/a",
+    rel_maternal_great_grandmother:"Bisabuela Materna",rel_maternal_great_grandfather:"Bisabuelo Materno",
+    rel_paternal_great_grandmother:"Bisabuela Paterna",rel_paternal_great_grandfather:"Bisabuelo Paterno",
+    results_title:"Resultados",results_subtitle:"Basado en guías NCCN",
+    result_refer_title:"Referencia Recomendada",result_refer_text:"Cumple criterios NCCN para consejería genética.",
+    result_no_refer_title:"Sin Referencia",result_no_refer_text:"No cumple criterios actualmente. Actualice si cambia.",
+    criteria_met:"Criterios:",next_step:"Siguiente:",next_step_text:"Comparta con su médico.",
+    important_note:"Importante:",important_note_text:"Actualice si hay nuevos diagnósticos.",
+    disclaimer_title:"Aviso:",disclaimer_text:" Herramienta de detección. Consulte profesional.",
+    btn_back:"Atrás",btn_continue:"Continuar",btn_view_results:"Ver Resultados",btn_edit:"Editar",btn_print:"Imprimir",btn_start_over:"Reiniciar",btn_close:"Cerrar",
+    alert_select_sex:"Seleccione sexo.",alert_valid_age:"Edad válida.",alert_ashkenazi:"Indique ascendencia.",
+    alert_cancer_diagnosis:"Indique diagnóstico.",alert_add_diagnosis:"Agregue diagnóstico.",alert_diag_fields:"Seleccione tipo y edad.",
+    alert_relationship:"Seleccione parentesco.",alert_start_over:"¿Reiniciar? Se borra todo.",
+    diagnosed_at:"edad",
+    share_title:"Compartir",share_description:"Envíe por email.",
+    btn_email_myself:"Email a Mí",btn_email_clinician:"Email al Médico",email_modal_title:"Enviar Email",
+    label_email_to:"Email",placeholder_email:"Email",label_recipient_name:"Nombre (opcional)",placeholder_recipient_name:"Dr. García",
+    label_patient_name:"Nombre Paciente",placeholder_patient_name:"Su nombre",label_additional_note:"Nota",placeholder_note:"Contexto...",
+    btn_preview:"Vista Previa",email_preview_title:"Vista Previa",btn_send_email:"Enviar",
+    email_sent_title:"¡Listo!",email_sent_text:"Su email se abrirá.",
+    alert_email_required:"Email válido.",alert_name_required:"Nombre requerido.",
+    email_subject_refer:"Gene Bridge - Referencia Recomendada",email_subject_no_refer:"Gene Bridge - Resultados",
+    email_intro_patient:"Sus resultados Gene Bridge.",email_intro_clinician:"Paciente completó evaluación Gene Bridge.",
+    email_patient_info:"Paciente",email_sex:"Sexo",email_age:"Edad",email_ashkenazi_label:"Ashkenazi",
+    email_personal_history:"Historial Personal",email_none:"Ninguno",email_family_history:"Historial Familiar",email_no_family:"Ninguno",
+    email_assessment:"Evaluación",email_refer_result:"REFERENCIA RECOMENDADA",email_no_refer_result:"Sin referencia",
+    email_criteria:"Criterios",email_disclaimer:"AVISO: Herramienta de detección.",
+    email_generated:"Gene Bridge",email_note_label:"Nota",tnbc:"Triple-Negativo"
   }
 };
 
-// ===== APPLICATION STATE =====
-let currentLang = 'en';
-let emailRecipientType = 'patient';
-let lastResults = { shouldRefer: false, reasons: [] };
+let currentLang='en';let emailRecipientType='patient';let lastResults={shouldRefer:false,reasons:[]};
+let pendingDiagnoses=[];
 
-const state = {
-  currentStep: 1,
-  sex: '',
-  age: null,
-  ashkenazi: '',
-  personalCancer: '',
-  personalCancerType: '',
-  personalCancerAge: null,
-  tripleNeg: '',
-  familyMembers: []
-};
+const state={currentStep:1,sex:'',age:null,ashkenazi:'',personalCancer:'',personalDiagnoses:[],familyMembers:[]};
 
-const firstDegree = ['mother', 'father', 'sister', 'brother', 'daughter', 'son'];
-const secondDegree = ['maternal_grandmother', 'maternal_grandfather', 'paternal_grandmother', 'paternal_grandfather', 'maternal_aunt', 'maternal_uncle', 'paternal_aunt', 'paternal_uncle', 'half_sister', 'half_brother'];
+const cancerTypes=['breast','ovarian','colorectal','endometrial','pancreatic','prostate','melanoma','kidney','thyroid','stomach','brain','sarcoma','leukemia','lung','bladder','liver','malebreast','other'];
+const relationships=[
+  {group:'group_first_degree',items:['mother','father','sister','brother','daughter','son']},
+  {group:'group_second_degree',items:['maternal_grandmother','maternal_grandfather','paternal_grandmother','paternal_grandfather','maternal_aunt','maternal_uncle','paternal_aunt','paternal_uncle','half_sister','half_brother']},
+  {group:'group_third_degree',items:['maternal_cousin','paternal_cousin','maternal_great_grandmother','maternal_great_grandfather','paternal_great_grandmother','paternal_great_grandfather']}
+];
+const firstDegree=['mother','father','sister','brother','daughter','son'];
+const secondDegree=['maternal_grandmother','maternal_grandfather','paternal_grandmother','paternal_grandfather','maternal_aunt','maternal_uncle','paternal_aunt','paternal_uncle','half_sister','half_brother'];
 
-function isMaternalSide(rel) {
-  return ['mother', 'maternal_grandmother', 'maternal_grandfather', 'maternal_aunt', 'maternal_uncle', 'maternal_cousin', 'maternal_great_grandmother', 'maternal_great_grandfather'].includes(rel);
+function isMaternalSide(r){return['mother','maternal_grandmother','maternal_grandfather','maternal_aunt','maternal_uncle','maternal_cousin','maternal_great_grandmother','maternal_great_grandfather'].includes(r);}
+function isPaternalSide(r){return['father','paternal_grandmother','paternal_grandfather','paternal_aunt','paternal_uncle','paternal_cousin','paternal_great_grandmother','paternal_great_grandfather'].includes(r);}
+function isBreastType(ct){return ct==='breast'||ct==='malebreast';}
+
+// Language
+function switchLanguage(lang){currentLang=lang;document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});document.getElementById(lang==='en'?'langEN':'langES').classList.add('active');document.getElementById(lang==='en'?'langEN':'langES').setAttribute('aria-pressed','true');applyTranslations();populateSelects();renderMembers();renderPendingDiagnoses();renderPersonalDiagnoses();if(state.currentStep===5)generateResults();}
+function t(k){return translations[currentLang][k]||translations['en'][k]||k;}
+function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(translations[currentLang][k])el.textContent=translations[currentLang][k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.getAttribute('data-i18n-placeholder');if(translations[currentLang][k])el.placeholder=translations[currentLang][k];});document.querySelectorAll('[data-i18n-label]').forEach(el=>{const k=el.getAttribute('data-i18n-label');if(translations[currentLang][k])el.label=translations[currentLang][k];});}
+function populateSelects(){
+  [document.getElementById('personalDiagType'),document.getElementById('diagCancerType')].forEach(sel=>{if(!sel)return;sel.innerHTML=`<option value="">${t('select_cancer_type')}</option>`+cancerTypes.map(c=>`<option value="${c}">${t('cancer_'+c)}</option>`).join('');});
+  const relSel=document.getElementById('memberRelationship');if(relSel)relSel.innerHTML=`<option value="">${t('select_relationship')}</option>`+relationships.map(g=>`<optgroup label="${t(g.group)}">${g.items.map(i=>`<option value="${i}">${t('rel_'+i)}</option>`).join('')}</optgroup>`).join('');
 }
 
-function isPaternalSide(rel) {
-  return ['father', 'paternal_grandmother', 'paternal_grandfather', 'paternal_aunt', 'paternal_uncle', 'paternal_cousin', 'paternal_great_grandmother', 'paternal_great_grandfather'].includes(rel);
+// Nav
+function goToStep(s){document.querySelectorAll('.step-section').forEach(el=>el.classList.remove('active'));document.getElementById('step'+s).classList.add('active');state.currentStep=s;updateProgress();if(s===5)generateResults();window.scrollTo({top:0,behavior:'smooth'});}
+function updateProgress(){document.getElementById('progressFill').style.width=((state.currentStep-1)/4*100)+'%';for(let i=1;i<=5;i++){const el=document.getElementById('progStep'+i);el.classList.remove('active','completed');if(i===state.currentStep)el.classList.add('active');else if(i<state.currentStep)el.classList.add('completed');}}
+
+// Options
+function selectOption(el,field,val){el.parentElement.querySelectorAll('.option-item').forEach(i=>{i.classList.remove('selected');i.setAttribute('aria-checked','false');});el.classList.add('selected');el.setAttribute('aria-checked','true');state[field]=val;}
+function handleKey(e,el,field,val){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectOption(el,field,val);if(field==='personalCancer')showPersonalDetails(val==='yes');}}
+function showPersonalDetails(s){document.getElementById('personalCancerDetails').style.display=s?'block':'none';}
+
+// Personal TNBC
+function checkPersonalTnbc(){
+  const sel=document.getElementById('personalDiagType');
+  const q=document.getElementById('personalTnbcQuestion');
+  q.style.display=isBreastType(sel.value)?'flex':'none';
+  if(!isBreastType(sel.value))document.getElementById('personalTnbcCheck').checked=false;
+}
+function togglePersonalTnbc(){}
+
+// Personal diagnoses
+function addPersonalDiagnosis(){
+  const type=document.getElementById('personalDiagType').value;
+  const age=document.getElementById('personalDiagAge').value;
+  if(!type||!age||age<0||age>120){alert(t('alert_diag_fields'));return;}
+  const tnbc=isBreastType(type)&&document.getElementById('personalTnbcCheck').checked;
+  state.personalDiagnoses.push({cancerType:type,ageAtDiagnosis:parseInt(age),tripleNegative:tnbc});
+  document.getElementById('personalDiagType').value='';document.getElementById('personalDiagAge').value='';
+  document.getElementById('personalTnbcCheck').checked=false;document.getElementById('personalTnbcQuestion').style.display='none';
+  renderPersonalDiagnoses();
+}
+function removePersonalDiagnosis(idx){state.personalDiagnoses.splice(idx,1);renderPersonalDiagnoses();}
+function renderPersonalDiagnoses(){
+  const c=document.getElementById('personalDiagnosesList');if(!c)return;
+  if(state.personalDiagnoses.length===0){c.innerHTML='';return;}
+  c.innerHTML=state.personalDiagnoses.map((d,i)=>`
+    <div class="pending-diagnosis-chip">
+      <span class="material-icons">medical_services</span>
+      <span>${t('cancer_'+d.cancerType)} — ${t('diagnosed_at')} ${d.ageAtDiagnosis}</span>
+      ${d.tripleNegative?`<span class="tnbc-badge">${t('tnbc')}</span>`:''}
+      <button class="remove-chip" onclick="removePersonalDiagnosis(${i})"><span class="material-icons">close</span></button>
+    </div>`).join('');
 }
 
-// ===== LANGUAGE =====
-function switchLanguage(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.remove('active');
-    btn.setAttribute('aria-pressed', 'false');
+// Validation
+function validateStep2(){if(!state.sex){alert(t('alert_select_sex'));return;}const a=document.getElementById('ageInput').value;if(!a||a<0||a>120){alert(t('alert_valid_age'));return;}state.age=parseInt(a);if(!state.ashkenazi){alert(t('alert_ashkenazi'));return;}goToStep(3);}
+function validateStep3(){if(!state.personalCancer){alert(t('alert_cancer_diagnosis'));return;}if(state.personalCancer==='yes'&&state.personalDiagnoses.length===0){alert(t('alert_add_diagnosis'));return;}goToStep(4);}
+
+// Family TNBC
+function checkFamilyTnbc(){
+  const sel=document.getElementById('diagCancerType');
+  const q=document.getElementById('familyTnbcQuestion');
+  q.style.display=isBreastType(sel.value)?'flex':'none';
+  if(!isBreastType(sel.value))document.getElementById('familyTnbcCheck').checked=false;
+}
+
+// Family members
+function showAddMember(){pendingDiagnoses=[];renderPendingDiagnoses();document.getElementById('addMemberSection').style.display='block';document.getElementById('addMemberBtn').style.display='none';document.getElementById('memberRelationship').value='';document.getElementById('diagCancerType').value='';document.getElementById('diagAge').value='';document.getElementById('familyTnbcCheck').checked=false;document.getElementById('familyTnbcQuestion').style.display='none';document.getElementById('memberRelationship').focus();}
+function cancelAddMember(){document.getElementById('addMemberSection').style.display='none';document.getElementById('addMemberBtn').style.display='flex';pendingDiagnoses=[];renderPendingDiagnoses();}
+
+function addPendingDiagnosis(){
+  const type=document.getElementById('diagCancerType').value;const age=document.getElementById('diagAge').value;
+  if(!type||!age||age<0||age>120){alert(t('alert_diag_fields'));return;}
+  const tnbc=isBreastType(type)&&document.getElementById('familyTnbcCheck').checked;
+  pendingDiagnoses.push({cancerType:type,ageAtDiagnosis:parseInt(age),tripleNegative:tnbc});
+  document.getElementById('diagCancerType').value='';document.getElementById('diagAge').value='';
+  document.getElementById('familyTnbcCheck').checked=false;document.getElementById('familyTnbcQuestion').style.display='none';
+  renderPendingDiagnoses();
+}
+function removePendingDiagnosis(idx){pendingDiagnoses.splice(idx,1);renderPendingDiagnoses();}
+function renderPendingDiagnoses(){
+  const c=document.getElementById('pendingDiagnoses');if(!c)return;
+  if(pendingDiagnoses.length===0){c.innerHTML='';return;}
+  c.innerHTML=pendingDiagnoses.map((d,i)=>`
+    <div class="pending-diagnosis-chip">
+      <span class="material-icons">medical_services</span>
+      <span>${t('cancer_'+d.cancerType)} — ${t('diagnosed_at')} ${d.ageAtDiagnosis}</span>
+      ${d.tripleNegative?`<span class="tnbc-badge">${t('tnbc')}</span>`:''}
+      <button class="remove-chip" onclick="removePendingDiagnosis(${i})"><span class="material-icons">close</span></button>
+    </div>`).join('');
+}
+function saveMember(){const rel=document.getElementById('memberRelationship').value;if(!rel){alert(t('alert_relationship'));return;}if(pendingDiagnoses.length===0){alert(t('alert_add_diagnosis'));return;}state.familyMembers.push({relationship:rel,diagnoses:[...pendingDiagnoses]});renderMembers();cancelAddMember();}
+function removeMember(idx){state.familyMembers.splice(idx,1);renderMembers();}
+function removeDiagFromMember(mi,di){state.familyMembers[mi].diagnoses.splice(di,1);if(state.familyMembers[mi].diagnoses.length===0)state.familyMembers.splice(mi,1);renderMembers();}
+function renderMembers(){
+  const list=document.getElementById('memberList');
+  if(state.familyMembers.length===0){list.innerHTML=`<div class="empty-state"><span class="material-icons">group_add</span><p>${t('empty_members')}</p></div>`;return;}
+  list.innerHTML=state.familyMembers.map((m,mi)=>`
+    <div class="member-card"><div class="member-card-header"><div class="member-icon"><span class="material-icons">person</span></div><div class="member-info"><div class="member-name">${t('rel_'+m.relationship)}</div></div><button class="member-remove" onclick="removeMember(${mi})"><span class="material-icons">close</span></button></div>
+    <div class="cancer-diagnosis-list">${m.diagnoses.map((d,di)=>`
+      <div class="cancer-diagnosis-item"><span class="material-icons">medical_services</span><span>${t('cancer_'+d.cancerType)} — ${t('diagnosed_at')} ${d.ageAtDiagnosis}</span>${d.tripleNegative?`<span class="tnbc-badge">${t('tnbc')}</span>`:''}<button class="remove-diagnosis" onclick="removeDiagFromMember(${mi},${di})"><span class="material-icons">close</span></button></div>`).join('')}
+    </div></div>`).join('');
+}
+
+// Results
+function generateResults(){
+  const reasons=[];let shouldRefer=false;
+  // Personal
+  state.personalDiagnoses.forEach(d=>{
+    if(d.cancerType==='breast'&&d.ageAtDiagnosis<=50){reasons.push('Personal breast cancer ≤50');shouldRefer=true;}
+    if(isBreastType(d.cancerType)&&d.tripleNegative&&d.ageAtDiagnosis<=60){reasons.push('Personal triple-negative breast cancer ≤60');shouldRefer=true;}
+    if(d.cancerType==='ovarian'){reasons.push('Personal ovarian cancer');shouldRefer=true;}
+    if(d.cancerType==='malebreast'||(state.sex==='male'&&d.cancerType==='breast')){reasons.push('Personal male breast cancer');shouldRefer=true;}
+    if(d.cancerType==='pancreatic'){reasons.push('Personal pancreatic cancer');shouldRefer=true;}
+    if(d.cancerType==='prostate'){reasons.push('Personal aggressive prostate cancer');shouldRefer=true;}
+    if(d.cancerType==='colorectal'&&d.ageAtDiagnosis<=50){reasons.push('Personal colorectal cancer ≤50');shouldRefer=true;}
+    if(d.cancerType==='endometrial'&&d.ageAtDiagnosis<=50){reasons.push('Personal endometrial cancer ≤50');shouldRefer=true;}
+    if(d.ageAtDiagnosis<=45){reasons.push(`Personal cancer ≤45 (${t('cancer_'+d.cancerType)})`);shouldRefer=true;}
   });
-  document.getElementById(lang === 'en' ? 'langEN' : 'langES').classList.add('active');
-  document.getElementById(lang === 'en' ? 'langEN' : 'langES').setAttribute('aria-pressed', 'true');
-  applyTranslations();
-  renderMembers();
-  if (state.currentStep === 5) generateResults();
-}
+  if(state.personalDiagnoses.length>=2){reasons.push('Multiple personal cancer diagnoses');shouldRefer=true;}
+  if(state.ashkenazi==='yes'){reasons.push('Ashkenazi Jewish ancestry');shouldRefer=true;}
 
-function t(key) {
-  return translations[currentLang][key] || translations['en'][key] || key;
-}
+  // Flatten family
+  const fd=[];state.familyMembers.forEach(m=>{m.diagnoses.forEach(d=>{fd.push({relationship:m.relationship,...d});});});
 
-function applyTranslations() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    if (translations[currentLang][key]) el.placeholder = translations[currentLang][key];
-  });
-  document.querySelectorAll('[data-i18n-label]').forEach(el => {
-    const key = el.getAttribute('data-i18n-label');
-    if (translations[currentLang][key]) el.label = translations[currentLang][key];
-  });
-}
+  const closeBreast50=fd.filter(d=>(firstDegree.includes(d.relationship)||secondDegree.includes(d.relationship))&&d.cancerType==='breast'&&d.ageAtDiagnosis<=50);
+  if(closeBreast50.length>0){reasons.push(`Close relative breast cancer ≤50 (${[...new Set(closeBreast50.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-// ===== NAVIGATION =====
-function goToStep(step) {
-  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
-  document.getElementById('step' + step).classList.add('active');
-  state.currentStep = step;
-  updateProgress();
-  if (step === 5) generateResults();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+  const tnbcFam=fd.filter(d=>isBreastType(d.cancerType)&&d.tripleNegative&&d.ageAtDiagnosis<=60);
+  if(tnbcFam.length>0){reasons.push(`Family triple-negative breast cancer ≤60 (${[...new Set(tnbcFam.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-function updateProgress() {
-  const percent = ((state.currentStep - 1) / 4) * 100;
-  document.getElementById('progressFill').style.width = percent + '%';
-  for (let i = 1; i <= 5; i++) {
-    const el = document.getElementById('progStep' + i);
-    el.classList.remove('active', 'completed');
-    if (i === state.currentStep) el.classList.add('active');
-    else if (i < state.currentStep) el.classList.add('completed');
-  }
-}
+  const ovF=fd.filter(d=>d.cancerType==='ovarian');
+  if(ovF.length>0){reasons.push(`Family ovarian cancer (${[...new Set(ovF.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-// ===== OPTIONS =====
-function selectOption(element, field, value) {
-  const group = element.parentElement;
-  group.querySelectorAll('.option-item').forEach(item => {
-    item.classList.remove('selected');
-    item.setAttribute('aria-checked', 'false');
-  });
-  element.classList.add('selected');
-  element.setAttribute('aria-checked', 'true');
-  state[field] = value;
-}
+  const mbF=fd.filter(d=>d.cancerType==='malebreast');
+  if(mbF.length>0){reasons.push(`Family male breast cancer (${[...new Set(mbF.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-function handleKeySelect(event, element, field, value) {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault();
-    selectOption(element, field, value);
-    if (field === 'personalCancer') showPersonalDetails(value === 'yes');
-  }
-}
+  const panF=fd.filter(d=>d.cancerType==='pancreatic');
+  if(panF.length>0){reasons.push(`Family pancreatic cancer (${[...new Set(panF.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-function showPersonalDetails(show) {
-  document.getElementById('personalCancerDetails').style.display = show ? 'block' : 'none';
-}
+  const proF=fd.filter(d=>d.cancerType==='prostate'&&d.ageAtDiagnosis<=55);
+  if(proF.length>0){reasons.push(`Family prostate cancer ≤55 (${[...new Set(proF.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-// ===== VALIDATION =====
-function validateStep2() {
-  if (!state.sex) { alert(t('alert_select_sex')); return; }
-  const age = document.getElementById('ageInput').value;
-  if (!age || age < 0 || age > 120) { alert(t('alert_valid_age')); return; }
-  state.age = parseInt(age);
-  if (!state.ashkenazi) { alert(t('alert_ashkenazi')); return; }
-  goToStep(3);
-}
+  const matB=fd.filter(d=>isMaternalSide(d.relationship)&&d.cancerType==='breast');
+  const patB=fd.filter(d=>isPaternalSide(d.relationship)&&d.cancerType==='breast');
+  if(matB.length>=2){reasons.push('2+ maternal relatives with breast cancer');shouldRefer=true;}
+  if(patB.length>=2){reasons.push('2+ paternal relatives with breast cancer');shouldRefer=true;}
 
-function validateStep3() {
-  if (!state.personalCancer) { alert(t('alert_cancer_diagnosis')); return; }
-  if (state.personalCancer === 'yes') {
-    const type = document.getElementById('personalCancerType').value;
-    const age = document.getElementById('personalCancerAge').value;
-    if (!type) { alert(t('alert_cancer_type')); return; }
-    if (!age || age < 0 || age > 120) { alert(t('alert_diagnosis_age')); return; }
-    state.personalCancerType = type;
-    state.personalCancerAge = parseInt(age);
-  }
-  goToStep(4);
-}
+  const matBO=fd.filter(d=>isMaternalSide(d.relationship)&&(d.cancerType==='breast'||d.cancerType==='ovarian'));
+  const patBO=fd.filter(d=>isPaternalSide(d.relationship)&&(d.cancerType==='breast'||d.cancerType==='ovarian'));
+  if(matBO.length>=3){reasons.push('3+ maternal with breast/ovarian');shouldRefer=true;}
+  if(patBO.length>=3){reasons.push('3+ paternal with breast/ovarian');shouldRefer=true;}
 
-// ===== FAMILY MEMBERS =====
-function showAddMember() {
-  document.getElementById('addMemberSection').style.display = 'block';
-  document.getElementById('addMemberBtn').style.display = 'none';
-  document.getElementById('memberRelationship').focus();
-}
+  const crc50=fd.filter(d=>d.cancerType==='colorectal'&&d.ageAtDiagnosis<=50);
+  if(crc50.length>0){reasons.push(`Family colorectal ≤50 (${[...new Set(crc50.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-function cancelAddMember() {
-  document.getElementById('addMemberSection').style.display = 'none';
-  document.getElementById('addMemberBtn').style.display = 'flex';
-  clearMemberForm();
-}
+  const endo50=fd.filter(d=>d.cancerType==='endometrial'&&d.ageAtDiagnosis<=50);
+  if(endo50.length>0){reasons.push(`Family endometrial ≤50 (${[...new Set(endo50.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-function clearMemberForm() {
-  document.getElementById('memberRelationship').value = '';
-  document.getElementById('memberCancerType').value = '';
-  document.getElementById('memberAge').value = '';
-}
+  const lynch=fd.filter(d=>['colorectal','endometrial','ovarian','stomach','pancreatic','kidney','brain','bladder'].includes(d.cancerType));
+  if(lynch.length>=3){reasons.push('3+ relatives with Lynch-associated cancers');shouldRefer=true;}
 
-function saveMember() {
-  const rel = document.getElementById('memberRelationship').value;
-  const cancer = document.getElementById('memberCancerType').value;
-  const age = document.getElementById('memberAge').value;
-  if (!rel) { alert(t('alert_relationship')); return; }
-  if (!cancer) { alert(t('alert_member_cancer')); return; }
-  if (!age || age < 0 || age > 120) { alert(t('alert_member_age')); return; }
-  state.familyMembers.push({ relationship: rel, cancerType: cancer, ageAtDiagnosis: parseInt(age) });
-  renderMembers();
-  cancelAddMember();
-}
+  const matY=fd.filter(d=>isMaternalSide(d.relationship)&&d.ageAtDiagnosis<=50);
+  const patY=fd.filter(d=>isPaternalSide(d.relationship)&&d.ageAtDiagnosis<=50);
+  if(matY.length>=2){reasons.push('2+ maternal relatives cancer ≤50');shouldRefer=true;}
+  if(patY.length>=2){reasons.push('2+ paternal relatives cancer ≤50');shouldRefer=true;}
 
-function removeMember(index) {
-  state.familyMembers.splice(index, 1);
-  renderMembers();
-}
+  const fd45=fd.filter(d=>firstDegree.includes(d.relationship)&&d.ageAtDiagnosis<=45);
+  if(fd45.length>0&&!shouldRefer){reasons.push(`First-degree relative cancer ≤45 (${[...new Set(fd45.map(d=>t('rel_'+d.relationship)))].join(', ')})`);shouldRefer=true;}
 
-function renderMembers() {
-  const list = document.getElementById('memberList');
-  if (state.familyMembers.length === 0) {
-    list.innerHTML = `<div class="empty-state"><span class="material-icons">group_add</span><p>${t('empty_members')}</p></div>`;
-    return;
-  }
-  list.innerHTML = state.familyMembers.map((m, i) => `
-    <div class="member-card">
-      <div class="member-icon"><span class="material-icons">person</span></div>
-      <div class="member-info">
-        <div class="member-name">${t('rel_' + m.relationship)}</div>
-        <div class="member-details">${t('cancer_' + m.cancerType) || t('cancer_other')} • ${t('diagnosed_at')} ${m.ageAtDiagnosis}</div>
-      </div>
-      <button class="member-remove" onclick="removeMember(${i})" aria-label="Remove">
-        <span class="material-icons">close</span>
-      </button>
-    </div>
-  `).join('');
-}
+  if(fd.some(d=>d.cancerType==='breast')&&fd.some(d=>d.cancerType==='ovarian')&&!shouldRefer){reasons.push('Family has breast + ovarian cancer');shouldRefer=true;}
 
-// ===== RESULTS =====
-function generateResults() {
-  const reasons = [];
-  let shouldRefer = false;
-  const r = reasonKeys[currentLang];
-
-  if (state.personalCancer === 'yes') {
-    if (state.personalCancerType === 'breast' && state.personalCancerAge <= 50) { reasons.push(r.reason_breast_50); shouldRefer = true; }
-    if (state.personalCancerType === 'breast' && state.tripleNeg === 'yes' && state.personalCancerAge <= 60) { reasons.push(r.reason_tnbc_60); shouldRefer = true; }
-    if (state.personalCancerType === 'ovarian') { reasons.push(r.reason_ovarian); shouldRefer = true; }
-    if (state.sex === 'male' && state.personalCancerType === 'breast') { reasons.push(r.reason_male_breast); shouldRefer = true; }
-    if (state.personalCancerType === 'pancreatic') { reasons.push(r.reason_pancreatic); shouldRefer = true; }
-    if (state.personalCancerType === 'prostate') { reasons.push(r.reason_prostate); shouldRefer = true; }
-    if (state.personalCancerType === 'colorectal' && state.personalCancerAge <= 50) { reasons.push(r.reason_crc_50); shouldRefer = true; }
-    if (state.personalCancerType === 'endometrial' && state.personalCancerAge <= 50) { reasons.push(r.reason_endometrial_50); shouldRefer = true; }
-    if (state.personalCancerAge <= 45) { reasons.push(r.reason_young_45); shouldRefer = true; }
-  }
-
-  if (state.ashkenazi === 'yes') { reasons.push(r.reason_ashkenazi); shouldRefer = true; }
-
-  const fm = state.familyMembers;
-  const closeRelBreast50 = fm.filter(m => (firstDegree.includes(m.relationship) || secondDegree.includes(m.relationship)) && m.cancerType === 'breast' && m.ageAtDiagnosis <= 50);
-  if (closeRelBreast50.length > 0) { reasons.push(r.reason_family_breast_50 + ` (${closeRelBreast50.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  const ovarianFamily = fm.filter(m => m.cancerType === 'ovarian');
-  if (ovarianFamily.length > 0) { reasons.push(r.reason_family_ovarian + ` (${ovarianFamily.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  const maleBreastFamily = fm.filter(m => m.cancerType === 'malebreast');
-  if (maleBreastFamily.length > 0) { reasons.push(r.reason_family_male_breast + ` (${maleBreastFamily.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  const pancreaticFamily = fm.filter(m => m.cancerType === 'pancreatic');
-  if (pancreaticFamily.length > 0) { reasons.push(r.reason_family_pancreatic + ` (${pancreaticFamily.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  const prostateFamily = fm.filter(m => m.cancerType === 'prostate' && m.ageAtDiagnosis <= 55);
-  if (prostateFamily.length > 0) { reasons.push(r.reason_family_prostate_55 + ` (${prostateFamily.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  const maternalBreast = fm.filter(m => isMaternalSide(m.relationship) && m.cancerType === 'breast');
-  const paternalBreast = fm.filter(m => isPaternalSide(m.relationship) && m.cancerType === 'breast');
-  if (maternalBreast.length >= 2) { reasons.push(r.reason_maternal_breast_2); shouldRefer = true; }
-  if (paternalBreast.length >= 2) { reasons.push(r.reason_paternal_breast_2); shouldRefer = true; }
-
-  const maternalBO = fm.filter(m => isMaternalSide(m.relationship) && (m.cancerType === 'breast' || m.cancerType === 'ovarian'));
-  const paternalBO = fm.filter(m => isPaternalSide(m.relationship) && (m.cancerType === 'breast' || m.cancerType === 'ovarian'));
-  if (maternalBO.length >= 3) { reasons.push(r.reason_maternal_3); shouldRefer = true; }
-  if (paternalBO.length >= 3) { reasons.push(r.reason_paternal_3); shouldRefer = true; }
-
-  const crc50 = fm.filter(m => m.cancerType === 'colorectal' && m.ageAtDiagnosis <= 50);
-  if (crc50.length > 0) { reasons.push(r.reason_family_crc_50 + ` (${crc50.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  const endo50 = fm.filter(m => m.cancerType === 'endometrial' && m.ageAtDiagnosis <= 50);
-  if (endo50.length > 0) { reasons.push(r.reason_family_endometrial_50 + ` (${endo50.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  const lynch = fm.filter(m => ['colorectal', 'endometrial', 'ovarian', 'stomach', 'pancreatic', 'kidney', 'brain', 'bladder'].includes(m.cancerType));
-  if (lynch.length >= 3) { reasons.push(r.reason_lynch_3); shouldRefer = true; }
-
-  const matYoung = fm.filter(m => isMaternalSide(m.relationship) && m.ageAtDiagnosis <= 50);
-  const patYoung = fm.filter(m => isPaternalSide(m.relationship) && m.ageAtDiagnosis <= 50);
-  if (matYoung.length >= 2) { reasons.push(r.reason_maternal_young_2); shouldRefer = true; }
-  if (patYoung.length >= 2) { reasons.push(r.reason_paternal_young_2); shouldRefer = true; }
-
-  const fd45 = fm.filter(m => firstDegree.includes(m.relationship) && m.ageAtDiagnosis <= 45);
-  if (fd45.length > 0 && !shouldRefer) { reasons.push(r.reason_first_deg_45 + ` (${fd45.map(m => t('rel_' + m.relationship)).join(', ')})`); shouldRefer = true; }
-
-  if (fm.filter(m => m.cancerType === 'breast').length > 0 && fm.filter(m => m.cancerType === 'ovarian').length > 0 && !shouldRefer) {
-    reasons.push(r.reason_breast_ovarian_family); shouldRefer = true;
-  }
-
-  const uniqueReasons = [...new Set(reasons)];
-  lastResults = { shouldRefer, reasons: uniqueReasons };
-
-  const resultsDiv = document.getElementById('resultsContent');
-  if (shouldRefer) {
-    resultsDiv.innerHTML = `
-      <div class="result-banner refer">
-        <div class="result-icon material-icons">priority_high</div>
-        <div class="result-title">${t('result_refer_title')}</div>
-        <div class="result-text">${t('result_refer_text')}</div>
-      </div>
-      <h3 style="font-size:16px;font-weight:600;color:#0A2E73;margin:20px 0 12px;">${t('criteria_met')}</h3>
-      <ul class="criteria-list">${uniqueReasons.map(r => `<li><span class="material-icons">flag</span>${r}</li>`).join('')}</ul>
-      <div class="info-tip" style="margin-top:20px;"><span class="material-icons">recommend</span><p><strong>${t('next_step')}</strong> ${t('next_step_text')}</p></div>
-    `;
+  const unique=[...new Set(reasons)];lastResults={shouldRefer,reasons:unique};
+  const div=document.getElementById('resultsContent');
+  if(shouldRefer){
+    div.innerHTML=`<div class="result-banner refer"><div class="result-icon material-icons">priority_high</div><div class="result-title">${t('result_refer_title')}</div><div class="result-text">${t('result_refer_text')}</div></div><h3 style="font-size:16px;font-weight:600;color:#0A2E73;margin:20px 0 12px;">${t('criteria_met')}</h3><ul class="criteria-list">${unique.map(r=>`<li><span class="material-icons">flag</span>${r}</li>`).join('')}</ul><div class="info-tip" style="margin-top:20px;"><span class="material-icons">recommend</span><p><strong>${t('next_step')}</strong> ${t('next_step_text')}</p></div>`;
   } else {
-    resultsDiv.innerHTML = `
-      <div class="result-banner no-refer">
-        <div class="result-icon material-icons">check_circle</div>
-        <div class="result-title">${t('result_no_refer_title')}</div>
-        <div class="result-text">${t('result_no_refer_text')}</div>
-      </div>
-      <div class="info-tip" style="margin-top:20px;"><span class="material-icons">info</span><p><strong>${t('important_note')}</strong> ${t('important_note_text')}</p></div>
-    `;
+    div.innerHTML=`<div class="result-banner no-refer"><div class="result-icon material-icons">check_circle</div><div class="result-title">${t('result_no_refer_title')}</div><div class="result-text">${t('result_no_refer_text')}</div></div><div class="info-tip" style="margin-top:20px;"><span class="material-icons">info</span><p><strong>${t('important_note')}</strong> ${t('important_note_text')}</p></div>`;
   }
 }
 
-// ===== EMAIL FUNCTIONALITY =====
-function openEmailModal(type) {
-  emailRecipientType = type;
-  document.getElementById('emailModal').classList.add('active');
-  document.getElementById('emailFormContainer').classList.remove('hidden');
-  document.getElementById('emailSuccess').classList.remove('show');
-  document.getElementById('emailPreview').style.display = 'none';
-
-  // Clear form
-  document.getElementById('emailRecipient').value = '';
-  document.getElementById('emailRecipientName').value = '';
-  document.getElementById('emailPatientName').value = '';
-  document.getElementById('emailNote').value = '';
-
-  document.getElementById('emailRecipient').focus();
+// Email
+function openEmailModal(type){emailRecipientType=type;document.getElementById('emailModal').classList.add('active');document.getElementById('emailFormContainer').classList.remove('hidden');document.getElementById('emailSuccess').classList.remove('show');document.getElementById('emailPreview').style.display='none';['emailRecipient','emailRecipientName','emailPatientName','emailNote'].forEach(id=>document.getElementById(id).value='');document.getElementById('emailRecipient').focus();}
+function closeEmailModal(){document.getElementById('emailModal').classList.remove('active');}
+function closeModalOverlay(e){if(e.target===document.getElementById('emailModal'))closeEmailModal();}
+function toggleEmailPreview(){const p=document.getElementById('emailPreview');if(p.style.display==='none'){p.style.display='block';document.getElementById('emailPreviewContent').textContent=buildEmailBody();}else p.style.display='none';}
+function buildEmailBody(){
+  const nl='\n';const hr='\n'+'-'.repeat(40)+'\n';
+  const pName=document.getElementById('emailPatientName').value||'Patient';
+  const rName=document.getElementById('emailRecipientName').value||'';
+  const note=document.getElementById('emailNote').value;
+  let body='';if(rName)body+=rName+','+nl+nl;
+  body+=(emailRecipientType==='clinician'?t('email_intro_clinician'):t('email_intro_patient'))+nl+hr;
+  body+=t('email_patient_info')+nl;
+  body+=`• ${t('label_patient_name')}: ${pName}${nl}• ${t('email_sex')}: ${state.sex==='female'?t('option_female'):t('option_male')}${nl}• ${t('email_age')}: ${state.age}${nl}• ${t('email_ashkenazi_label')}: ${state.ashkenazi==='yes'?t('option_yes'):state.ashkenazi==='no'?t('option_no'):t('option_unsure')}${nl}`;
+  body+=nl+t('email_personal_history')+nl;
+  if(state.personalDiagnoses.length>0)state.personalDiagnoses.forEach(d=>{body+=`• ${t('cancer_'+d.cancerType)}, ${t('diagnosed_at')} ${d.ageAtDiagnosis}${d.tripleNegative?' [TNBC]':''}${nl}`;});
+  else body+=`• ${t('email_none')}${nl}`;
+  body+=nl+t('email_family_history')+nl;
+  if(state.familyMembers.length===0)body+=`• ${t('email_no_family')}${nl}`;
+  else state.familyMembers.forEach(m=>{body+=`• ${t('rel_'+m.relationship)}:${nl}`;m.diagnoses.forEach(d=>{body+=`  - ${t('cancer_'+d.cancerType)}, ${t('diagnosed_at')} ${d.ageAtDiagnosis}${d.tripleNegative?' [TNBC]':''}${nl}`;});});
+  body+=hr+t('email_assessment')+nl;
+  body+=(lastResults.shouldRefer?`⚠️ ${t('email_refer_result')}`:`✅ ${t('email_no_refer_result')}`)+nl;
+  if(lastResults.shouldRefer&&lastResults.reasons.length>0){body+=nl+t('email_criteria')+nl;lastResults.reasons.forEach((r,i)=>{body+=`${i+1}. ${r}${nl}`;});}
+  if(note)body+=hr+t('email_note_label')+': '+note+nl;
+  body+=hr+t('email_disclaimer')+nl+nl+'— '+t('email_generated');return body;
+}
+function sendEmail(){
+  const email=document.getElementById('emailRecipient').value.trim();const pName=document.getElementById('emailPatientName').value.trim();
+  if(!email||!email.includes('@')){alert(t('alert_email_required'));return;}if(!pName){alert(t('alert_name_required'));return;}
+  const subject=lastResults.shouldRefer?t('email_subject_refer'):t('email_subject_no_refer');
+  window.location.href=`mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildEmailBody())}`;
+  document.getElementById('emailFormContainer').classList.add('hidden');document.getElementById('emailSuccess').classList.add('show');
 }
 
-function closeEmailModal() {
-  document.getElementById('emailModal').classList.remove('active');
-}
+function printResults(){window.print();}
+function startOver(){if(confirm(t('alert_start_over'))){state.sex='';state.age=null;state.ashkenazi='';state.personalCancer='';state.personalDiagnoses=[];state.familyMembers=[];document.querySelectorAll('.option-item').forEach(i=>{i.classList.remove('selected');i.setAttribute('aria-checked','false');});document.getElementById('ageInput').value='';document.getElementById('personalCancerDetails').style.display='none';pendingDiagnoses=[];renderPendingDiagnoses();renderPersonalDiagnoses();renderMembers();cancelAddMember();goToStep(1);}}
 
-function closeModalOverlay(event) {
-  if (event.target === document.getElementById('emailModal')) {
-    closeEmailModal();
-  }
-}
-
-function toggleEmailPreview() {
-  const preview = document.getElementById('emailPreview');
-  if (preview.style.display === 'none') {
-    preview.style.display = 'block';
-    updateEmailPreview();
-  } else {
-    preview.style.display = 'none';
-  }
-}
-
-function updateEmailPreview() {
-  const content = document.getElementById('emailPreviewContent');
-  content.innerHTML = buildEmailBody(true);
-}
-
-function buildEmailBody(isHTML) {
-  const nl = isHTML ? '<br>' : '\n';
-  const hr = isHTML ? '<hr style="border:none;border-top:1px solid #ddd;margin:12px 0;">' : '\n---\n';
-  const bold = (text) => isHTML ? `<strong>${text}</strong>` : text.toUpperCase();
-
-  const patientName = document.getElementById('emailPatientName').value || 'Patient';
-  const recipientName = document.getElementById('emailRecipientName').value || '';
-  const note = document.getElementById('emailNote').value;
-
-  let body = '';
-
-  // Greeting
-  if (recipientName) {
-    body += `${t('email_greeting')} ${recipientName},${nl}${nl}`;
-  }
-
-  // Intro
-  body += (emailRecipientType === 'clinician' ? t('email_intro_clinician') : t('email_intro_patient')) + nl + nl;
-
-  body += hr;
-
-  // Patient Info
-  body += bold(t('email_patient_info')) + nl;
-  body += `• ${t('label_patient_name')}: ${patientName}${nl}`;
-  body += `• ${t('email_sex')}: ${state.sex === 'female' ? t('option_female') : t('option_male')}${nl}`;
-  body += `• ${t('email_age')}: ${state.age}${nl}`;
-  body += `• ${t('email_ashkenazi_label')}: ${state.ashkenazi === 'yes' ? t('option_yes') : state.ashkenazi === 'no' ? t('option_no') : t('option_unsure')}${nl}`;
-  body += nl;
-
-  // Personal History
-  body += bold(t('email_personal_history')) + nl;
-  if (state.personalCancer === 'yes') {
-    body += `• ${t('cancer_' + state.personalCancerType) || state.personalCancerType}, ${t('diagnosed_at')} ${state.personalCancerAge}${nl}`;
-    if (state.tripleNeg === 'yes') body += `• Triple-negative: ${t('option_yes')}${nl}`;
-  } else {
-    body += `• ${t('email_none')}${nl}`;
-  }
-  body += nl;
-
-  // Family History
-  body += bold(t('email_family_history')) + nl;
-  if (state.familyMembers.length === 0) {
-    body += `• ${t('email_no_family')}${nl}`;
-  } else {
-    state.familyMembers.forEach(m => {
-      body += `• ${t('rel_' + m.relationship)}: ${t('cancer_' + m.cancerType) || t('cancer_other')}, ${t('diagnosed_at')} ${m.ageAtDiagnosis}${nl}`;
-    });
-  }
-  body += nl;
-
-  body += hr;
-
-  // Assessment
-  body += bold(t('email_assessment')) + nl;
-  body += (lastResults.shouldRefer ? `⚠️ ${t('email_refer_result')}` : `✅ ${t('email_no_refer_result')}`) + nl + nl;
-
-  if (lastResults.shouldRefer && lastResults.reasons.length > 0) {
-    body += bold(t('email_criteria')) + nl;
-    lastResults.reasons.forEach((reason, i) => {
-      body += `${i + 1}. ${reason}${nl}`;
-    });
-    body += nl;
-  }
-
-  // Note
-  if (note) {
-    body += hr;
-    body += bold(t('email_note_label')) + nl;
-    body += note + nl + nl;
-  }
-
-  body += hr;
-  body += t('email_disclaimer') + nl + nl;
-  body += `— ${t('email_generated')}`;
-
-  return body;
-}
-
-function sendEmail() {
-  const email = document.getElementById('emailRecipient').value.trim();
-  const patientName = document.getElementById('emailPatientName').value.trim();
-
-  if (!email || !email.includes('@') || !email.includes('.')) {
-    alert(t('alert_email_required'));
-    return;
-  }
-
-  if (!patientName) {
-    alert(t('alert_name_required'));
-    return;
-  }
-
-  // Build email
-  const subject = lastResults.shouldRefer ? t('email_subject_refer') : t('email_subject_no_refer');
-  const body = buildEmailBody(false);
-
-  // Use mailto: to open default email client
-  const mailtoLink = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-  // Open mailto link
-  window.location.href = mailtoLink;
-
-  // Show success
-  document.getElementById('emailFormContainer').classList.add('hidden');
-  document.getElementById('emailSuccess').classList.add('show');
-}
-
-// ===== UTILITY =====
-function printResults() {
-  window.print();
-}
-
-function startOver() {
-  if (confirm(t('alert_start_over'))) {
-    state.sex = '';
-    state.age = null;
-    state.ashkenazi = '';
-    state.personalCancer = '';
-    state.personalCancerType = '';
-    state.personalCancerAge = null;
-    state.tripleNeg = '';
-    state.familyMembers = [];
-    document.querySelectorAll('.option-item').forEach(item => {
-      item.classList.remove('selected');
-      item.setAttribute('aria-checked', 'false');
-    });
-    document.getElementById('ageInput').value = '';
-    document.getElementById('personalCancerType').value = '';
-    document.getElementById('personalCancerAge').value = '';
-    document.getElementById('personalCancerDetails').style.display = 'none';
-    renderMembers();
-    cancelAddMember();
-    goToStep(1);
-  }
-}
-
-// Keyboard: close modal on Escape
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeEmailModal();
+// Event: show/hide TNBC when cancer type changes in personal form
+document.addEventListener('DOMContentLoaded',()=>{
+  updateProgress();populateSelects();applyTranslations();
+  document.getElementById('personalDiagType').addEventListener('change',checkPersonalTnbc);
 });
-
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded', function() {
-  updateProgress();
-  applyTranslations();
-});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeEmailModal();});
 </script>
-
 </body>
 </html>
